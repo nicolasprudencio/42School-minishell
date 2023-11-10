@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 23:19:41 by nicolas           #+#    #+#             */
-/*   Updated: 2023/11/10 00:02:44 by nicolas          ###   ########.fr       */
+/*   Updated: 2023/11/10 15:05:08 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../utils/libft/includes/libft.h"
+#include "libft.h"
 
 int	main(void)
 {
