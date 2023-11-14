@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 20:26:50 by nicolas           #+#    #+#             */
-/*   Updated: 2023/11/14 17:43:12 by nprudenc         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:14:54 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*is_token(char *str)
 	return (NULL);
 }
 
-int	lexer(char	**argv)
+int	create_lexer(char	**argv)
 {	
 	int	i;
 	int	j;
@@ -56,9 +56,10 @@ int	lexer(char	**argv)
 			if (token_name)
 			{	
 				new_token = ft_lstnew(token);
-				(t_token *)(new_token->content)->name = token_name;
+				((t_token *)(new_token->content))->name = token_name;
 				ft_lstadd_back(&lexer, new_token);
 			}
 		}
 	}
+	return (1);
 }
