@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 18:55:34 by nicolas           #+#    #+#             */
-/*   Updated: 2023/11/10 00:02:36 by nicolas          ###   ########.fr       */
+/*   Updated: 2023/11/14 17:41:03 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@
 #  define TRUE 1
 # endif
 
+// typedef enum e_tokens {
+// 	PIPE = 2,
+// 	ECHO,
+// 	CD,
+// 	PWD,
+// 	EXPORT,
+// 	UNSET,
+// 	ENV,
+// 	EXIT,
+// }			t_tokens;
+
 /*
 	LEXER TYPE STRUCT
 
@@ -29,10 +40,12 @@
 	1 - VARIABLE
 */
 
-typedef struct	s_lexer {
+typedef struct	s_token {
 	char	*name;
 	int		type;
-	struct s_lexer *next;
-}				t_lexer;
+}				t_token;
 
 #endif
+
+
+char	*is_token(char *str);

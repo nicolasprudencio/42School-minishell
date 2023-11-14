@@ -1,0 +1,3 @@
+[submodule "42School-libft"]
+	path = utils/libft
+	url = git@github.com:nicolasprudencio/42School-libft.git
