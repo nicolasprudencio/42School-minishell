@@ -3,27 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 20:26:50 by nicolas           #+#    #+#             */
-/*   Updated: 2023/11/14 18:17:46 by nprudenc         ###   ########.fr       */
+/*   Updated: 2023/11/15 12:22:28 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "lexer.h"
-
-// static int	st_is_redirect(char *str, int index)
-// {	
-// 	char	r1;
-// 	char	r2;
-	
-// 	r1 = '<';
-// 	r2 = '>';
-// 	if ((str[index] == r1 && str[index + 1] != r1) || (str[index] == r2 && str[index + 1] != r2))
-// 		return (TRUE);
-// 	return (FALSE);	
-// }
 
 char	*is_token(char *str)
 {
@@ -37,16 +25,15 @@ char	*is_token(char *str)
 	return (NULL);
 }
 
-int	create_lexer(char	**argv)
+void create_lexer(char	**argv, t_list **lexer)
 {	
 	int	i;
 	int	j;
-	t_list	*lexer;
 	t_token	*token;
 	t_list	*new_token;
 	char	*token_name;
 
-	i = -1;
+	i = 0;
 	while (argv[++i])
 	{
 		j = -1;
@@ -55,11 +42,11 @@ int	create_lexer(char	**argv)
 			token_name = is_token(&argv[i][j]);
 			if (token_name)
 			{	
+				token = ft_calloc(1, sizeof(t_token *));
 				new_token = ft_lstnew(token);
 				((t_token *)(new_token->content))->name = token_name;
-				ft_lstadd_back(&lexer, new_token);
+				ft_lstadd_back(lexer, new_token);
 			}
 		}
 	}
-	return (1);
 }
