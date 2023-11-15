@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 18:55:34 by nicolas           #+#    #+#             */
-/*   Updated: 2023/11/15 12:20:42 by nicolas          ###   ########.fr       */
+/*   Updated: 2023/11/15 13:16:50 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@
 # ifndef TRUE
 #  define TRUE 1
 # endif
-
+# ifndef TERMINAL
+#  define TERMINAL 2
+# endif
+# ifndef VARIABLE
+#  define VARIABLE 3
+# endif
 // typedef enum e_tokens {
 // 	PIPE = 2,
 // 	ECHO,

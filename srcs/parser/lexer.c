@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 20:26:50 by nicolas           #+#    #+#             */
-/*   Updated: 2023/11/15 12:22:28 by nicolas          ###   ########.fr       */
+/*   Updated: 2023/11/15 13:28:25 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,18 @@ char	*is_token(char *str)
 	return (NULL);
 }
 
-void create_lexer(char	**argv, t_list **lexer)
+static void	st_define_token_type(t_token *token)
+{
+		int	i;
+	char	*terminals[13] = {"|", "echo", "cd", "pwd", "export", "unset", "env", "exit", "<", ">", "<<", ">>", "\0"};
+
+	i = -1;
+	while (++i < 12)
+		if (!ft_strncmp(token->name, terminals[i], ft_strlen(terminals[i])))
+			token->type = TERMINAL;
+}
+
+void	create_lexer(char	**argv, t_list **lexer)
 {	
 	int	i;
 	int	j;
@@ -45,6 +56,7 @@ void create_lexer(char	**argv, t_list **lexer)
 				token = ft_calloc(1, sizeof(t_token *));
 				new_token = ft_lstnew(token);
 				((t_token *)(new_token->content))->name = token_name;
+				st_define_token_type((t_token *)(new_token->content));
 				ft_lstadd_back(lexer, new_token);
 			}
 		}

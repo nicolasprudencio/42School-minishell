@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 23:19:41 by nicolas           #+#    #+#             */
-/*   Updated: 2023/11/15 12:57:09 by nicolas          ###   ########.fr       */
+/*   Updated: 2023/11/15 13:23:58 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv)
 	while (aux)
 	{
 		printf("%s\n", ((t_token *)(aux->content))->name);
+		printf("%d\n", ((t_token *)(aux->content))->type);
 		aux = aux->next;
 	}
 	return (0);
