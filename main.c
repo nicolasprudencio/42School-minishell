@@ -3,25 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 23:19:41 by nicolas           #+#    #+#             */
-/*   Updated: 2023/11/15 13:23:58 by nicolas          ###   ########.fr       */
+/*   Updated: 2023/11/21 18:52:55 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "lexer.h"
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	t_list	*lexer;
 	t_list	*aux;
 
 	lexer = NULL;
-	if (argc <= 1)
-		return (1);
-	create_lexer(argv, &lexer);
+	create_lexer("testecd234pwdmaisumexport", &lexer);
 	aux = lexer;
 	while (aux)
 	{

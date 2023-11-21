@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 18:55:34 by nicolas           #+#    #+#             */
-/*   Updated: 2023/11/15 13:16:50 by nicolas          ###   ########.fr       */
+/*   Updated: 2023/11/21 18:51:15 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ typedef struct	s_token {
 #endif
 
 
-char	*is_token(char *str);
-void	create_lexer(char	**argv, t_list **lexer);
+char	*is_token(char *cmd);
+void	create_lexer(char	*cmd_line, t_list **lexer);
