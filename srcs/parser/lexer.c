@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 20:26:50 by nicolas           #+#    #+#             */
-/*   Updated: 2023/11/21 18:52:28 by nprudenc         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:18:39 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ char	*is_token(char *cmd)
 	return (NULL);
 }
 
+static void	st_lexer_add_token(t_token **lexer, t_token *new_token)
+{
+	t_token	*temp;
+
+	if (!*lexer)
+		*lexer = new_token;
+	else
+	{
+		temp = *lexer;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = new_token;	
+	}	
+}
+
 static void	st_define_token_type(t_token *token)
 {
 		int	i;
@@ -36,11 +51,10 @@ static void	st_define_token_type(t_token *token)
 			token->type = TERMINAL;
 }
 
-void	create_lexer(char	*cmd_line, t_list **lexer)
+void	create_lexer(char	*cmd_line, t_token **lexer)
 {	
 	int	i;
 	t_token	*token;
-	t_list	*new_token;
 	char	*token_name;
 
 	i = -1;	
@@ -48,12 +62,12 @@ void	create_lexer(char	*cmd_line, t_list **lexer)
 	{
 		token_name = is_token(&cmd_line[i]);
 		if (token_name)
-		{	
+		{
 			token = ft_calloc(1, sizeof(t_token *));
-			new_token = ft_lstnew(token);
-			((t_token *)(new_token->content))->name = token_name;
-			st_define_token_type((t_token *)(new_token->content));
-			ft_lstadd_back(lexer, new_token);
+			token->name = token_name;
+			st_define_token_type(token);
+			st_lexer_add_token(lexer, token);
 		}
+		token_name = NULL;
 	}
 }
