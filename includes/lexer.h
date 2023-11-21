@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 18:55:34 by nicolas           #+#    #+#             */
-/*   Updated: 2023/11/21 18:51:15 by nprudenc         ###   ########.fr       */
+/*   Updated: 2023/11/21 19:23:38 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@
 */
 
 typedef struct	s_token {
-	char	*name;
-	int		type;
+	char			*name;
+	int				type;
+	struct s_token	*next;
 }				t_token;
 
 #endif
 
 
 char	*is_token(char *cmd);
-void	create_lexer(char	*cmd_line, t_list **lexer);
+void	create_lexer(char	*cmd_line, t_token **lexer);
