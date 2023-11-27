@@ -1,4 +1,4 @@
-NAME		=	shellsea
+NAME		=	SEAshell
 
 CC		=	gcc
 M_FLAGS		=	-Wall -Wextra -Werror

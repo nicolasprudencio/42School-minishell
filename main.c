@@ -6,7 +6,7 @@ int	main(void)
 
 	while (1)
 	{
-		rl_output = readline("shellsea~ ");
+		rl_output = readline("SEAshell~ ");
 		if (!str_comp(rl_output, "exit"))
 		{
 			free(rl_output);
