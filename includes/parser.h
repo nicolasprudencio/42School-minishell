@@ -13,7 +13,21 @@ typedef struct	s_cmd_tabble
 	t_command	*commands;
 }	t_cmd_tabble;
 
-typedef struct	s_pushdown_automaton;
+typedef struct	s_relation
+{
+	char	*input;
+	char	**outputs;
+}	t_relation;
+
+typedef struct	s_context_free_grammar
+{
+	char	**variable;
+	char	**terminal;
+	t_relation	*production;
+	char	*start;
+}	t_context_free_grammar;
+
+typedef struct	s_pushdown_automaton
 {
 	int	*states;
 	char	**input_alphabet;
