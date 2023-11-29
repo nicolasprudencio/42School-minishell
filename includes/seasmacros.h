@@ -1,5 +1,5 @@
-#ifndef SEASMACROS_h
-#define SEASMACRO_H
+#ifndef SEASMACRO_H
+# define SEASMACRO_H
 
 # define TERMINALS {"echo", "ls"}
 # define VARIABLES {"", "ls_command"}

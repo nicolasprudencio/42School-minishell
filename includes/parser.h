@@ -6,7 +6,7 @@ typedef struct	s_command
 	char	**parsed;
 	int	input;
 	int	output;
-}
+}	t_command;
 
 typedef struct	s_cmd_tabble
 {
@@ -19,13 +19,13 @@ typedef struct	s_relation
 	char	**outputs;
 }	t_relation;
 
-typedef struct	s_context_free_grammar
+typedef struct	s_dictionary
 {
-	char	**variable;
-	char	**terminal;
+	char	**variables;
+	char	**terminals1;
 	t_relation	*production;
 	char	*start;
-}	t_context_free_grammar;
+}	t_dictionary;
 
 typedef struct	s_pushdown_automaton
 {
@@ -35,7 +35,7 @@ typedef struct	s_pushdown_automaton
 	char	**transition_relation;
 	int	starting_state;
 	char	initial_symbol;
-	chr	**accepting_states;
+	char	**accepting_states;
 }	t_pushdown_automaton;
 
 #endif
