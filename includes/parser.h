@@ -22,7 +22,7 @@ typedef struct	s_relation
 typedef struct	s_dictionary
 {
 	char	**variables;
-	char	**terminals1;
+	char	**terminals;
 	t_relation	*production;
 	char	*start;
 }	t_dictionary;
