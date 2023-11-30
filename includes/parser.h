@@ -38,4 +38,6 @@ typedef struct	s_pushdown_automaton
 	char	**accepting_states;
 }	t_pushdown_automaton;
 
+
+
 #endif
