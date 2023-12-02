@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:37:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2023/11/30 19:46:04 by nprudenc         ###   ########.fr       */
+/*   Updated: 2023/12/02 17:30:39 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 int	main(void)
 {
 	char	*rl_output;
-	char	**terminal;
+	t_dictionary *dictionary;
 
-	terminal = grammar_define_terminals();
-	fp_printf("terminals = %s\n", terminal[0]);
+	dictionary = mem_calloc(1, sizeof(t_dictionary));
+	dictionary->terminals = grammar_define_terminals();
+	// fp_printf("terminals = %s\n", dictionary->terminals[0]);
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");
+		lexer(rl_output, dictionary);
 		if (!str_comp(rl_output, "exit"))
 		{
 			free(rl_output);
