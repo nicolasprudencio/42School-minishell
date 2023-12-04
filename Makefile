@@ -5,6 +5,9 @@ M_FLAGS		=	-Wall -Wextra -Werror
 D_FLAGS		=	-g3 -ggdb
 FLAGS		=	$(M_FLAGS) $(D_FLAGS)
 
+UTILS		=	is_terminal.c is_variable.c
+UTILS		:=	$(addprefix utilities/, &(UTILS))
+
 LEXER_SRCS	=	lexer.c
 LEXER_SRCS	:=	$(addprefix sources/grammar/lexer/, $(LEXER_SRCS))
 
@@ -14,6 +17,7 @@ GRAM_SRCS	:=	$(addprefix sources/grammar/grammar_definitions/grammar_,$(GRAM_SRC
 OBJS_DIR	=	objects
 OBJS		=	$(addprefix $(OBJS_DIR)/, $(GRAM_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(LEXER_SRCS:.c=.o))
+OBJS		+=	$(addprefix $(OBJS_DIR)/, $(UTILS))
 
 HEADERS		=	-I./includes -I./libft/header
 READLINE	=	-lreadline
