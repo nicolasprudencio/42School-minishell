@@ -19,23 +19,37 @@ typedef struct	s_relation
 	char	**outputs;
 }	t_relation;
 
+typedef struct s_prodution
+{
+	char	*variable;
+	char	**output;
+}	t_production;
+
 typedef struct	s_dictionary
 {
 	char	**variables;
 	char	**terminals;
-	t_relation	*production;
+	t_production	*production;
 	char	*start;
 }	t_dictionary;
+
+typedef struct s_relation
+{
+	int	state;
+	char	*input;
+	char	*stack_top;
+	void	(*action) (t_dictionary *lang, t_stack *stack);
+}	t_relation;
 
 typedef struct	s_pushdown_automaton
 {
 	int	*states;
 	char	**input_alphabet;
 	char	**stack_alphabet;
-	char	**transition_relation;
+	t_relation	*transition_relation;
 	int	starting_state;
 	char	initial_symbol;
-	char	**accepting_states;
+	int	*accepting_states;
 }	t_pushdown_automaton;
 
 
