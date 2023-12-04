@@ -7,6 +7,7 @@ typedef struct s_token {
 	// struct s_token	*next;
 }				t_token;
 
-t_token	*lexer(char *line, t_dictionary *dict);
+t_token	*lex_core(char *line, t_dictionary *dict);
+void	lex_token_free(t_token *tokens);
 
 #endif

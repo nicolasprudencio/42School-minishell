@@ -5,8 +5,8 @@ M_FLAGS		=	-Wall -Wextra -Werror
 D_FLAGS		=	-g3 -ggdb
 FLAGS		=	$(M_FLAGS) $(D_FLAGS)
 
-LEXER_SRCS	= lexer.c
-LEXER_SRCS	:= $(addprefix sources/grammar/lexer/, $(LEXER_SRCS))
+LEXER_SRCS	=	lexer.c
+LEXER_SRCS	:=	$(addprefix sources/grammar/lexer/, $(LEXER_SRCS))
 
 GRAM_SRCS	=	define_production.c define_start.c define_terminals.c define_variables.c new.c 
 GRAM_SRCS	:=	$(addprefix sources/grammar/grammar_definitions/grammar_,$(GRAM_SRCS))
@@ -31,12 +31,13 @@ fpp_comp:
 	@make -C libft check.a
 	@make -C libft printing.a
 	@make -C libft printf.a
+	@make -C libft data.a
 	@make -C libft libfpp.a
 	@echo "libfpp compiled"
 
 $(OBJS_DIR)/%.o:%.c
 	@mkdir -p $(@D)
-	$(CC) $(FLAGS) -c $< -o $@ $(HEADERS)
+	@$(CC) $(FLAGS) -c $< -o $@ $(HEADERS)
 
 $(NAME):
 	@$(CC) $(FLAGS) $(OBJS) $(MAIN) $(HEADERS) $(LIBFPP) $(READLINE) -o $@

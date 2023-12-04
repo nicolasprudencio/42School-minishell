@@ -12,8 +12,7 @@
 
 #include "libseas.h"
 
-
-t_token *lexer(char *line, t_dictionary *dict)
+t_token *lex_core(char *line, t_dictionary *dict)
 {	
 	int		i;
 	int		j;
@@ -30,16 +29,27 @@ t_token *lexer(char *line, t_dictionary *dict)
 	{
 		j = -1;
 		while(dict->terminals[++j])
-			if (str_ncmp(dict->terminals[j], &line[i], str_len(dict->terminals[j])) == 0)
+			if (str_comp(dict->terminals[j], &line[i]) == 0)
 			{
-				token = mem_calloc(1, sizeof(t_token));
+				token = (t_token *)mem_calloc(1, sizeof(t_token));
+				if (!token)
+					return (NULL);
 				token->token_type = "terminal";
 				token->value = str_dup(dict->terminals[j]);
-				fp_printf("%s\n", token->token_type);
+				fp_printf("%s |", token->token_type);
 				fp_printf("%s\n", token->value);
 				return (token);
 			}
 		i++;
 	}
 	return (NULL);
+}
+
+void	lex_token_free(t_token *tokens)
+{
+	if (tokens)
+	{
+		free(tokens->value);
+		free(tokens);
+	}
 }

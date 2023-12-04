@@ -17,6 +17,6 @@ char	**grammar_define_terminals()
 	char	**terminals;
 	
 	terminals = (char **)mem_calloc(2, sizeof(char *));
-	terminals[0] = "echo";
+	terminals[0] = str_dup("echo");
 	return (terminals);
 }

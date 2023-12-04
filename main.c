@@ -16,6 +16,7 @@ int	main(void)
 {
 	char	*rl_output;
 	t_dictionary *dictionary;
+	t_token	*tokens;
 
 	dictionary = mem_calloc(1, sizeof(t_dictionary));
 	dictionary->terminals = grammar_define_terminals();
@@ -23,13 +24,18 @@ int	main(void)
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");
-		lexer(rl_output, dictionary);
+		tokens = lex_core(rl_output, dictionary);
+		lex_token_free(tokens);
 		if (!str_comp(rl_output, "exit"))
 		{
 			free(rl_output);
+			grid_free(dictionary->terminals);
+			free(dictionary);
 			return (0);
 		}
 		free(rl_output);
 	}
+	grid_free(dictionary->terminals);
+	free(dictionary);
 	return (0);
 }
