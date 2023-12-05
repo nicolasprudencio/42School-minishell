@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:39:37 by nicolas           #+#    #+#             */
-/*   Updated: 2023/12/05 16:48:54 by nprudenc         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:20:38 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,15 @@ void	lex_token_free(t_token **tokens)
 
 	if (tokens)
 	{
-		aux = *tokens;
-		while (aux)
+		while (*tokens)
 		{
-			free(aux->value);
-			free(aux->token_type);
-			aux = aux->next;
+			aux = (*tokens)->next;
+			if ((*tokens)->value)
+				free((*tokens)->value);
+			if ((*tokens)->token_type)
+				free((*tokens)->token_type);
+			free(*tokens);
+			*tokens = aux;
 		}
-		free((*tokens));
 	}
 }
