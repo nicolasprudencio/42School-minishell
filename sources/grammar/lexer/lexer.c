@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:39:37 by nicolas           #+#    #+#             */
-/*   Updated: 2023/12/05 16:48:54 by nprudenc         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:19:40 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,19 @@ t_token *lex_core(char *line, t_dictionary *dict)
 	tokens = NULL;
 	while (is_space(line[i]))
 	{	
-		i++;
 		if (line[i] == '\0')
 			return (NULL);
+		i++;	
 	}
 	while (line[i])
 	{
 		if (is_terminal(&line[i], dict))
 			token_push_last(&tokens, token_push(dict->terminals[g_index], "terminal"));
+		if (line[i] == '-')
+		{	
+			while (is_alpha(line[i]))
+				token_push_last(&tokens, token_push(dict->variables[g_index], "variable"));
+		}
 		i++;
 	}
 	tokens_print_list(tokens);
@@ -60,13 +65,16 @@ void	lex_token_free(t_token **tokens)
 
 	if (tokens)
 	{
-		aux = *tokens;
-		while (aux)
+		while (*tokens)
 		{
-			free(aux->value);
-			free(aux->token_type);
-			aux = aux->next;
+			aux = (*tokens)->next;
+			if ((*tokens)->value)
+				free((*tokens)->value);
+			if ((*tokens)->token_type)	
+				free((*tokens)->token_type);
+			free((*tokens));
+			*tokens = aux;
 		}
-		free((*tokens));
+
 	}
 }
