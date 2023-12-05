@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:39:37 by nicolas           #+#    #+#             */
-/*   Updated: 2023/12/05 16:34:48 by nprudenc         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:48:54 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ t_token *lex_core(char *line, t_dictionary *dict)
 	while (line[i])
 	{
 		if (is_terminal(&line[i], dict))
-		{
 			token_push_last(&tokens, token_push(dict->terminals[g_index], "terminal"));
-		}
 		i++;
 	}
 	tokens_print_list(tokens);
