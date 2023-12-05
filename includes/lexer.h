@@ -9,7 +9,7 @@ typedef struct s_token {
 }				t_token;
 
 t_token	*lex_core(char *line, t_dictionary *dict);
-int		is_terminal(char *line, t_dictionary *dict, int index);
+int		is_terminal(char *line, t_dictionary *dict);
 void	lex_token_free(t_token **tokens);
 void	tokens_print_list(t_token *tokens);
 void	token_push_last(t_token **tokens, t_token *new);
