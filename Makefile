@@ -5,7 +5,7 @@ M_FLAGS		=	-Wall -Wextra -Werror
 D_FLAGS		=	-g3 -ggdb
 FLAGS		=	$(M_FLAGS) $(D_FLAGS)
 
-LEXER_SRCS	=	lexer.c lex_create_terminal.c lex_print_tokens.c
+LEXER_SRCS	=	lexer.c lex_create_token.c lex_print_tokens.c
 LEXER_SRCS	:=	$(addprefix sources/grammar/lexer/, $(LEXER_SRCS))
 
 GRAM_SRCS	=	define_production.c define_start.c define_terminals.c define_variables.c new.c 
