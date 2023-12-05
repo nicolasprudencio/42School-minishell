@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:39:37 by nicolas           #+#    #+#             */
-/*   Updated: 2023/12/04 21:30:09 by nprudenc         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:48:37 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,49 @@ int	is_terminal(char *line, t_dictionary *dict, int i)
 t_token *lex_core(char *line, t_dictionary *dict)
 {	
 	int		i;
-	t_token	*token;
+	t_token	*tokens;
 	
 	i = 0;
+	tokens = NULL;
 	while (is_space(line[i]))
 	{	
 		i++;
 		if (line[i] == '\0')
 			return (NULL);
 	}
-	if (is_terminal(&line[i], dict, i))
+	while (line[i])
 	{
-		token = (t_token *)mem_calloc(1, sizeof(t_token));
-		if (!token)
-			return (NULL);
-		token->token_type = "terminal";
-		token->value = str_dup(dict->terminals[g_index]);
-		fp_printf("%s | ", token->token_type);
-		fp_printf("%s\n", token->value);
-		return (token);
+		if (is_terminal(&line[i], dict, i))
+		{
+			token_push_last(&tokens, token_push(dict, g_index));
+			tokens_print_list(tokens);
+		}
+		i++;
 	}
-	return (NULL);
+	return (tokens);
+	// if (line[i] == '-')
+	// {
+	// 	while (is_alpha(line[i]))
+	// 	{
+	// 		token = 
+	// 		i++
+	// 	}
+	// }
 }
 
-void	lex_token_free(t_token *tokens)
+void	lex_token_free(t_token **tokens)
 {
+	t_token	*aux;
+
 	if (tokens)
 	{
-		free(tokens->value);
-		free(tokens);
+		aux = *tokens;
+		while (aux)
+		{
+			free(aux->value);
+			free(aux->token_type);
+			aux = aux->next;
+		}
+		free((*tokens));
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:37:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2023/12/04 21:28:48 by nprudenc         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:48:03 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	main(void)
 	{
 		rl_output = readline("SEAshell~ ");
 		tokens = lex_core(rl_output, dictionary);
-		lex_token_free(tokens);
+		if (tokens)
+			lex_token_free(&tokens);
 		if (!str_comp(rl_output, "exit"))
 		{
 			free(rl_output);

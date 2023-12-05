@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   grammar_define_terminals.c                         :+:      :+:    :+:   */
+/*   lex_print_tokens.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/29 18:49:04 by nprudenc          #+#    #+#             */
-/*   Updated: 2023/12/05 14:45:34 by nprudenc         ###   ########.fr       */
+/*   Created: 2023/12/05 14:48:48 by nprudenc          #+#    #+#             */
+/*   Updated: 2023/12/05 15:56:34 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libfpp.h"
+#include "libseas.h"
 
-char	**grammar_define_terminals()
+void	tokens_print_list(t_token *tokens)
 {
-	char	**terminals;
-	
-	terminals = (char **)mem_calloc(4, sizeof(char *));
-	terminals[0] = str_dup("echo");
-	terminals[1] = str_dup("cd");
-	terminals[2] = str_dup("pwd");
-	return (terminals);
+	t_token	*aux;
+
+	aux = tokens;
+	while (aux)
+	{
+		fp_printf("%s | ", aux->token_type);
+		fp_printf("%s\n", aux->value);
+		aux = aux->next;
+	}
 }
