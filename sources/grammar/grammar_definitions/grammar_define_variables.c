@@ -10,3 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libseas.h"
+
+char	**grammar_define_variables()
+{
+	char	**output;
+
+	output = str_split("<COMMAND> <ARGUMENT> <FLAG> <TERMINAL> <STRING>",
+			' ');
+	return (output);
+}

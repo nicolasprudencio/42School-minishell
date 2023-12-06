@@ -8,16 +8,11 @@ typedef struct	s_command
 	int	output;
 }	t_command;
 
-typedef struct	s_cmd_tabble
+typedef struct	s_cmd_table
 {
-	t_command	*commands;
+	t_command	*command;
+	struct s_cmd_table	*next;
 }	t_cmd_tabble;
-
-typedef struct	s_relation
-{
-	char	*input;
-	char	**outputs;
-}	t_relation;
 
 typedef struct s_prodution
 {
@@ -35,21 +30,26 @@ typedef struct	s_dictionary
 
 typedef struct s_relation
 {
-	int	state;
 	char	*input;
 	char	*stack_top;
-	void	(*action) (t_dictionary *lang, t_stack *stack);
 }	t_relation;
+
+typedef struct s_stack
+{
+	t_dllist	*top;
+	t_dllist	*bot;
+}	t_stack;
 
 typedef struct	s_pushdown_automaton
 {
 	int	*states;
 	char	**input_alphabet;
 	char	**stack_alphabet;
-	t_relation	*transition_relation;
+	t_relation	*transition;
 	int	starting_state;
 	char	initial_symbol;
 	int	*accepting_states;
+	t_stack	*stack;
 }	t_pushdown_automaton;
 
 
