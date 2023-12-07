@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:37:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2023/12/05 19:10:42 by nprudenc         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:34:10 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(void)
 	dictionary = mem_calloc(1, sizeof(t_dictionary));
 	dictionary->terminals = grammar_define_terminals();
 	dictionary->variables = grammar_define_variables();
-	// fp_printf("terminals = %s\n", dictionary->terminals[0]);
+	fp_printf("flags = %s\n", dictionary->variables[0]);
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");
