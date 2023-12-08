@@ -5,7 +5,7 @@ int	is_variable(t_dictionary *language, char *compare)
 	int	i;
 
 	i = -1;
-	while (language->varibles[++i])
+	while (language->variables[++i])
 	{
 		if (str_comp(language->variables[i], compare))
 			return (i);

@@ -15,8 +15,23 @@
 char	**grammar_define_variables()
 {
 	char	**output;
+	char	*temp;
 
-	output = str_split("<COMMAND> <ARGUMENT> <FLAG> <TERMINAL> <STRING>",
-			' ');
+	temp = str_dup("<COMMAND> <ARGUMENT> <FLAG> <TERMINAL> <STRING>");
+	output = str_split(temp, ' ');
+	free(temp);
 	return (output);
+}
+
+void	grammar_free_variables(char **variables)
+{
+	int	i;
+
+	i = -1;
+	if (variables)
+	{
+		while (variables[++i])
+			free(variables[i]);
+		free(variables);
+	}
 }

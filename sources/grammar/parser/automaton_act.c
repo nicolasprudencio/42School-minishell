@@ -6,7 +6,6 @@ char	*automaton_act(t_pushdown_atomaton *robot, t_token *input)
 	char	*stack_top = robot->stack->top->as_str;
 
 	action = automaton_find_transition(robot, input->token_type, stack_top);
-	output = grid_add(output, 
 	stack_pop(robot->stack);
 	stack_rpush_tab(robot->stack,
 			(robot->language->production[action])->output);

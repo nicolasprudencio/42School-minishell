@@ -20,12 +20,15 @@ t_dictionary	*grammar_new()
 			sizeof(t_dictionary));
 	seas_script->variables = grammar_define_variables();
 	seas_script->terminals = grammar_define_terminals();
-	seas_script->production = grammar_define_product();
+	seas_script->production = grammar_define_productions();
 	seas_script->start = "<COMMAND>";
 	return (seas_script);
 }
 
 void	grammar_end(t_dictionary *seas_script)
 {
+	grammar_free_variables(seas_script->variables);
+	grammar_free_productions(seas_script->production);
+	grammar_free_terminals(seas_script->terminals);
 	free(seas_script);
 }

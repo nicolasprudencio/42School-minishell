@@ -20,3 +20,16 @@ char	**grammar_define_terminals()
 	terminals[0] = str_dup("echo");
 	return (terminals);
 }
+
+void	grammar_free_terminals(char **terminals)
+{
+	int	i;
+
+	i = -1;
+	if (terminals)
+	{
+		while (terminals[++i])
+			free(terminals[i]);
+		free(terminals);
+	}
+}
