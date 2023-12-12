@@ -23,6 +23,10 @@ HEADERS		=	-I./includes -I./libft/header
 READLINE	=	-lreadline
 LIBFPP		=	-L./libft -lfpp
 
+GREEN		=	\033[0;32m
+BLUE		=	\033[0;1;34m
+RESET		=	\033[0m
+
 MAIN		=	main.c
 
 all: fpp_comp $(OBJS) $(NAME)
@@ -44,6 +48,12 @@ $(OBJS_DIR)/%.o:%.c
 	@$(CC) $(FLAGS) -c $< -o $@ $(HEADERS)
 
 $(NAME):
+	@printf "$(GREEN)%s$(RESET) %30s\n" "Compiling" "SEAshell"
+	@printf "%-15s\n" "-----"
+	@printf "Available commands:\n\n"
+	@printf "$(BLUE)test$(RESET)  = shows the grammar rules\n"
+	@printf "$(BLUE)exit$(RESET)  = finishes the program execution\n"
+	@printf "%-15s\n" "-----"
 	@$(CC) $(FLAGS) $(OBJS) $(MAIN) $(HEADERS) $(LIBFPP) $(READLINE) -o $@
 
 clean:
