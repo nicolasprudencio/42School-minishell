@@ -1,13 +1,9 @@
 #ifndef LIBSEAS_H
 # define LIBSEAS_H
 
-# ifndef TRUE
-#  define TRUE 1
-# endif
-
-# ifndef FALSE
-#  define FALSE 0
-# endif
+# define TRUE 1
+# define FALSE 0
+# define FALSE_INDEX -1
 
 # include "libfpp.h"
 # include "grammar.h"
