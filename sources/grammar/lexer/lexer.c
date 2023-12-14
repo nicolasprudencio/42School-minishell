@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:39:37 by nicolas           #+#    #+#             */
-/*   Updated: 2023/12/14 18:19:23 by nprudenc         ###   ########.fr       */
+/*   Updated: 2023/12/14 18:26:18 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ static int	check_special(t_token **tokens, char *line, t_dictionary *dict)
 int	has_word(char *str)
 {
 	if ()
+}
+
+void	next_word(char *line)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i])                                                                                   
 }
 
 t_token	*lex_core(char *line, t_dictionary *dict)
