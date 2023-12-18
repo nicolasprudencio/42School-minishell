@@ -55,29 +55,21 @@ static int	check_special(t_token **tokens, char *line, t_dictionary *dict)
 }
 */
 
-void	next_word(char *line)
-{
-	int	i;
-
-	i = -1;
-	while (line[++i])                                                                                   
-}
-
 static int	st_add_terminal(t_dictionary *dict, t_token **tokens, char *line)
 {
 	int	hold;
 
-	hold = is_terminal(&line[i]);
+	hold = is_terminal(dict, line);
 	if (hold != FALSE_INDEX)
 	{
-		token_push_last(&tokens,
-				token_new(dict->terminals[hold]), "<TERMINAL>");
+		token_push_last(tokens,
+				token_new(dict->terminals[hold], "<TERMINAL>"));
 		return (str_len(dict->terminals[hold]));
 	}
 	return (FALSE_INDEX);
 }
 
-static int	st_add_flags(t_dictionary *dict, t_token **tokens, char *line)
+static int	st_add_flag(t_token **tokens, char *line)
 {
 	int		hold;
 	int		i;
@@ -91,7 +83,7 @@ static int	st_add_flags(t_dictionary *dict, t_token **tokens, char *line)
 		content = (char *)mem_calloc(hold, sizeof(char));
 		i = -1;
 		while (++i < hold)
-			content[i] = line[i]
+			content[i] = line[i];
 		token_push_last(tokens, token_new(content, "<FLAG>"));
 		free(content);
 		return (hold);
@@ -99,32 +91,32 @@ static int	st_add_flags(t_dictionary *dict, t_token **tokens, char *line)
 	return (FALSE_INDEX);
 }
 
-static int	st_add_string(t_dictionary *dict, t_token **tokens, char *line)
+static int	st_add_string(t_token **tokens, char *line)
 {
 	int		hold;
-	int		i
+	int		i;
 	char	*content;
 
 	hold = -1;
-	if (line[++hold] == '"')
+	if (line[++hold] == '\"')
 	{
-		if (!str_find_char(line, '"'))
-			return (-2);
-		while (line[++hold] != '"')
+		while (line[++hold] && line[hold] != '\"')
 			;
-	}
-	else if (line[hold] == ''')
-	{
-		if (!str_find_char(line, '''))
+		if (!line[hold])
 			return (-2);
-		while (line[++hold] != '''
-				;
+		hold++;
+	}
+	else if (line[hold] == '\'')
+	{
+		while (line[++hold] && line[hold] != '\'')
+			;
+		if (!line[hold])
+			return (-2);
+		hold++;
 	}
 	else
-	{
-		while (!is_space(line[++hold]))
+		while (line[hold] && !is_space(line[++hold]))
 			;
-	}
 	i = -1;
 	content = (char *)mem_calloc(hold, sizeof(char));
 	while (++i < hold)
@@ -134,60 +126,57 @@ static int	st_add_string(t_dictionary *dict, t_token **tokens, char *line)
 	return (hold);
 }
 
-static int	st_add_special(t_dictionary *dict, t_token **tokens, char *line)
+static int	st_add_special(t_token **tokens, char *line)
 {
 	if (line[0] == '<')
 	{
 		if (line[1] == '<')
+		{
 			token_push_last(tokens, token_new("<<", "<SPECIAL>"));
-		else
-			token_push_last(tokens, token_new("<", "<SPECIAL>"));
+			return (2);
+		}
+		token_push_last(tokens, token_new("<", "<SPECIAL>"));
+		return (1);
 	}
 	else if (line[0] == '>')
 	{
 		if (line[1] == '>')
+		{
 			token_push_last(tokens, token_new(">>", "<SPECIAL>"));
-		else
-			token_push_last(tokens, token_new(">", "<SPECIAL>"));
+			return (2);
+		}
+		token_push_last(tokens, token_new(">", "<SPECIAL>"));
+		return (1);
 	}
+	return (FALSE_INDEX);
 }
 
 t_token	*lex_core(char *line, t_dictionary *dict)
 {
 	int	i;
-	int	hold;
 	t_token	*tokens;
 
-	i = -1;
+	i = 0;
 	tokens = NULL;
 	while (line[i])
 	{
-		if (is_terminal(dict, &line[i]))
+		while (is_space(line[i]))
+				i++;
+		if (line[i] == '|')
 		{
-			hold = st_add_terminal(dict, &tokens, &line[i]);
-			i += hold;
-		}
-		else if (is_flag(&line[i]))
-		{
-			hold = st_add_flag(dict, &tokens, &line[i]);
-			i += hold;
-		}
-		else if (is_special(&line[i]))
-		{
-			hold = st_add_special(&line[i]);
-			i += hold;
-		}
-		else if (line[i] == '|')
-		{
-			token_push(NULL, "<PIPE>");
+			token_push_last(&tokens, token_new("|", "<PIPE>"));
 			i++;
 		}
+		else if (is_terminal(dict, &line[i]) != FALSE_INDEX)
+			i += st_add_terminal(dict, &tokens, &line[i]);
+		else if (is_flag(&line[i]) != FALSE_INDEX)
+			i += st_add_flag(&tokens, &line[i]);
+		else if (line[i] == '<' || line[i] == '>')
+			i += st_add_special(&tokens, &line[i]);
 		else
-		{
-			hold = st_add_string_string(dict, &tokens, &line[i]);
-			i += hold;
-		}
+			i += st_add_string(&tokens, &line[i]);
 	}
+	return (tokens);
 }
 /*
 t_token *lex_core(char *line, t_dictionary *dict)

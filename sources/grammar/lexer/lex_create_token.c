@@ -12,7 +12,7 @@
 
 #include "libseas.h"
 
-t_token *token_push(char *value, char *type)
+t_token *token_new(char *value, char *type)
 {
 	t_token *token;
 

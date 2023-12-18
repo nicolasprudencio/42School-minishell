@@ -24,7 +24,9 @@ int	main(void)
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");
+		printf("str_len: %i\n", (int)str_len(rl_output));
 		tokens = lex_core(rl_output, dictionary);
+		put_token(tokens);
 		lex_token_free(&tokens);
 		if (!str_comp(rl_output, "exit"))
 		{
