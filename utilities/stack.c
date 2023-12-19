@@ -34,3 +34,5 @@ void	stack_pop(t_stack *stack)
 	free(temp);
 	return ;
 }
+
+void	stack_rpush_all();

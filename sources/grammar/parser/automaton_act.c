@@ -36,5 +36,5 @@ int	automaton_find_transition(t_pushdown_automaton *robot, char *token_type,
 				&& stack_top == robot->transition[i][1])
 			return (i);
 	}
-	return (-1);
+	return (FALSE_INDEX);
 }

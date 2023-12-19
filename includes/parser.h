@@ -52,6 +52,4 @@ typedef struct	s_pushdown_automaton
 	t_stack	*stack;
 }	t_pushdown_automaton;
 
-
-
 #endif
