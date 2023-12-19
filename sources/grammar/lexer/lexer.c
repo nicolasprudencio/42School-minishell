@@ -71,7 +71,7 @@ static int	st_add_flag(t_token **tokens, char *line)
 	{
 		while (is_alpha(line[++hold]))
 			;
-		content = (char *)mem_calloc(hold, sizeof(char));
+		content = (char *)mem_calloc(hold + 1, sizeof(char));
 		i = -1;
 		while (++i < hold)
 			content[i] = line[i];
@@ -88,16 +88,18 @@ static int	st_add_string(t_token **tokens, char *line)
 	int		i;
 	char	*content;
 
-	hold = -1;
+	hold = 0;
+	if (!line[hold])
+		return (1);
 	if (str_is_enclosed(line, '\"') != FALSE_INDEX)
 		hold = str_is_enclosed(line, '\"');
-	else if (str_is_enclosed(line, '\''))
+	else if (str_is_enclosed(line, '\'') != FALSE_INDEX)
 		hold = str_is_enclosed(line, '\'');
 	else
 		while (line[hold] && !is_space(line[++hold]))
 			;
 	i = -1;
-	content = (char *)mem_calloc(hold, sizeof(char));
+	content = (char *)mem_calloc(hold + 1, sizeof(char));
 	while (++i < hold)
 		content[i] = line[i];
 	token_push_last(tokens, token_new(content, "<STRING>"));
