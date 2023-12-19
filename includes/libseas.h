@@ -18,7 +18,7 @@ int	str_is_enclosed(char *line, int c);
 int	str_comp_upto(char *str1, char *str2, char end);
 
 t_stack	*stack_new();
-void	stack_push(t_sack *stack, char *content);
+void	stack_push(t_stack *stack, char *content);
 void	stack_pop(t_stack *stack);
 
 #endif

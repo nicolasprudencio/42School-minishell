@@ -11,11 +11,11 @@ t_stack	*stack_new()
 	list = dll_new(NULL);
 	if (!list)
 	{
-		free(stack);
+		free(output);
 		return (NULL);
 	}
 	output->top = list;
-	output->bottom = list;
+	output->bot = list;
 	return (output);
 }
 
@@ -34,5 +34,3 @@ void	stack_pop(t_stack *stack)
 	free(temp);
 	return ;
 }
-
-void	stack_rpush_all();
