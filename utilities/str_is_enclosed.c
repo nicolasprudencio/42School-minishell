@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_terminal.c                                      :+:      :+:    :+:   */
+/*   str_is_enclosed.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/19 10:44:14 by fpolaris          #+#    #+#             */
-/*   Updated: 2023/12/19 10:44:15 by fpolaris         ###   ########.fr       */
+/*   Created: 2023/12/19 10:44:25 by fpolaris          #+#    #+#             */
+/*   Updated: 2023/12/19 10:44:26 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-int	is_terminal(t_dictionary *dict, char *line)
+int	str_is_enclosed(char *line, int c)
 {
 	int	i;
 
 	i = -1;
-	while (dict->terminals[++i])
+	if (line[++i] == c)
 	{
-		if (!str_comp_upto(line, dict->terminals[i], ' '))
-			return (i);
-		else if (!str_comp_upto(line, dict->terminals[i], '|'))
-			return (i);
+		while (line[++i] && line[i] != c)
+			;
+		if (!line[i++])
+			return (-2);
+		return (i);
 	}
 	return (FALSE_INDEX);
 }

@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 18:49:04 by nprudenc          #+#    #+#             */
-/*   Updated: 2023/11/30 19:47:01 by nprudenc         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:13:46 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ char	**grammar_define_terminals()
 {
 	char	**terminals;
 	
-	terminals = (char **)mem_calloc(2, sizeof(char *));
+	terminals = (char **)mem_calloc(4, sizeof(char *));
 	terminals[0] = str_dup("echo");
+	terminals[1] = str_dup("cd");
+	terminals[2] = str_dup("pwd");
 	return (terminals);
 }
 

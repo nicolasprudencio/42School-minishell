@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_terminal.c                                      :+:      :+:    :+:   */
+/*   token_push_last.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/19 10:44:14 by fpolaris          #+#    #+#             */
-/*   Updated: 2023/12/19 10:44:15 by fpolaris         ###   ########.fr       */
+/*   Created: 2023/12/19 10:39:29 by fpolaris          #+#    #+#             */
+/*   Updated: 2023/12/19 10:39:35 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-int	is_terminal(t_dictionary *dict, char *line)
-{
-	int	i;
+void	token_push_last(t_token **tokens, t_token *new)
+{	
+	t_token	*aux;
 
-	i = -1;
-	while (dict->terminals[++i])
+	if (!*tokens)
 	{
-		if (!str_comp_upto(line, dict->terminals[i], ' '))
-			return (i);
-		else if (!str_comp_upto(line, dict->terminals[i], '|'))
-			return (i);
+		*tokens = new;
+		return ;
 	}
-	return (FALSE_INDEX);
+	aux = *tokens;
+	while (aux->next)
+		aux = aux->next;
+	new->prev = aux;
+	aux->next = new;
 }

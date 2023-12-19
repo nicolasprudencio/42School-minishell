@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_terminal.c                                      :+:      :+:    :+:   */
+/*   is_flag.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/19 10:44:14 by fpolaris          #+#    #+#             */
-/*   Updated: 2023/12/19 10:44:15 by fpolaris         ###   ########.fr       */
+/*   Created: 2023/12/19 10:44:10 by fpolaris          #+#    #+#             */
+/*   Updated: 2023/12/19 10:44:11 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-int	is_terminal(t_dictionary *dict, char *line)
+int	is_flag(char *line)
 {
-	int	i;
-
-	i = -1;
-	while (dict->terminals[++i])
-	{
-		if (!str_comp_upto(line, dict->terminals[i], ' '))
-			return (i);
-		else if (!str_comp_upto(line, dict->terminals[i], '|'))
-			return (i);
-	}
+	if (line[0] == '-' && is_alpha(line[1]))
+			return (1);
 	return (FALSE_INDEX);
 }

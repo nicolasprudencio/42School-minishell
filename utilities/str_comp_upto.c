@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   grammar_define_variables.c                         :+:      :+:    :+:   */
+/*   str_comp_upto.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/29 18:48:54 by nprudenc          #+#    #+#             */
-/*   Updated: 2023/12/07 19:33:20 by nprudenc         ###   ########.fr       */
+/*   Created: 2023/12/14 11:55:51 by nprudenc          #+#    #+#             */
+/*   Updated: 2023/12/19 10:44:22 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-char	**grammar_define_variables()
-{
-	char	**output;
-	char	*temp;
-
-	temp = str_dup("<COMMAND> <ARGUMENT> <FLAG> <TERMINAL> <STRING>");
-	output = str_split(temp, ' ');
-	free(temp);
-	return (output);
-}
-
-void	grammar_free_variables(char **variables)
+int	str_comp_upto(char *str1, char *str2, char end)
 {
 	int	i;
 
 	i = -1;
-	if (variables)
+	while (str1[++i] && str1[i] != end)
 	{
-		while (variables[++i])
-			free(variables[i]);
-		free(variables);
+		if (!str2[i] && str1[i] && str1[i] != end)
+			return (-1);
+		if (str1[i] != str2[i])
+			return (1);
 	}
+	return (0);
 }
+

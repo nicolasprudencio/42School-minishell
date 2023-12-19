@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:37:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2023/12/02 17:30:39 by nicolas          ###   ########.fr       */
+/*   Updated: 2023/12/12 17:13:22 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ int	main(void)
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");
-		tokens = lex_core(rl_output, dictionary);
-		lex_token_free(tokens);
-		if (!(str_comp(rl_output, "test")))
-		{
-			st_grammar_display(dictionary);
-		}
+		printf("str_len: %i\n", (int)str_len(rl_output));
+		tokens = lexer(rl_output, dictionary);
+		put_token(tokens);
+		token_free(&tokens);
 		if (!str_comp(rl_output, "exit"))
 		{
 			free(rl_output);
 			grammar_end(dictionary);
 			return (0);
 		}
+		if (!(str_comp(rl_output, "test")))
+			st_grammar_display(dictionary);
 		free(rl_output);
 	}
 	grammar_end(dictionary);

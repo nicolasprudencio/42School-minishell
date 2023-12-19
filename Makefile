@@ -5,10 +5,10 @@ M_FLAGS		=	-Wall -Wextra -Werror
 D_FLAGS		=	-g3 -ggdb
 FLAGS		=	$(M_FLAGS) $(D_FLAGS)
 
-UTILS		=	is_terminal.c is_variable.c
+UTILS		=	is_terminal.c is_flag.c str_is_enclosed.c str_comp_upto.c
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
-LEXER_SRCS	=	lexer.c
+LEXER_SRCS	=	lexer.c token_new.c put_token.c token_push_last.c
 LEXER_SRCS	:=	$(addprefix sources/grammar/lexer/, $(LEXER_SRCS))
 
 GRAM_SRCS	=	define_production.c define_terminals.c define_variables.c new.c 
