@@ -10,7 +10,7 @@ t_production	*grammar_define_productions()
 	output[0].variable = "<COMMAND>";
 	output[0].output = str_split("<TERMINAL> <FLAG> <ARGUMENT>", ' ');
 	output[1].variable = "<FLAG>";
-	output[1].output = str_split("<TERMINAL> <FLAG>", ' ');
+	output[1].output = str_split("<FLAG> <FLAG>", ' ');
 	output[2].variable = "<FLAG>";
 	output[2].output = NULL;
 	output[3].variable = "<ARGUMENT>";
@@ -22,12 +22,19 @@ t_production	*grammar_define_productions()
 
 void	grammar_free_productions(t_production *product)
 {
-	grid_free(product->output);
+	int	i;
+
+	i = -1;
+	while (++i < 6)
+	{
+		if ((product[i]).output)
+			grid_free((product[i]).output);
+	}
 	free(product);
 }
 
 /*
 COMMAND ::= TERMINAL FLAG ARGUMENT
-FLAG ::= TERMINAL FLAG | NULL
+FLAG ::= FLAG FLAG | NULL
 ARGUMENT ::= STRING ARGUMENT | NULL
 */
