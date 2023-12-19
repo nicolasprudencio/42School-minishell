@@ -1,4 +1,4 @@
-#include "seas.h"
+#include "libseas.h"
 
 t_pushdown_automaton	*automaton_new(t_dictionary *language)
 {
