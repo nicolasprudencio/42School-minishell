@@ -21,11 +21,13 @@ static int	st_add_string(t_token **tokens, char *line);
 t_token	*lexer(char *line, t_dictionary *dict)
 {
 	int			i;
+	int			len;
 	t_token	*tokens;
 
 	i = 0;
 	tokens = NULL;
-	while (line[i])
+	len = str_len(line);
+	while (i < len)
 	{
 		while (is_space(line[i]))
 				i++;
