@@ -1,6 +1,6 @@
 #include "libseas.h"
 
-char	*automaton_act(t_pushdown_atomaton *robot, t_token *input)
+char	*automaton_act(t_pushdown_automaton *robot, t_token *input)
 {
 	int	action;
 	char	*stack_top = robot->stack->top->as_str;
@@ -13,3 +13,5 @@ char	*automaton_act(t_pushdown_atomaton *robot, t_token *input)
 			(robot->language->production[action])->output);
 	return (stack_top);
 }
+
+// need to add language dictionary struct to the pushdown_automaton struct
