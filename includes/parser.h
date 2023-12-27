@@ -11,7 +11,7 @@ typedef struct	s_cmd_table
 {
 	t_command	*command;
 	struct s_cmd_table	*next;
-}	t_cmd_tabble;
+}	t_cmd_table;
 
 typedef struct s_prodution
 {
@@ -50,5 +50,10 @@ typedef struct	s_pushdown_automaton
 	int	*accepting_states;
 	t_stack	*stack;
 }	t_pushdown_automaton;
+
+t_cmd_table	*parser(t_pushdown_automaton *robot, t_token *tokens);
+
+char		automaton_find_command(t_token *tokens);
+char	**grid_add_element(char *8grid, char *value);
 
 #endif

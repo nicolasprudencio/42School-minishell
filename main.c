@@ -19,13 +19,17 @@ int	main(void)
 	char	*rl_output;
 	t_dictionary *dictionary;
 	t_token	*tokens;
+	t_cmd_table	*commands;
+	t_pushdown_automaton	*robot;
 
 	dictionary = grammar_new();
+	robot = automaton_new(dictionary);
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");
 		tokens = lexer(rl_output, dictionary);
 		put_token(tokens);
+		commands = parser(robot, tokens);
 		token_free(&tokens);
 		if (!str_comp(rl_output, "exit"))
 		{

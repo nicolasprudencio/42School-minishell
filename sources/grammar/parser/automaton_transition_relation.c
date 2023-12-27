@@ -8,9 +8,7 @@ t_relation	*automaton_transition_relation(t_dictionary *language)
 	if (!output)
 		return (NULL);
 	output[0] = {"<TERMINAL>", "<COMMAND>"};
-	output[1] = {"<TERMINAL>", "<FLAG>"};
-	output[2] = {"<STRING>", "<FLAG>"};
-	output[3] = {"<STRING>", "<ARGUMENT>"};
-	output[4] = {"<TERMINAL>", "<ARGUMENTS>"};
+	output[1] = {"<FLAG>", "<FLAG>"};
+	output[3] = {"<ARGUMENT>", "<ARGUMENT>"};
 	return (output);
 }

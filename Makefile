@@ -11,7 +11,7 @@ UTILS		:=	$(addprefix utilities/, $(UTILS))
 LEXER_SRCS	=	lexer.c token_new.c put_token.c token_push_last.c
 LEXER_SRCS	:=	$(addprefix sources/grammar/lexer/, $(LEXER_SRCS))
 
-PARSE_SRCS	=	parse_expand_variable.c parser.c
+PARSE_SRCS	=	parser.c
 PARSE_SRCS	:=	$(addprefix sources/grammar/parser/, $(PARSE_SRCS))
 
 AUT_SRCS	=	act.c astates.c find_transition.c new.c states.c transition_relation.c
