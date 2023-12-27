@@ -4,8 +4,7 @@
 typedef struct	s_command
 {
 	char	**parsed;
-	int	input;
-	int	output;
+	int	io[2];
 }	t_command;
 
 typedef struct	s_cmd_table

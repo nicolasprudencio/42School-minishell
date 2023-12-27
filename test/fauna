@@ -1,0 +1,17 @@
+			- fp_border_grid -> fp_grdfll_brdr;  
+			- fp_chrd_grid -> fp_grdsch_dgns;  
+			- fp_chrs_grid -> fp_grdsch_sids;  
+			- fp_fill_grid -> fp_grdfll;  
+			- fp_free_grid -> fp_grdfre;  
+			- fp_griditer -> fp_grditr;  
+			- fp_gridlen -> fp_gridlen;
+			- fp_rectangle_grid -> fp_grdnew;  
+			- fp_square_grid -> fp_grdnew_sqre;  
+			- fp_griditer;  
+			- fp_fill_grid;  
+			- fp_alloc_grid to fp_square_grid;  
+			- fp_rectangle_grid;  
+			- fp_border_grid; 
+			- fp_chrs_grid;  
+			- fp_chrd_grid;  
+	- Fixed grid manipulation functions;  
