@@ -51,4 +51,6 @@ typedef struct	s_pushdown_automaton
 	t_stack	*stack;
 }	t_pushdown_automaton;
 
+void	stack_rpush_tab(t_stack *stack, char **input);
+
 #endif

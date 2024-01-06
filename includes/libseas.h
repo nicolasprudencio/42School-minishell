@@ -21,4 +21,11 @@ t_stack	*stack_new();
 void	stack_push(t_stack *stack, char *content);
 void	stack_pop(t_stack *stack);
 
+char	*get_user(char *path);
+char	*get_history_path();
+int		get_history();
+
+
+
+
 #endif

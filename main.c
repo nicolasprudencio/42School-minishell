@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:37:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2023/12/12 17:13:22 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:06:36 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(void)
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");
+		add_history(rl_output);
 		tokens = lexer(rl_output, dictionary);
 		put_token(tokens);
 		token_free(&tokens);
