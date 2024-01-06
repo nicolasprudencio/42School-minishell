@@ -27,18 +27,26 @@ int	main(void)
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");
+		// lexer
 		tokens = lexer(rl_output, dictionary);
 		put_token(tokens);
+
+		//parser
 		commands = parser(robot, tokens);
 		token_free(&tokens);
+
+		// exec
 		if (!str_comp(rl_output, "exit"))
 		{
 			free(rl_output);
 			grammar_end(dictionary);
 			return (0);
 		}
+		// 	test displays
 		if (!(str_comp(rl_output, "test")))
 			st_grammar_display(dictionary);
+		if (!str_comp(rl_output, "parse_bot"))
+			st_robot_display(robot);
 		free(rl_output);
 	}
 	grammar_end(dictionary);
@@ -74,4 +82,9 @@ static void	st_grammar_display(t_dictionary *dictionary)
 		}
 		fp_printf("\n");
 	}
+}
+
+static void st_robot_display(t_pushdown_automaton *robot)
+{
+	
 }

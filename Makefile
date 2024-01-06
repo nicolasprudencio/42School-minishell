@@ -15,7 +15,7 @@ PARSE_SRCS	=	parser.c
 PARSE_SRCS	:=	$(addprefix sources/grammar/parser/, $(PARSE_SRCS))
 
 AUT_SRCS	=	act.c astates.c find_transition.c new.c states.c transition_relation.c
-AUT_SRCS	:=	$(addprefix sources/grammar/parser/automaton_, &(AUT_SRCS))
+AUT_SRCS	:=	$(addprefix sources/grammar/parser/automaton_, $(AUT_SRCS))
 
 GRAM_SRCS	=	define_production.c define_terminals.c define_variables.c new.c 
 GRAM_SRCS	:=	$(addprefix sources/grammar/grammar_definitions/grammar_,$(GRAM_SRCS))

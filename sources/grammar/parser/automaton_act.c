@@ -1,6 +1,6 @@
 #include "libseas.h"
 
-int	automaton_act(t_pushdown_atomaton *robot, t_token *input)
+int	automaton_act(t_pushdown_automaton *robot, t_token *input)
 {
 	int	action;
 	char	*stack_top = robot->stack->top->as_str;
@@ -9,6 +9,6 @@ int	automaton_act(t_pushdown_atomaton *robot, t_token *input)
 	stack_pop(robot->stack);
 	if (action != FALSE_INDEX)
 		stack_rpush_tab(robot->stack,
-				(robot->language->production[action])->output);
+				(robot->language->production[action]).output);
 	return (action);
 }

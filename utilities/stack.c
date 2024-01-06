@@ -1,6 +1,6 @@
 #include "libseas.h"
 
-t_stack	*stack_new()
+t_stack	*stack_new(char *top)
 {
 	t_stack	*output;
 	t_dllist	*list;
@@ -8,7 +8,7 @@ t_stack	*stack_new()
 	output = (t_stack *)mem_calloc(1, sizeof(t_stack));
 	if (!output)
 		return (NULL);
-	list = dll_new(NULL);
+	list = dll_new((void **)&top);
 	if (!list)
 	{
 		free(output);

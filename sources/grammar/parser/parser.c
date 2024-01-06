@@ -27,6 +27,7 @@ t_cmd_table	*parser(t_pushdown_automaton *robot, t_token *tokens)
 	output->command->parsed = automaton_find_command(tokens);
 	output->command->io[0] = 1;
 	output->command->io[1] = 1;
+	return (output);
 }
 
 char	**automaton_find_command(t_token *tokens)

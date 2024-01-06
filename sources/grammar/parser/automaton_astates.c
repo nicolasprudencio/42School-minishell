@@ -7,6 +7,6 @@ int	*automaton_astates(int *states)
 	output = (int *)mem_calloc(1, sizeof(int));
 	if (!output)
 		return (NULL);
-	output[0] = 1;
+	output[0] = states[0];
 	return (output);
 }
