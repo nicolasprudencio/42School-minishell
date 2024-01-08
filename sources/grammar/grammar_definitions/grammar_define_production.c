@@ -11,10 +11,10 @@ t_production	*grammar_define_productions()
 	output[0].output = str_split("<TERMINAL> <FLAG> <ARGUMENT>", ' ');
 	output[1].variable = "<FLAG>";
 	output[1].output = str_split("<FLAG> <FLAG>", ' ');
-	output[2].variable = "<FLAG>";
-	output[2].output = NULL;
-	output[3].variable = "<ARGUMENT>";
-	output[3].output = str_split("<STRING> <ARGUMENT>", ' ');
+	output[2].variable = "<ARGUMENT>";
+	output[2].output = str_split("<STRING> <ARGUMENT>", ' ');
+	output[3].variable = "<FLAG>";
+	output[3].output = NULL;
 	output[4].variable = "<ARGUMENT>";
 	output[4].output = NULL;
 	return (output);

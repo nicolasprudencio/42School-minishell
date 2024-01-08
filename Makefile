@@ -5,17 +5,17 @@ M_FLAGS		=	-Wall -Wextra -Werror
 D_FLAGS		=	-g3 -ggdb
 FLAGS		=	$(M_FLAGS) $(D_FLAGS)
 
-UTILS		=	is_terminal.c is_flag.c str_is_enclosed.c str_comp_upto.c stack.c
+UTILS		=	is_terminal.c is_flag.c str_is_enclosed.c str_comp_upto.c
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
 LEXER_SRCS	=	lexer.c token_new.c put_token.c token_push_last.c
 LEXER_SRCS	:=	$(addprefix sources/grammar/lexer/, $(LEXER_SRCS))
 
-PARSE_SRCS	=	parse_expand_variable.c parser.c
+PARSE_SRCS	=	parser.c
 PARSE_SRCS	:=	$(addprefix sources/grammar/parser/, $(PARSE_SRCS))
 
 AUT_SRCS	=	act.c astates.c find_transition.c new.c states.c transition_relation.c
-AUT_SRCS	:=	$(addprefix sources/grammar/parser/automaton_, &(AUT_SRCS))
+AUT_SRCS	:=	$(addprefix sources/grammar/parser/automaton_, $(AUT_SRCS))
 
 GRAM_SRCS	=	define_production.c define_terminals.c define_variables.c new.c 
 GRAM_SRCS	:=	$(addprefix sources/grammar/grammar_definitions/grammar_,$(GRAM_SRCS))
@@ -48,6 +48,7 @@ fpp_comp:
 	@make -C libft printing.a
 	@make -C libft printf.a
 	@make -C libft data.a
+	@make -C libft stack.a
 	@make -C libft libfpp.a
 	@echo "libfpp compiled"
 

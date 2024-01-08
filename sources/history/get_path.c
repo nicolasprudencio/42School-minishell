@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 14:07:09 by nicolas           #+#    #+#             */
-/*   Updated: 2024/01/06 14:08:35 by nicolas          ###   ########.fr       */
+/*   Updated: 2024/01/08 17:31:52 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ char	*get_history_path()
 	buffer = mem_calloc(1024, sizeof(char));
 	if (getcwd(buffer, 1024))
 	{
-		user = st_get_user(buffer);
+		user = get_user(buffer);
 		user = str_join(user, ".bash_history", 1);
-		return (buffer);
+		return (user);
 	}
 	return (NULL);
 }
