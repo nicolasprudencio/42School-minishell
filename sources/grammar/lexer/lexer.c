@@ -101,7 +101,6 @@ static int	st_add_special(t_token **tokens, char *line)
 {
 	if (line[0] == '<')
 	{
-<<<<<<< HEAD
 		if (line[1] == '<')
 		{
 			token_push_last(tokens, token_new("<<", "<SPECIAL>"));
@@ -109,18 +108,6 @@ static int	st_add_special(t_token **tokens, char *line)
 		}
 		token_push_last(tokens, token_new("<", "<SPECIAL>"));
 		return (1);
-=======
-		while (*tokens)
-		{
-			aux = (*tokens)->next;
-			if ((*tokens)->value)
-				free((*tokens)->value);
-			if ((*tokens)->token_type)
-				free((*tokens)->token_type);
-			free(*tokens);
-			*tokens = aux;
-		}
->>>>>>> 78f7d26564ab0510d0009da563e529346e20b32f
 	}
 	else if (line[0] == '>')
 	{

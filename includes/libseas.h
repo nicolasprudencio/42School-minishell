@@ -6,9 +6,9 @@
 # define FALSE_INDEX -1
 
 # include "libfpp.h"
-# include "parser.h"
 # include "grammar.h"
 # include "lexer.h"
+# include "parser.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -19,6 +19,7 @@ int	str_comp_upto(char *str1, char *str2, char end);
 
 t_stack	*stack_new();
 void	stack_push(t_stack *stack, char *content);
+void	stack_rpush_tab(t_stack* stack, char **input);
 void	stack_pop(t_stack *stack);
 
 #endif

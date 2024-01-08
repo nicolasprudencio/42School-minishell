@@ -1,8 +1,6 @@
 #ifndef LEXER_H
 # define LEXER_H
 
-extern int g_index;
-
 typedef struct s_token {
 	char 	*token_type;
 	char	*value;
