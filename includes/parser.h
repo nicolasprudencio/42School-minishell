@@ -28,8 +28,6 @@ typedef struct s_stack
 typedef struct	s_pushdown_automaton
 {
 	int	*states;
-	char	**input_alphabet;
-	char	**stack_alphabet;
 	t_relation	*transition;
 	int	starting_state;
 	char	*initial_symbol;

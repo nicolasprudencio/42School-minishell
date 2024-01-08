@@ -1,0 +1,26 @@
+				 | HELLO!! I'M	THE PARSE BOT!
+		   { O - o }	 | A SIMPLE PUSHDOWN AUTOMATON
+		    __| |__	 | YOU CAN EXPLORE FURTHER
+		    / | | \     <  WITH SIMPLE COMMANDS.
+		    | | | |      | TO SEE THE FULL LIST OF
+		       |	 | PRODUCTIONS TYPE:
+		     O===O	 | 
+				 | parsebot --trans || -t.
+
+
+--	parsebot --trans | parsebot -t:
+
+				    { O - o }
+________________________________________________________________________________
+
+The starting symbol is '<symbol>'
+
+				Valid transitions:
+
+input:	<"input">	stack top:	<"stack_top">
+
+				Backus-naur form:
+
+<symbol>	::=	_expression_	_expression_	_expression_
+
+________________________________________________________________________________

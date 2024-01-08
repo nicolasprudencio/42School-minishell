@@ -34,4 +34,6 @@ The automaton works duo to a set of functions:
     This function will give to the automaton the next token to be read as an input, then the automaton will analyse it against its relations, using the stack as a tool. It will return the action to take, and, also, change its pop and push its stack as needed. The return is FALSE_INDEX if the there is no action to be taken in the situation.  
 
 - automaton_find_transition:  
-    This function will loop all the possible transitions the automaton can make, and, when a valid transition is found, return its value, otherwise, if no transition is valid in the situation, FALSE_INDEX will be returned.  
+    This function will loop all the possible transitions the automaton can make, and, when a valid transition is found, return its value, otherwise, if no transition is valid in the situation, FALSE_INDEX will be returned. 
+
+
