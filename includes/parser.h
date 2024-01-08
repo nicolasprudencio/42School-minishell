@@ -19,12 +19,6 @@ typedef struct s_relation
 	char	*stack_top;
 }	t_relation;
 
-typedef struct s_stack
-{
-	t_dllist	*top;
-	t_dllist	*bot;
-}	t_stack;
-
 typedef struct	s_pushdown_automaton
 {
 	int	*states;

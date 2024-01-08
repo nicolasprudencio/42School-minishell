@@ -24,6 +24,7 @@ t_cmd_table	*parser(t_pushdown_automaton *robot, t_token *tokens)
 		else if (act < 3)
 			temp = temp->next;
 	}
+	output->command = (t_command *)mem_calloc(1, sizeof(t_command));
 	output->command->parsed = automaton_find_command(tokens);
 	output->command->io[0] = 1;
 	output->command->io[1] = 1;
@@ -46,9 +47,11 @@ char	**automaton_find_command(t_token *tokens)
 char	**grid_add_element(char **grid, char *value)
 {
 	char	**output;
+	int			lenght;
 
-	output = (char **)mem_calloc(sizeof(grid) + 1, sizeof(char *));
-	output[sizeof(grid)] = value;
+	lenght = grid_len(grid);
+	output = (char **)mem_calloc(lenght + 2, sizeof(char *));
+	output[lenght] = value;
 	free(grid);
 	return (output);
 }

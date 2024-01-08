@@ -25,6 +25,7 @@ int	main(void)
 
 	dictionary = grammar_new();
 	parse_bot = automaton_new(dictionary);
+	put_dll(parse_bot->stack->top, 1);
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");
@@ -33,7 +34,8 @@ int	main(void)
 
 		//parser
 		commands = parser(parse_bot, tokens);
-		token_free(&tokens);
+		if (!commands)
+			printf("Invalid input\n");
 
 		// exec
 		if (!str_comp(rl_output, "exit"))
@@ -48,6 +50,10 @@ int	main(void)
 		else if (!str_comp(rl_output, "parsebot -t")
 				|| !str_comp(rl_output, "parse_bot --trans"))
 			st_parse_bot_display_productions(parse_bot);
+
+		// free temporary data
+
+		token_free(&tokens);
 		free(rl_output);
 	}
 	grammar_end(dictionary);

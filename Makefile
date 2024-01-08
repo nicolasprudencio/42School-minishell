@@ -5,7 +5,7 @@ M_FLAGS		=	-Wall -Wextra -Werror
 D_FLAGS		=	-g3 -ggdb
 FLAGS		=	$(M_FLAGS) $(D_FLAGS)
 
-UTILS		=	is_terminal.c is_flag.c str_is_enclosed.c str_comp_upto.c stack.c
+UTILS		=	is_terminal.c is_flag.c str_is_enclosed.c str_comp_upto.c
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
 LEXER_SRCS	=	lexer.c token_new.c put_token.c token_push_last.c
@@ -48,6 +48,7 @@ fpp_comp:
 	@make -C libft printing.a
 	@make -C libft printf.a
 	@make -C libft data.a
+	@make -C libft stack.a
 	@make -C libft libfpp.a
 	@echo "libfpp compiled"
 
