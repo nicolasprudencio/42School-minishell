@@ -16,11 +16,17 @@ t_relation	*automaton_transition_relation(void)
 {
 	t_relation	*output;
 
-	output = (t_relation *)mem_calloc(4, sizeof(t_relation));
+	output = (t_relation *)mem_calloc(7, sizeof(t_relation));
 	if (!output)
 		return (NULL);
 	output[0] = (t_relation){"<TERMINAL>", "<COMMAND>"};
-	output[1] = (t_relation){"<FLAG>", "<FLAG>"};
-	output[2] = (t_relation){"<ARGUMENT>", "<ARGUMENT>"};
+	output[1] = (t_relation){"<TERMINAL>", "<TERMINAL>"};
+	output[2] = (t_relation){"<FLAG>", "<FLAG>"};
+	output[3] = (t_relation){"<STRING>", "<FLAG>"};
+	output[4] = (t_relation){"<STRING>", "<ARGUMENT>"};
+	output[5] = (t_relation){"<ARGUMENT>", NULL};
+	output[6] = (t_relation){"<STRING>", "<STRING>"};
 	return (output);
 }
+
+//	output[] = (t_relation){"<>", "<>"};

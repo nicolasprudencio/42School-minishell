@@ -12,18 +12,25 @@
 
 #include "libseas.h"
 
-int	automaton_act(t_pushdown_automaton *robot, t_token *input)
+int	automaton_act(t_pushdown_automaton *parse_bot, t_token **input)
 {
-	int	action;
-	char	*stack_top = robot->stack->top->as_str;
+	int	act;
+	char	*stack_top = parse_bot->stack->top->as_str;
 
-	action = automaton_find_transition(robot, input->token_type, stack_top);
-	put_dll(robot->stack->top, 1);
-	stck_pop(robot->stack);
-	put_dll(robot->stack->top, 1);
-	if (action != FALSE_INDEX)
-		stck_rpush_tab(robot->stack,
-				(robot->language->production[action]).output);
-	put_dll(robot->stack->top, 1);
-	return (action);
+	act = automaton_find_transition(parse_bot,
+			*input->token_type, stack_top);
+	printf("\t\t  | input info: %s %s\n", *input->value, *input->token_type);
+	printf("\t\t  | action found: %i\n\t\t  | stack info:\n", act);
+	put_dll(parse_bot->stack->top, 1);
+	if (!str_comp())
+	if (act != FALSE_INDEX)
+	{
+		printf("\t\t  | taking action...\n");
+		stck_pop(parse_bot->stack);
+		stck_rpush_tab(parse_bot->stack,
+				(parse_bot->language->production[act]).output);
+	}
+	printf("\t\t  | stack information:\n");
+	put_dll(parse_bot->stack->top, 1);
+	return (act);
 }

@@ -72,6 +72,10 @@ fclean: clean
 	@rm $(NAME)
 	@make -C libft fclean
 
+recompile: clean
+	@rm $(NAME)
+	@make
+
 re: fclean all
 
 .PHONY: fpp_comp all clean fclean

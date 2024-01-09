@@ -9,14 +9,18 @@ t_production	*grammar_define_productions()
 		return (NULL);
 	output[0].variable = "<COMMAND>";
 	output[0].output = str_split("<TERMINAL> <FLAG> <ARGUMENT>", ' ');
-	output[1].variable = "<FLAG>";
-	output[1].output = str_split("<FLAG> <FLAG>", ' ');
-	output[2].variable = "<ARGUMENT>";
-	output[2].output = str_split("<STRING> <ARGUMENT>", ' ');
+	output[1].variable = "<TERMINAL>";
+	output[1].output = NULL;
+	output[2].variable = "<FLAG>";
+	output[2].output = str_split("<FLAG> <FLAG>", ' ');
 	output[3].variable = "<FLAG>";
 	output[3].output = NULL;
 	output[4].variable = "<ARGUMENT>";
-	output[4].output = NULL;
+	output[4].output = str_split("<STRING> <ARGUMENT>", ' ');
+	output[5].variable = "<ARGUMENT>";
+	output[5].output = NULL;
+	output[6].variable = "<STRING>";
+	output[6].output = NULL;
 	return (output);
 }
 
@@ -32,9 +36,6 @@ void	grammar_free_productions(t_production *product)
 	}
 	free(product);
 }
-
-/*
-COMMAND ::= TERMINAL FLAG ARGUMENT
-FLAG ::= FLAG FLAG | NULL
-ARGUMENT ::= STRING ARGUMENT | NULL
-*/
+	
+//	output[].variable = "<>";
+//	output[].output = str_split("<>", ' ');

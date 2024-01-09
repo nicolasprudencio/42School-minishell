@@ -33,16 +33,21 @@ typedef struct	s_pushdown_automaton
 t_cmd_table	*parser(t_pushdown_automaton *robot, t_token *tokens);
 
 // automaton control
-
+// 	create / destroy
 t_pushdown_automaton	*automaton_new(t_dictionary *language);
-char		**automaton_find_command(t_token *tokens);
-int		automaton_act(t_pushdown_automaton *robot, t_token *input);
-int		automaton_find_transition(t_pushdown_automaton *robot,
-			char *token_type, char *stack_top);
+void	automaton_destroy(t_pushdown_automaton *robot);
+
 int		*automaton_astates(int *states);
 int		*automaton_states(void);
 t_relation	*automaton_transition_relation(void);
 
+//	actions
+int		automaton_act(t_pushdown_automaton *robot, t_token *input);
+char		**automaton_find_command(t_token *tokens);
+int		automaton_find_transition(t_pushdown_automaton *robot,
+			char *token_type, char *stack_top);
+
+// to libfpp
 char	**grid_add_element(char **grid, char *value);
 
 #endif
