@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 14:30:37 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/08 14:30:37 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:45:00 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ t_cmd_table	*parser(t_pushdown_automaton *robot, t_token *tokens)
 	t_cmd_table	*output;
 	t_token		*temp;
 	int	act;
-	int	i;
-
-	i = 0;
+	
 	output = (t_cmd_table *)mem_calloc(1, sizeof(t_cmd_table));
 	temp = tokens;
 	while (temp)

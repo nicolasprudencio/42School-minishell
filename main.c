@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:37:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/08 19:36:55 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/09 19:09:21 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,19 @@ int	main(int argc, char **argv, char **env)
 	t_token	*tokens;
 	t_cmd_table	*commands;
 	t_pushdown_automaton	*parse_bot;
+	t_env_lst	*env_lst;
 
 	dictionary = grammar_new();
 	parse_bot = automaton_new(dictionary);
 	put_dll(parse_bot->stack->top, 1);
-	exec_env();
+	if (!argc && !argv)
+		return (1);
+	env_lst = new_lst(env);
+	while (env_lst)
+	{
+		printf("%s\n", env_lst->value);
+		env_lst = env_lst->next;
+	}
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");
