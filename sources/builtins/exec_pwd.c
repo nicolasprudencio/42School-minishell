@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:05:16 by nicolas           #+#    #+#             */
-/*   Updated: 2023/12/29 16:22:34 by nicolas          ###   ########.fr       */
+/*   Updated: 2024/01/10 13:23:11 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,7 @@ int	get_pwd()
 	if (getcwd(buf, sizeof(buf)) != NULL)
 	{
 		printf("%s\n", buf);
-		return (1);
+		return (TRUE);
 	}
-	else
-		return (0);
-}
-
-int main(void)
-{
-	get_pwd();
-	return (0);
+	return (FALSE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:37:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/09 19:09:21 by nicolas          ###   ########.fr       */
+/*   Updated: 2024/01/10 13:31:42 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ int	main(int argc, char **argv, char **env)
 	if (!argc && !argv)
 		return (1);
 	env_lst = new_lst(env);
-	while (env_lst)
-	{
-		printf("%s\n", env_lst->value);
-		env_lst = env_lst->next;
-	}
+	// exec_env(env_lst);
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");

@@ -9,13 +9,9 @@
 # include "grammar.h"
 # include "lexer.h"
 # include "parser.h"
+# include "builtins.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-
-typedef struct s_env_lst {
-	char		*value;
-	struct s_env_lst	*next;
-}	t_env_lst;
 
 int	is_terminal(t_dictionary *language, char *line);
 int	is_flag(char *line);
@@ -30,7 +26,5 @@ void	stack_pop(t_stack *stack);
 char	*get_user(char *path);
 char	*get_history_path();
 int		get_history();
-
-t_env_lst	*new_lst(char **variables);
 
 #endif
