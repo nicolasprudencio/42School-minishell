@@ -35,9 +35,9 @@ int	main(void)
 		//parser
 		commands = parser(parse_bot, tokens);
 		if (!commands)
-			perror("\t\t  | \033[31mInvalid input\033[0m\n");
+			perror("\t\t  | -----\033[31mInvalid input\033[0m-----\n");
 		else
-			printf("\t\t  | \033[32mValid input\033[0m\n");
+			printf("\t\t  | -----\033[32m Valid input\033[0m -----\n");
 
 		// exec
 		if (!str_comp(rl_output, "exit"))

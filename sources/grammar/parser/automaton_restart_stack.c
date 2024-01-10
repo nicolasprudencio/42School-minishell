@@ -3,7 +3,7 @@
 int	automaton_restart_stack(t_pushdown_automaton *parse_bot)
 {
 	if (stck_is_empty(parse_bot->stack))
-			return (FALSE);
+		return (FALSE);
 	else
 	{
 		stck_rmv(parse_bot->stack);

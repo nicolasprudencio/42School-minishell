@@ -22,13 +22,14 @@ t_cmd_table	*parser(t_pushdown_automaton *parse_bot, t_token *tokens)
 	i = 0;
 	output = (t_cmd_table *)mem_calloc(1, sizeof(t_cmd_table));
 	temp = tokens;
-	printf("\033[1m{ O - o }\033[0m\t <| parsing process initializing\n");
+	printf("\033[1m{ O - o }\033[0m\t <| \033[1mparsing process initializing\033[0m\n");
 	while (temp)
 	{
 		act = automaton_act(parse_bot, &temp);
 		if (act == FALSE_INDEX)
 		{
 			free(output);
+			automaton_restart_stack(parse_bot);
 			return (NULL);
 		}
 	}

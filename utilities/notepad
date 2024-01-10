@@ -1,9 +1,11 @@
 bugs to fix:
 
-stack getting empty after a wrong command.
-stack wrong overall.
+when typing:	echo		fauna		-n
+		<TERMINAL>	<STRING>	<FLAG>
 
-recursion on language not working properly.
+error:	Stack does not restart properly
+
+	
 
 !So much leaks, i dont even want to look at it
 
