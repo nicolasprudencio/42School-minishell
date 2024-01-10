@@ -64,14 +64,14 @@ int	main(void)
 
 static void	st_parse_bot_display(void)
 {
-	printf("\t\t\t\t | HELLO! I'M THE PARSE_BOT!\n");
-	printf("\t\t   { O - o }\t | A SIMPLE PUSHDOWN AUTOMATON\n");
-	printf("\t\t    __| |__\t | YOU CAN EXPLORE FURTHER\n");
-	printf("\t\t    / | |  \\\t<  WITH SIMPLE COMMANDS.\n");
-	printf("\t\t    | | |  |\t | TO SEE THE FULL LIST OF\n");
-	printf("\t\t       |\t | PRODUCTIONS TYPE:\n");
-	printf("\t\t     O===O\t |\n");
-	printf("\t\t\t\t | parsebot --trans || -t\n");
+	printf("\t\t  | HELLO! I'M THE PARSE_BOT!\n");
+	printf("   { O - o }\t  | A SIMPLE PUSHDOWN AUTOMATON\n");
+	printf("    __| |__\t  | YOU CAN EXPLORE FURTHER\n");
+	printf("    / | |  \\\t <| WITH SIMPLE COMMANDS.\n");
+	printf("    | | |  |\t  | TO SEE THE FULL LIST OF\n");
+	printf("       |\t  | PRODUCTIONS TYPE:\n");
+	printf("     O===O\t  |\n");
+	printf("\t\t  | parsebot --trans || -t\n");
 }
 
 static void	st_parse_bot_display_productions(t_pushdown_automaton *parse_bot)
@@ -83,12 +83,12 @@ static void	st_parse_bot_display_productions(t_pushdown_automaton *parse_bot)
 		printf("_");
 	printf("\n\n");
 	printf("The starting symbol is: '%s'\n\n", parse_bot->initial_symbol);
-	printf("\t\t\t\tValid transitions:\n\n");
+	printf("\t\tValid transitions:\n\n");
 	while (parse_bot->transition[++i].input)
-		printf("input: %-10s\t\tstack top: %-10s\n\n",
+		printf("input: %-10s\tstack top: %-10s\n\n",
 				parse_bot->transition[i].input,
 				parse_bot->transition[i].stack_top);
-	printf("\t\t\t\tBackus-naur form:\n\n");
+	printf("\t\tBackus-naur form:\n\n");
 	i = -1;
 	while (parse_bot->language->production[++i].variable)
 	{
