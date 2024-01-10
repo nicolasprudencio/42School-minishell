@@ -24,8 +24,8 @@ t_pushdown_automaton	*automaton_new(t_dictionary *language)
 	parse_bot->starting_state = parse_bot->states[0];
 	parse_bot->initial_symbol = str_dup("<COMMAND>");
 	parse_bot->accepting_states = automaton_astates(parse_bot->states);
-	parse_bot->stack = stck_new((void **)&parse_bot->initial_symbol, 'a');
-	parse_bot->stack->top->as_str = (char *)parse_bot->initial_symbol;
+	parse_bot->stack = stck_empty('A');
+	stck_push_str(parse_bot->stack, parse_bot->initial_symbol);
 	return (parse_bot);
 }
 

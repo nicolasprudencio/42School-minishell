@@ -4,7 +4,7 @@ t_production	*grammar_define_productions()
 {
 	t_production	*output;
 
-	output = (t_production *)mem_calloc(6, sizeof(t_production));
+	output = (t_production *)mem_calloc(7, sizeof(t_production));
 	if (!output)
 		return (NULL);
 	output[0].variable = "<COMMAND>";

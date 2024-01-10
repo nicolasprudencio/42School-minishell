@@ -16,10 +16,11 @@ char	**grammar_define_terminals()
 {
 	char	**terminals;
 	
-	terminals = (char **)mem_calloc(4, sizeof(char *));
+	terminals = (char **)mem_calloc(5, sizeof(char *));
 	terminals[0] = str_dup("echo");
 	terminals[1] = str_dup("cd");
 	terminals[2] = str_dup("pwd");
+	terminals[3] = str_dup("exit");
 	return (terminals);
 }
 

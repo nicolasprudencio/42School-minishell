@@ -1,6 +1,6 @@
 NAME		=	SEAshell
 
-CC			=	gcc
+CC		=	gcc
 M_FLAGS		=	-Wall -Wextra -Werror
 D_FLAGS		=	-g3 -ggdb
 FLAGS		=	$(M_FLAGS) $(D_FLAGS)
@@ -14,7 +14,8 @@ LEXER_SRCS	:=	$(addprefix sources/grammar/lexer/, $(LEXER_SRCS))
 PARSE_SRCS	=	parser.c
 PARSE_SRCS	:=	$(addprefix sources/grammar/parser/, $(PARSE_SRCS))
 
-AUT_SRCS	=	act.c astates.c find_transition.c new.c states.c transition_relation.c
+AUT_SRCS	=	act.c astates.c find_transition.c new.c states.c transition_relation.c find_command.c
+AUT_SRCS	+=	restart_stack.c
 AUT_SRCS	:=	$(addprefix sources/grammar/parser/automaton_, $(AUT_SRCS))
 
 GRAM_SRCS	=	define_production.c define_terminals.c define_variables.c new.c 
@@ -57,13 +58,23 @@ $(OBJS_DIR)/%.o:%.c
 	@$(CC) $(FLAGS) -c $< -o $@ $(HEADERS)
 
 $(NAME):
-	@printf "$(GREEN)%s$(RESET) %30s\n" "Compiling" "SEAshell"
-	@printf "%-15s\n" "-----"
-	@printf "Available commands:\n\n"
-	@printf "$(BLUE)test$(RESET)  = shows the grammar rules\n"
-	@printf "$(BLUE)exit$(RESET)  = finishes the program execution\n"
-	@printf "%-15s\n" "-----"
 	@$(CC) $(FLAGS) $(OBJS) $(MAIN) $(HEADERS) $(LIBFPP) $(READLINE) -o $@
+	@echo
+	@echo "\t      Â      ___ ___   _       _        _ _"
+	@echo "\t    _{ }    / __| __| /_\   __| |_  ___| | |"
+	@echo "\t  _(  | )   \__ \ _| / _ \ (_-< ' \/ -_) | |"
+	@echo "\t_{__(}  _}  |___/___/_/ \_\/__/_||_\___|_|_|"
+	@echo "       (    /     )"
+	@echo "      { __()__  _ _} -42 school project minishell-"
+	@echo "     {(_( )      _ ()"
+	@echo "      (  {}_   _/  --\\_"
+	@echo "       (  |    ( - - - \\"
+	@echo "\t(__|_ _|- -- -_)"
+	@echo "\t    \\   ( --_)"
+	@echo "\t     |  (|_)"
+	@echo "\t     L_ (|) by: Fauna Polaris"
+	@echo "\t      \\_|)             || Nicolas Prudencio"
+	@echo
 
 clean:
 	@rm -fr objects
