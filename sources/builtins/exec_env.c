@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:49:27 by nicolas           #+#    #+#             */
-/*   Updated: 2024/01/08 19:41:44 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:18:16 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,13 @@
 
 */
 
-void	exec_env()
+void	exec_env(t_env_lst *lst)
 {	
-	char	**env;
-	int		i;
+	t_env_lst	*aux;
+	int			i;
 
-	env = __environ;
 	i = -1;
-	
-	while (env[++i])
-		printf("%s\n", env[i]);
+	aux = lst;
+	while (aux->next)
+		printf("%s\n", aux->value);
 }

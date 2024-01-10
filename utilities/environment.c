@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 18:48:24 by nicolas           #+#    #+#             */
-/*   Updated: 2024/01/09 20:49:26 by nicolas          ###   ########.fr       */
+/*   Updated: 2024/01/10 12:18:46 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ static void	lst_add_back(t_env_lst	**lst, t_env_lst *new)
 	else
 	{
 		aux = *lst;
-		if (aux->next)
-			while (aux->next)
-				aux = aux->next;
-		aux->next = new;	
+		while (aux->next)
+			aux = aux->next;
+		aux->next = new;
 	}	
 }
 
@@ -46,6 +45,7 @@ t_env_lst	*new_lst(char **variables)
 	t_env_lst *lst;
 
 	i = -1;
+	lst = NULL;
 	while (variables[++i])
 		lst_add_back(&lst ,lst_new(variables[i]));
 	return (lst);	
