@@ -17,7 +17,7 @@ PARSE_SRCS	:=	$(addprefix sources/grammar/parser/, $(PARSE_SRCS))
 AUT_SRCS	=	act.c astates.c find_transition.c new.c states.c transition_relation.c
 AUT_SRCS	:=	$(addprefix sources/grammar/parser/automaton_, $(AUT_SRCS))
 
-BUILT_SRCS	= exec_echo.c exec_env.c exec_export.c exec_pwd.c
+BUILT_SRCS	= exec_echo.c exec_env.c exec_export.c exec_pwd.c exec_unset.c
 BUILT_SRCS	:= $(addprefix sources/builtins/, $(BUILT_SRCS))
 
 GRAM_SRCS	=	define_production.c define_terminals.c define_variables.c new.c 

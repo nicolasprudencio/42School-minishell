@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 18:48:24 by nicolas           #+#    #+#             */
-/*   Updated: 2024/01/10 13:26:19 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:14:36 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ t_env_lst	*lst_new(char *value)
 	new->value = str_dup(value);
 	new->next = NULL;
 	return (new);	
+}
+
+void	lst_del_one(t_env_lst *lst)
+{
+	free(lst->value);
+	free(lst);
 }
 
 void	lst_add_back(t_env_lst	**lst, t_env_lst *new)
