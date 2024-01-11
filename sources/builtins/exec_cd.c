@@ -6,13 +6,13 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:21:36 by nicolas           #+#    #+#             */
-/*   Updated: 2024/01/11 17:49:56 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:38:17 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-void	update_pwd(t_env_lst **lst, char *new_path)
+static void	st_update_pwd(t_env_lst **lst, char *new_path)
 {
 	t_env_lst *aux;
 	
@@ -25,11 +25,11 @@ void	update_pwd(t_env_lst **lst, char *new_path)
 			aux->value = str_join("PWD=", new_path, 0);
 			return ;
 		}
-		aux = aux->next;	
+		aux = aux->next;
 	}
 }
 
-void	update_oldpwd(t_env_lst **lst, char *old_path)
+static void	st_update_oldpwd(t_env_lst **lst, char *old_path)
 {
 	t_env_lst *aux;
 	
@@ -39,7 +39,7 @@ void	update_oldpwd(t_env_lst **lst, char *old_path)
 		if (str_ncmp(aux->value, "OLDPWD", str_len("OLDPWD")) == 0)
 		{
 			free(aux->value);
-			aux->value = str_join("OLDPWD=",old_path, 0);
+			aux->value = str_join("OLDPWD=", old_path, 0);
 			return ;
 		}
 		aux = aux->next;	
@@ -48,18 +48,14 @@ void	update_oldpwd(t_env_lst **lst, char *old_path)
 
 int	exec_cd(char *dir, t_env_lst **lst)
 {
-	char	*path;
 	char	buffer[1024];
 	
-	printf("%s\n", buffer);
 	if (getcwd(buffer, sizeof(buffer)) != NULL)
 	{	
-		update_oldpwd(lst, buffer);
-		path = str_join(buffer, "/", 0);
-		path = str_join(path, dir, 1);
-		update_pwd(lst, path);
-		chdir(path);
-		free(path);
+		st_update_oldpwd(lst, buffer);
+		chdir(dir);
+		getcwd(buffer, sizeof(buffer));
+		st_update_pwd(lst, buffer);
 		return (TRUE);
 	}
 	return (FALSE);
