@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:37:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/12 18:20:18 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/12 19:46:27 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(int argc, char **argv, char **env)
 	exec_unset(&env_lst, "test1");
 	printf("\n\n\n");
 	exec_env(env_lst, 1);
+	clear_lst(&env_lst);
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");
