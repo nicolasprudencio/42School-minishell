@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:37:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/11 17:42:04 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/12 18:20:18 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	main(int argc, char **argv, char **env)
 	if (!argc && !argv)
 		return (1);
 	env_lst = new_lst(env);
-	get_pwd();
+	exec_export(env_lst, "test", 1);
+	exec_export(env_lst, NULL, 1);
+	// exec_env(env_lst, 1);
+	exec_unset(&env_lst, "test1");
+	printf("\n\n\n");
 	exec_env(env_lst, 1);
-	exec_cd("sources", &env_lst);
-	exec_cd("grammar", &env_lst);
-	exec_env(env_lst, 1);
-	get_pwd();
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");

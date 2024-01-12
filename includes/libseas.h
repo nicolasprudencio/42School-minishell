@@ -13,10 +13,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+int	char_exists(char *s, int c);
 int	is_terminal(t_dictionary *language, char *line);
 int	is_flag(char *line);
 int	str_is_enclosed(char *line, int c);
 int	str_comp_upto(char *str1, char *str2, char end);
+int str_comp_until(char *str1, char *str2, int c);
+int	str_len_until(char	*s, int c);
 
 t_stack	*stack_new();
 void	stack_push(t_stack *stack, char *content);

@@ -6,23 +6,11 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:14:33 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/11 20:32:05 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/12 18:20:07 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
-
-static int comp_until(char *str1, char *str2, int c)
-{
-	int	i;
-
-	i = -1;
-	while (str1[++i] && str2[i] && str2[i] != c && str1[i] == str2[i])
-		;
-	if (str1[i] == c && str2[i] == c)
-		return (TRUE);
-	return (FALSE);	
-}
 
 static int	st_to_replace(t_env_lst	**lst, char *var)
 {
@@ -33,7 +21,7 @@ static int	st_to_replace(t_env_lst	**lst, char *var)
 	temp = *lst;
 	while (aux)
 	{	
-		if (comp_until(aux->value, var, '=') == 1)
+		if (str_comp_until(aux->value, var, '=') == TRUE)
 		{
 			free(aux->value);
 			aux->value = str_dup(var);
@@ -53,7 +41,7 @@ int	exec_export(t_env_lst *lst, char *var, int fd)
 	aux = lst;
 	if (var)
 	{	
-		if (st_to_replace(&lst, var))
+		if (st_to_replace(&lst, var) == TRUE)
 			return (TRUE);
 		else
 			lst_add_back(&lst, lst_new(var));
@@ -62,7 +50,10 @@ int	exec_export(t_env_lst *lst, char *var, int fd)
 	while (aux)
 	{	
 		put_str("declare -x ", fd);
-		put_endl(aux->value, fd);
+		put_str(aux->value, fd);
+		if (aux->value[str_len_until(aux->value, '=') + 1] == '\0')
+			put_str("\"\"", fd);
+		put_str("\n", fd);	
 		aux = aux->next;
 	}
 	return (TRUE);

@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_env.c                                         :+:      :+:    :+:   */
+/*   str_comp_until.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/29 15:49:27 by nicolas           #+#    #+#             */
-/*   Updated: 2024/01/12 18:44:45 by nprudenc         ###   ########.fr       */
+/*   Created: 2024/01/12 16:42:18 by nprudenc          #+#    #+#             */
+/*   Updated: 2024/01/12 17:52:15 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-void	exec_env(t_env_lst *lst, int fd)
-{	
-	t_env_lst	*aux;
-	int			i;
+int str_comp_until(char *str1, char *str2, int c)
+{
+	int	i;
 
 	i = -1;
-	aux = lst;
-	while (aux)
-	{
-		if (char_exists(aux->value, '='))
-			put_endl(aux->value, fd);
-		aux = aux->next;
-	}
+	while (str1[++i] && str2[i] && str1[i] != c)
+		if (str1[i] != str2[i])
+			return (FALSE);
+	if ((str1[i] == c && str2[i] == '\0') ||
+			(str1[i] == c && str2[i] == c))
+		return (TRUE);
+	return (FALSE);	
 }
