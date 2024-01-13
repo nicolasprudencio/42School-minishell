@@ -58,6 +58,7 @@ int	main(void)
 		token_free(&tokens);
 		free(rl_output);
 	}
+	automaton_destroy(parse_bot);
 	grammar_end(dictionary);
 	return (0);
 }

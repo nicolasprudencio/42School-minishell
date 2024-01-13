@@ -16,7 +16,7 @@ t_relation	*automaton_transition_relation(void)
 {
 	t_relation	*output;
 
-	output = (t_relation *)mem_calloc(7, sizeof(t_relation));
+	output = (t_relation *)mem_calloc(8, sizeof(t_relation));
 	if (!output)
 		return (NULL);
 	output[0] = (t_relation){"<TERMINAL>", "<COMMAND>"};

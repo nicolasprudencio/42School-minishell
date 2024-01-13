@@ -29,3 +29,15 @@ t_pushdown_automaton	*automaton_new(t_dictionary *language)
 	return (parse_bot);
 }
 
+void	automaton_destroy(t_pushdown_automaton *parse_bot)
+{
+	int	i;
+
+	i = -1;
+	free(parse_bot->states);
+	free(parse_bot->accepting_states);
+	free(parse_bot->transition);
+	free(parse_bot->initial_symbol);
+	stck_rmv(parse_bot->stack);
+	free(parse_bot);
+}

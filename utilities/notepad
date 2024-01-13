@@ -1,11 +1,14 @@
-bugs to fix:
+#BUGS
 
-when typing:	echo		fauna		-n
-		<TERMINAL>	<STRING>	<FLAG>
+##EXECUTION:
 
-error:	Stack does not restart properly
+error when not closing quotes and single quotes:
 
-	
+case study: echo -n jhahahaa askjaskja'
 
-!So much leaks, i dont even want to look at it
+---------------------------------------------
+##VALGRIND:
 
+need to free command table after parsing
+
+history leaking memory, need to check if it should be suppresed or fixed.
