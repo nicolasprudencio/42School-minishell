@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:14:33 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/12 18:20:07 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:49:42 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ static int	st_to_replace(t_env_lst	**lst, char *var)
 		{
 			free(aux->value);
 			aux->value = str_dup(var);
-			// lst_del_one(aux);
-			// lst_add_back(lst, lst_new(var));
 			return (TRUE);
 		}
 		aux = aux->next;
