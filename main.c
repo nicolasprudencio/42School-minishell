@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:37:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/12 19:46:27 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/15 19:57:42 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	main(int argc, char **argv, char **env)
 	if (!argc && !argv)
 		return (1);
 	env_lst = new_lst(env);
-	exec_export(env_lst, "test", 1);
-	exec_export(env_lst, NULL, 1);
+	// exec_export(env_lst, "test", 1);
+	// exec_export(env_lst, NULL, 1);
 	// exec_env(env_lst, 1);
-	exec_unset(&env_lst, "test1");
-	printf("\n\n\n");
-	exec_env(env_lst, 1);
-	clear_lst(&env_lst);
+	// exec_unset(&env_lst, "test1");
+	// printf("\n\n\n");
+	// exec_env(env_lst, 1);
+	// clear_lst(&env_lst);
 	while (1)
 	{
 		rl_output = readline("SEAshell~ ");
@@ -45,6 +45,8 @@ int	main(int argc, char **argv, char **env)
 
 		//parser
 		commands = parser(parse_bot, tokens);
+		if (str_comp(rl_output, "heredoc") == 0)
+			here_doc(env_lst, "eof", 1);
 		if (!commands)
 			perror("Invalid input\n");
 

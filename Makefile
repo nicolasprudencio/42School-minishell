@@ -5,7 +5,7 @@ M_FLAGS		=	-Wall -Wextra -Werror
 D_FLAGS		=	-g3 -ggdb
 FLAGS		=	$(M_FLAGS) $(D_FLAGS)
 
-UTILS		=	char_exists.c is_terminal.c is_flag.c str_is_enclosed.c str_comp_upto.c str_comp_until.c str_len_until.c environment.c
+UTILS		=	char_exists.c is_terminal.c is_flag.c str_is_enclosed.c env_expand_variables.c str_comp_upto.c str_comp_until.c str_len_until.c environment.c
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
 LEXER_SRCS	=	lexer.c token_new.c put_token.c token_push_last.c
@@ -20,6 +20,9 @@ AUT_SRCS	:=	$(addprefix sources/grammar/parser/automaton_, $(AUT_SRCS))
 BUILT_SRCS	= exec_cd.c exec_echo.c exec_env.c exec_export.c exec_pwd.c exec_unset.c
 BUILT_SRCS	:= $(addprefix sources/builtins/, $(BUILT_SRCS))
 
+HERE_SRCS	=	heredoc.c
+HERE_SRCS	:=	$(addprefix sources/heredoc/, $(HERE_SRCS))
+
 GRAM_SRCS	=	define_production.c define_terminals.c define_variables.c new.c 
 GRAM_SRCS	:=	$(addprefix sources/grammar/grammar_definitions/grammar_,$(GRAM_SRCS))
 
@@ -30,6 +33,7 @@ OBJS		+=	$(addprefix $(OBJS_DIR)/, $(PARSE_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(AUT_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(UTILS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(BUILT_SRCS:.c=.o))
+OBJS		+=	$(addprefix $(OBJS_DIR)/, $(HERE_SRCS:.c=.o))
 
 HEADERS		=	-I./includes -I./libft/header
 READLINE	=	-lreadline
