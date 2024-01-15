@@ -1,0 +1,14 @@
+<COMMAND> ::= <TERMINAL> <FLAG> <ARGUMENT> <SPECIAL> <PIPE> |
+		<SPECIAL> <STRING> <PIPE>
+
+<TERMINAL> ::= <TERMINAL> | null
+
+<FLAG> ::= <FLAG> <FLAG> | null
+
+<ARGUMENT> ::= <STRING> <FLAG> <ARGUMENT> | null
+
+<SPECIAL> ::= <STRING> <SPECIAL> | null
+
+<PIPE> ::= <COMMAND> | null
+
+<STRING> ::= null

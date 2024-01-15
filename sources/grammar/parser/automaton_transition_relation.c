@@ -12,21 +12,44 @@
 
 #include "libseas.h"
 
+static void	st_recursive_cases(t_relation *input);
+static void	st_validate_to_null(t_relation *input);
+
 t_relation	*automaton_transition_relation(void)
 {
 	t_relation	*output;
 
-	output = (t_relation *)mem_calloc(8, sizeof(t_relation));
+	output = (t_relation *)mem_calloc(17, sizeof(t_relation));
 	if (!output)
 		return (NULL);
 	output[0] = (t_relation){"<TERMINAL>", "<COMMAND>"};
-	output[1] = (t_relation){"<TERMINAL>", "<TERMINAL>"};
-	output[2] = (t_relation){"<FLAG>", "<FLAG>"};
-	output[3] = (t_relation){"<STRING>", "<FLAG>"};
-	output[4] = (t_relation){"<STRING>", "<ARGUMENT>"};
-	output[5] = (t_relation){"<ARGUMENT>", NULL};
-	output[6] = (t_relation){"<STRING>", "<STRING>"};
+	output[1] = (t_relation){"<SPECIAL>", "<COMMAND>"};
+	st_recursive_cases(output);
+	st_validate_to_null(output);
 	return (output);
 }
 
-//	output[] = (t_relation){"<>", "<>"};
+static void	st_recursive_cases(t_relation *input)
+{
+	input[2] = (t_relation){"<FLAG>", "<FLAG>"};
+	input[3] = (t_relation){"<STRING>", "<ARGUMENT>"};
+	input[4] = (t_relation){"<SPECIAL>", "<SPECIAL>"};
+	input[5] = (t_relation){"<PIPE>", "<PIPE>"};
+}
+
+static void	st_validate_to_null(t_relation *input)
+{
+	input[6] = (t_relation){"<TERMINAL>", "<TERMINAL>"};
+	input[7] = (t_relation){"<STRING>", "<FLAG>"};
+	input[8] = (t_relation){"<ARGUMENT>", NULL};
+	input[9] = (t_relation){"<STRING>", "<STRING>"};
+	input[10] = (t_relation){"<SPECIAL>", "<STRING>"};
+	input[11] = (t_relation){"<SPECIAL>", "<FLAG>"};
+	input[12] = (t_relation){"<SPECIAL>", "<ARGUMENT>"};
+	input[13] = (t_relation){"<PIPE>", "<FLAG>"};
+	input[14] = (t_relation){"<PIPE>", "<ARGUMENT>"};
+	input[15] = (t_relation){"<PIPE>", "<SPECIAL>"};
+
+}
+
+//	*input[] = (t_relation){"<>", "<>"};

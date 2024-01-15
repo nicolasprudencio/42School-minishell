@@ -43,8 +43,16 @@ static int	st_add_terminal(t_dictionary *dict, t_token **tokens, char *line)
 	hold = is_terminal(dict, line);
 	if (hold != FALSE_INDEX)
 	{
-		token_push_last(tokens,
-				token_new(dict->terminals[hold], "<TERMINAL>"));
+		if (*tokens && (!tokens[0]->prev 
+				|| str_comp(tokens[0]->prev->token_type,
+					"<PIPE>")))
+			token_push_last(tokens,
+				token_new(dict->terminals[hold],
+					"<STRING>"));
+		else
+			token_push_last(tokens,
+					token_new(dict->terminals[hold],
+						"<TERMINAL>"));
 		return (str_len(dict->terminals[hold]));
 	}
 	return (FALSE_INDEX);

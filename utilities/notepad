@@ -6,6 +6,8 @@ error when not closing quotes and single quotes:
 
 case study: echo -n jhahahaa askjaskja'
 
+TERMINAL + TERMINAL is a valid input
+
 ---------------------------------------------
 ##VALGRIND:
 

@@ -23,7 +23,12 @@ int	automaton_find_transition(t_pushdown_automaton *robot, char *token_type,
 		if (!str_comp(token_type, robot->transition[i].input)
 				&& !str_comp(stack_top,
 					robot->transition[i].stack_top))
-			return (i);
+		{
+			if (i >= 6)
+				return (6);
+			else
+				return (i);
+		}
 	}
 	return (FALSE_INDEX);
 }
