@@ -6,17 +6,17 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 18:48:24 by nicolas           #+#    #+#             */
-/*   Updated: 2024/01/12 19:56:34 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:36:24 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-t_env_lst	*lst_new(char *value)
+t_lst	*lst_new(char *value)
 {
-	t_env_lst *new;
+	t_lst *new;
 
-	new = (t_env_lst *)mem_calloc(1, sizeof(t_env_lst));
+	new = (t_lst *)mem_calloc(1, sizeof(t_lst));
 	if (!new)
 		return (NULL);
 	new->value = str_dup(value);
@@ -24,15 +24,15 @@ t_env_lst	*lst_new(char *value)
 	return (new);	
 }
 
-void	lst_del_one(t_env_lst *lst)
+void	lst_del_one(t_lst *lst)
 {
 	free(lst->value);
 	free(lst);
 }
 
-void	lst_add_back(t_env_lst	**lst, t_env_lst *new)
+void	lst_add_back(t_lst	**lst, t_lst *new)
 {
-	t_env_lst	*aux;
+	t_lst	*aux;
 
 	if (!*lst)
 		*lst = new;
@@ -45,10 +45,10 @@ void	lst_add_back(t_env_lst	**lst, t_env_lst *new)
 	}	
 }
 
-t_env_lst	*new_lst(char **variables)
+t_lst	*new_lst(char **variables)
 {
 	int	i;
-	t_env_lst *lst;
+	t_lst *lst;
 
 	i = -1;
 	lst = NULL;
@@ -57,10 +57,10 @@ t_env_lst	*new_lst(char **variables)
 	return (lst);	
 }
 
-void	clear_lst(t_env_lst **lst)
+void	clear_lst(t_lst **lst)
 {
-	t_env_lst *aux;
-	t_env_lst *temp;
+	t_lst *aux;
+	t_lst *temp;
 
 	aux = *lst;
 	while (aux)
