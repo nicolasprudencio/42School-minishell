@@ -12,13 +12,13 @@
 
 #include "libseas.h"
 
-int	*automaton_astates(int *states)
+int	*automaton_astates(void)
 {
 	int	*output;
 
 	output = (int *)mem_calloc(1, sizeof(int));
 	if (!output)
 		return (NULL);
-	output[0] = states[0];
+	output[0] = 0;
 	return (output);
 }

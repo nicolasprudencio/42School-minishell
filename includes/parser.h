@@ -21,7 +21,7 @@ typedef struct s_relation
 
 typedef struct	s_pushdown_automaton
 {
-	int	*states;
+	int	current_state;
 	t_relation	*transition;
 	int	starting_state;
 	char	*initial_symbol;
@@ -37,8 +37,7 @@ t_cmd_table	*parser(t_pushdown_automaton *robot, t_token *tokens);
 t_pushdown_automaton	*automaton_new(t_dictionary *language);
 void	automaton_destroy(t_pushdown_automaton *robot);
 
-int		*automaton_astates(int *states);
-int		*automaton_states(void);
+int		*automaton_astates(void);
 t_relation	*automaton_transition_relation(void);
 
 //	actions
@@ -48,6 +47,10 @@ char		**automaton_find_command(t_token *tokens);
 int		automaton_find_transition(t_pushdown_automaton *robot,
 			char *token_type, char *stack_top);
 int		automaton_restart_stack(t_pushdown_automaton *parse_bot);
+void		automaton_find_state(t_pushdown_automaton *parse_bot,
+			t_token **input);
+int		automaton_cmdt_create(t_pushdown_automaton *parse_bot,
+			t_cmd_table **cmd_table, t_token *token);
 
 // to libfpp
 char	**grid_add_element(char **grid, char *value);

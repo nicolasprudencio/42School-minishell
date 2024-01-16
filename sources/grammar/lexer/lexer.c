@@ -36,16 +36,15 @@ t_token	*lexer(char *line, t_dictionary *dict)
 	return (tokens);
 }
 
-static int	st_add_terminal(t_dictionary *dict, t_token **tokens, char *line)
+static int	st_add_terminal(t_dictionary *dict, t_token **tokens,
+		char *line)
 {
 	int	hold;
 
 	hold = is_terminal(dict, line);
 	if (hold != FALSE_INDEX)
 	{
-		if (*tokens && (!tokens[0]->prev 
-				|| str_comp(tokens[0]->prev->token_type,
-					"<PIPE>")))
+		if (*tokens && token_last_is_pipe(tokens)) 
 			token_push_last(tokens,
 				token_new(dict->terminals[hold],
 					"<STRING>"));

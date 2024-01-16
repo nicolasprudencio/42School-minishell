@@ -1,3 +1,5 @@
+#Backus-naur form
+
 <COMMAND> ::= <TERMINAL> <FLAG> <ARGUMENT> <SPECIAL> <PIPE> |
 		<SPECIAL> <STRING> <PIPE>
 
@@ -12,3 +14,14 @@
 <PIPE> ::= <COMMAND> | null
 
 <STRING> ::= null
+
+#automaton states:
+
+0. do nothing
+1. new command
+2. add input to command
+3. pipe
+4. heredoc
+5. input redirection
+6. output redirection
+7. append

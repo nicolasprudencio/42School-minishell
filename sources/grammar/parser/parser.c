@@ -12,16 +12,17 @@
 
 #include "libseas.h"
 
+t_cmd_table	*st_error(t_pushdown_automaton *parse_bot,
+		t_cmd_table *to_free);
+
 t_cmd_table	*parser(t_pushdown_automaton *parse_bot, t_token *tokens)
 {
 	t_cmd_table	*output;
 	t_token		*temp;
 	int	act;
-	int	i;
 
-	i = 0;
-	output = (t_cmd_table *)mem_calloc(1, sizeof(t_cmd_table));
 	temp = tokens;
+	output = NULL;
 	printf("\033[1m{ O - o }\033[0m\t <| \033[1mparsing process initializing\033[0m\n");
 	while (temp)
 	{
@@ -30,13 +31,20 @@ t_cmd_table	*parser(t_pushdown_automaton *parse_bot, t_token *tokens)
 		{
 			free(output);
 			automaton_restart_stack(parse_bot);
-			return (NULL);
+			return (st_error(parse_bot, output));
 		}
+		if (!automaton_cmdt_create(parse_bot, &output, temp))
+			return (st_error(parse_bot, output));
+			
 	}
-	output->command = (t_command *)mem_calloc(1, sizeof(t_command));
-	output->command->parsed = automaton_find_command(tokens);
-	output->command->io[0] = 1;
-	output->command->io[1] = 1;
 	automaton_restart_stack(parse_bot);
 	return (output);
+}
+
+t_cmd_table	*st_error(t_pushdown_automaton *parse_bot, t_cmd_table *to_free)
+{
+	free(to_free);
+	// free cmd_table if exists
+	automaton_restart_stack(parse_bot);
+	return (NULL);
 }
