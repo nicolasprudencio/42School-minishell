@@ -5,7 +5,7 @@ M_FLAGS		=	-Wall -Wextra -Werror
 D_FLAGS		=	-g3 -ggdb
 FLAGS		=	$(M_FLAGS) $(D_FLAGS)
 
-UTILS		=	is_terminal.c is_flag.c str_is_enclosed.c str_comp_upto.c
+UTILS		=	is_terminal.c is_flag.c str_is_enclosed.c str_comp_upto.c put_cmdt.c
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
 LEXER_SRCS	=	lexer.c token_new.c put_token.c token_push_last.c token_last_is_pipe.c
@@ -14,8 +14,8 @@ LEXER_SRCS	:=	$(addprefix sources/grammar/lexer/, $(LEXER_SRCS))
 PARSE_SRCS	=	parser.c
 PARSE_SRCS	:=	$(addprefix sources/grammar/parser/, $(PARSE_SRCS))
 
-AUT_SRCS	=	act.c astates.c find_transition.c new.c states.c transition_relation.c find_command.c
-AUT_SRCS	+=	restart_stack.c find_state.c cmdt_create.c
+AUT_SRCS	=	act.c astates.c find_transition.c new.c transition_relation.c find_command.c
+AUT_SRCS	+=	restart_stack.c find_state.c cmdt_create.c cmd_create.c cmd_add.c cmd_last.c
 AUT_SRCS	:=	$(addprefix sources/grammar/parser/automaton_, $(AUT_SRCS))
 
 GRAM_SRCS	=	define_production.c define_terminals.c define_variables.c new.c 

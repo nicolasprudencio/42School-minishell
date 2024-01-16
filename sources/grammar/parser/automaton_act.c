@@ -29,9 +29,9 @@ int	automaton_act(t_pushdown_automaton *parse_bot, t_token **input)
 	if (!str_comp((*input)->token_type,
 				parse_bot->stack->top->as_str))
 	{
+		if (parse_bot->current_state == 0 && (*input)->next)
+			parse_bot->current_state = 2;
 		(*input) = (*input)->next;
-		if (parse_bot->state == 0)
-			parse_bot->state == 2;
 	}
 	printf("\t\t  | state\t \033[1m%i\033[0m\n",
 			parse_bot->current_state);

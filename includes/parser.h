@@ -49,8 +49,15 @@ int		automaton_find_transition(t_pushdown_automaton *robot,
 int		automaton_restart_stack(t_pushdown_automaton *parse_bot);
 void		automaton_find_state(t_pushdown_automaton *parse_bot,
 			t_token **input);
+
+//	state actions
 int		automaton_cmdt_create(t_pushdown_automaton *parse_bot,
 			t_cmd_table **cmd_table, t_token *token);
+int		automaton_cmd_create(t_cmd_table **cmd_table, char *value);
+int		automaton_cmd_add(t_cmd_table **cmd, char *value);
+void		automaton_cmd_last(t_cmd_table **last, t_cmd_table **cmd_table);
+
+void		put_cmdt(t_cmd_table *cmd_table);
 
 // to libfpp
 char	**grid_add_element(char **grid, char *value);
