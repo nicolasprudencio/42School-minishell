@@ -45,7 +45,7 @@ int		automaton_act(t_pushdown_automaton *robot,
 		t_token **input);
 char		**automaton_find_command(t_token *tokens);
 int		automaton_find_transition(t_pushdown_automaton *robot,
-			char *token_type, char *stack_top);
+			t_token *token, char *stack_top);
 int		automaton_restart_stack(t_pushdown_automaton *parse_bot);
 void		automaton_find_state(t_pushdown_automaton *parse_bot,
 			t_token **input);
@@ -53,8 +53,8 @@ void		automaton_find_state(t_pushdown_automaton *parse_bot,
 //	state actions
 int		automaton_cmdt_create(t_pushdown_automaton *parse_bot,
 			t_cmd_table **cmd_table, t_token *token);
-int		automaton_cmd_create(t_cmd_table **cmd_table, char *value);
-int		automaton_cmd_add(t_cmd_table **cmd, char *value);
+int		automaton_cmd_create(t_cmd_table **cmd_table, t_token *token);
+int		automaton_cmd_add(t_cmd_table **cmd, t_token *token, int flag);
 void		automaton_cmd_last(t_cmd_table **last, t_cmd_table **cmd_table);
 
 void		put_cmdt(t_cmd_table *cmd_table);

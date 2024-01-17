@@ -19,8 +19,8 @@
 
 0. do nothing
 1. new command
-2. add input to command
-3. pipe
+2. pipe to command
+3. pipe to empty
 4. heredoc
 5. input redirection
 6. output redirection

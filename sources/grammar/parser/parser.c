@@ -12,9 +12,6 @@
 
 #include "libseas.h"
 
-t_cmd_table	*st_error(t_pushdown_automaton *parse_bot,
-		t_cmd_table *to_free);
-
 t_cmd_table	*parser(t_pushdown_automaton *parse_bot, t_token *tokens)
 {
 	t_cmd_table	*output;
@@ -29,22 +26,14 @@ t_cmd_table	*parser(t_pushdown_automaton *parse_bot, t_token *tokens)
 		act = automaton_act(parse_bot, &temp);
 		if (act == FALSE_INDEX)
 		{
-			free(output);
-			automaton_restart_stack(parse_bot);
-			return (st_error(parse_bot, output));
+			printf("%s%s'%s'\n", "SEAshell: ",
+					"syntax error near unexpected token ",
+					temp->value);
+			break ;
 		}
 		if (!automaton_cmdt_create(parse_bot, &output, temp))
-			return (st_error(parse_bot, output));
-			
+			break ;
 	}
 	automaton_restart_stack(parse_bot);
 	return (output);
-}
-
-t_cmd_table	*st_error(t_pushdown_automaton *parse_bot, t_cmd_table *to_free)
-{
-	free(to_free);
-	// free cmd_table if exists
-	automaton_restart_stack(parse_bot);
-	return (NULL);
 }

@@ -1,8 +1,11 @@
 #include "libseas.h"
 
-int	st_allocate_new(t_cmd_table **cmd_table, char *value);
+static int	st_allocate_new(t_cmd_table **cmd_table, t_token *input);
+static int	st_find_size(t_token *input);
+static void	st_fill_command(t_cmd_table **cmd_table, t_token *input, 
+		int lenght);
 
-int	automaton_cmd_create(t_cmd_table **cmd_table, char *value)
+int	automaton_cmd_create(t_cmd_table **cmd_table, t_token *input)
 {
 	t_cmd_table	*aux;
 	t_cmd_table	*last_cmd;
@@ -10,7 +13,7 @@ int	automaton_cmd_create(t_cmd_table **cmd_table, char *value)
 	if (!*cmd_table)
 	{
 		*cmd_table = (t_cmd_table *)mem_calloc(1, sizeof(t_cmd_table));
-		if (!st_allocate_new(cmd_table, value))
+		if (!st_allocate_new(cmd_table, input))
 			return (FALSE);
 	}
 	else
@@ -20,33 +23,59 @@ int	automaton_cmd_create(t_cmd_table **cmd_table, char *value)
 		aux = (t_cmd_table *)mem_calloc(1, sizeof(t_cmd_table));
 		if (!aux)
 			return (FALSE);
-		if (!st_allocate_new(&aux, value))
+		if (!st_allocate_new(&aux, input))
 			return (FALSE);
 		last_cmd->next = aux;
 	}
 	printf("\t\t  | -----\033[1m New Command \033[0m-----\n");
-	printf("\t\t  | cmd:\t%s\n",
-			(*cmd_table)->command->parsed[0]);
-	printf("\t\t  | io :\t%-5i\t%-5i\n", (*cmd_table)->command->io[0],
-			(*cmd_table)->command->io[1]);
-	printf("\t\t  |\n");
 	return (TRUE);
 }
 
-int	st_allocate_new(t_cmd_table **cmd_table, char *value)
+static int	st_allocate_new(t_cmd_table **cmd_table, t_token *input)
 {
+	int	lenght;
 	if (!*cmd_table)
 		return (FALSE);
 	(*cmd_table)->command = (t_command *)mem_calloc(1, sizeof(t_command));
 	if (!(*cmd_table)->command)
 		return (FALSE);
-	(*cmd_table)->command->parsed = (char **)mem_calloc(2, sizeof(char *));
+	lenght = st_find_size(input);
+	(*cmd_table)->command->parsed = (char **)mem_calloc(lenght + 1,
+			sizeof(char *));
 	if (!(*cmd_table)->command->parsed)
 		return (FALSE);
-	(*cmd_table)->command->parsed[0] = str_dup(value);
-	if (!(*cmd_table)->command->parsed[0])
-		return (FALSE);
+	st_fill_command(cmd_table, input, lenght);
 	(*cmd_table)->command->io[0] = 0;
 	(*cmd_table)->command->io[1] = 1;
 	return (TRUE);
+}
+
+static int	st_find_size(t_token *input)
+{
+	int	i;
+
+	i = 0;
+	while (input)
+	{
+		if (!str_comp(input->token_type, "<PIPE>"))
+			break ;
+		if (!str_comp(input->token_type, "<SPECIAL>"))
+			break ;
+		i++;
+		input = input->next;
+	}
+	return (i);
+}
+
+static void	st_fill_command(t_cmd_table **cmd_table, t_token *input, 
+		int lenght)
+{
+	int	i;
+
+	i = -1;
+	while (++i < lenght)
+	{
+		(*cmd_table)->command->parsed[i] = input->value;
+		input = input->next;
+	}
 }

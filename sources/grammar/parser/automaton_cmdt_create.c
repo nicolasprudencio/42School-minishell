@@ -5,23 +5,23 @@ int	automaton_cmdt_create(t_pushdown_automaton *parse_bot,
 {
 	if (parse_bot->current_state == 1)
 	{
-		if (!automaton_cmd_create(cmd_table, token->value))
+		if (!automaton_cmd_create(cmd_table, token))
 			return (FALSE);
 	}
-//	else if (parse_bot->current_state == 2)
-//	{
-//		if(!automaton_cmd_add(cmd_table, token->value))
+	else if (parse_bot->current_state == 2)
+	{
+		if (!automaton_cmd_create(cmd_table, token))
+			return (FALSE);
+//		if (!automaton_cmd_pipe(cmd_table))
 //			return (FALSE);
-//	}
+	}
 //	else if (parse_bot->current_state == 3)
-		// create new pipe
-//	else if (parse_bot->current_state == 4)
 		// get input from heredoc
-//	else if (parse_bot->current_state == 5)
+//	else if (parse_bot->current_state == 4)
 		// input redirection
-//	else if (parse_bot->current_state == 6)
+//	else if (parse_bot->current_state == 5)
 		// output redirection
-//	else if (parse_bot->current_state == 7)
+//	else if (parse_bot->current_state == 6)
 		// output append
 	return (TRUE);
 }

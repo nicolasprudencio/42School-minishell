@@ -18,7 +18,7 @@ int	automaton_act(t_pushdown_automaton *parse_bot, t_token **input)
 	char	*stack_top = parse_bot->stack->top->as_str;
 
 	act = automaton_find_transition(parse_bot,
-			(*input)->token_type, stack_top);
+			*input, stack_top);
 	automaton_find_state(parse_bot, input);
 	printf("\t\t  | input info\t %s\t%s\n",
 			(*input)->value, (*input)->token_type);
@@ -28,11 +28,7 @@ int	automaton_act(t_pushdown_automaton *parse_bot, t_token **input)
 			act);
 	if (!str_comp((*input)->token_type,
 				parse_bot->stack->top->as_str))
-	{
-		if (parse_bot->current_state == 0 && (*input)->next)
-			parse_bot->current_state = 2;
 		(*input) = (*input)->next;
-	}
 	printf("\t\t  | state\t \033[1m%i\033[0m\n",
 			parse_bot->current_state);
 	if (act != FALSE_INDEX)
