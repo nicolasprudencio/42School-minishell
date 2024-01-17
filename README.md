@@ -10,9 +10,9 @@ for all its utilities the program utilizes a CFG (context-free grammar) and a pu
 
 Defined as a 5-tuple:  
     &Sigma; =    {echo, ls, grep, sed, ...}  
-    &Theta; =    {-}[A -Za - z]\*[0 - 9]\* U {--}([A - Za - z]\*{=, -})* 
+    &Theta; =    {-}[A -Za - z]\*[0 - 9]\* U {--}([A - Za - z]\*{=, -})\*  
     &xi;    =    {"}X[A -Za - z]X{"} U {'}X[A -Za - z]X{'}  
-    &Psi;   =    {|}  
+    &Psi;   =    {|}   
     &lambda;=    {<<,<,>,>>}  
 
 Each element of the tuple contain a set of valid strings that are a part of it.  
@@ -32,19 +32,12 @@ The lexer receives the input string from the readline function, this line will c
 Tokens are classified based on the internal CFG of the SEAshell.  
 
 ## parser;  
+
 The parser will receive the token list from the lexer, then, this list will be interpreted by the automaton, validating a correct input, and, also, creating the list of commands, to be executed.
 The process will open all file descriptors necessary for pipes or file manipulation that will be used during the process of execution.  
 
-## exec;  
-The exec will receive the command table from the parser, then, this table will be executed one by one, using the pre-stabilished file descritors for input and output.  
 
-# Parser functionality;  
-
-The parser will utilize of a pushdown automaton with a finite set of states initialized to parse the desired language to create a command table based on the tokens provided by the lexer.  
-
-If, at any point during parsing of the tokens the automaton find a non-action, or a FALSE_INDEX, the parser will return NULL.  
-
-## The Automaton;  
+### The Automaton;  
 
 The automaton consists of several elements, the states of the automaton act as the modes of operation, it's a set of numbers, each relating to a single mode of operation, the automaton starts in its 'starting state' and wherever it stops operating (reach the end of the input string) it will either be in one of its accepting states or not, if not, the parsing has found an error in the input.  
 The input alphabet of the automaton is a set of all possible inputs it can receive, while its stack alphabet is all possible itens that can exist in its stack, the stack will always start with the automaton's initial symbol on top of it. The stack is a auxiliar tool for the automaton, it allows it to check for its relations.  
@@ -73,4 +66,5 @@ The automaton works duo to a set of functions:
 - automaton_find_transition:  
     This function will loop all the possible transitions the automaton can make, and, when a valid transition is found, return its value, otherwise, if no transition is valid in the situation, FALSE_INDEX will be returned. 
 
-
+## exec;  
+The exec will receive the command table from the parser, then, this table will be executed one by one, using the pre-stabilished file descritors for input and output.  
