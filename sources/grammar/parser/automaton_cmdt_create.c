@@ -12,8 +12,8 @@ int	automaton_cmdt_create(t_pushdown_automaton *parse_bot,
 	{
 		if (!automaton_cmd_create(cmd_table, token))
 			return (FALSE);
-//		if (!automaton_cmd_pipe(cmd_table))
-//			return (FALSE);
+		if (!automaton_cmd_pipe(cmd_table))
+			return (FALSE);
 	}
 //	else if (parse_bot->current_state == 3)
 //	else if (parse_bot->current_state == 4)
