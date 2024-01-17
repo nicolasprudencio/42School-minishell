@@ -1,12 +1,14 @@
 # 42School-minishell
-    This program is a shell enviroment with simple functionalities.  
+This program is a shell enviroment with simple functionalities.  
 
 # structure  
 
-    The shell process is executed following three steps: lexing, parsing and execution; these steps are executed by the lexer, the parser and the exec respectivelly.  
-    for all its utilities the program utilizes a CFG (context-free grammar) and a pushdown automaton created to parse it.  
+The shell process is executed following three steps: lexing, parsing and execution; these steps are executed by the lexer, the parser and the exec respectivelly.  
+for all its utilities the program utilizes a CFG (context-free grammar) and a pushdown automaton created to parse it.  
+
 ## CFG  
-    Defined as a 5-tuple:  
+
+Defined as a 5-tuple:  
     &Sigma =    {echo, ls, grep, sed, ...}  
     &Theta =    {-}[A -Za - z]*  
     &xi    =    {"}X[A -Za - z]X{"} U {'}X[A -Za - z]X{'}  
@@ -16,9 +18,9 @@
 # The flow  
 
 ## lexer; 
-    The lexer receives the input string from the readline function, this line will contain the user input. This input, then, will be segmented into a linked list containing its parts, treated internally as tokens.
+The lexer receives the input string from the readline function, this line will contain the user input. This input, then, will be segmented into a linked list containing its parts, treated internally as tokens.
 
-    Tokens are classified based on the internal CFG (context-free grammar) of the SEAshell.
+Tokens are classified based on the internal CFG (context-free grammar) of the SEAshell.
 
 
 # Parser functionality;  
