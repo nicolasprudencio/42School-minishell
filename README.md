@@ -9,11 +9,11 @@ for all its utilities the program utilizes a CFG (context-free grammar) and a pu
 ## CFG  
 
 Defined as a 5-tuple:  
-    &Sigma =    {echo, ls, grep, sed, ...}  
-    &Theta =    {-}[A -Za - z]*  
-    &xi    =    {"}X[A -Za - z]X{"} U {'}X[A -Za - z]X{'}  
-    &Psi   =    {|}  
-    &lambda=    {<<,<,>,>>}  
+    &Sigma;    =    {echo, ls, grep, sed, ...}  
+    &Theta;    =    {-}[A -Za - z]*  
+    &xi;       =    {"}X[A -Za - z]X{"} U {'}X[A -Za - z]X{'}  
+    &Psi;      =    {|}  
+    &lambda;   =    {<<,<,>,>>}  
 
 # The flow  
 
