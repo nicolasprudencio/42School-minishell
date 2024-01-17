@@ -23,6 +23,27 @@ Aditionally, any &Sigma; that did not start at the very first position on the in
 The fourth element, the &Psi;, contain the pipe simbol, and has special inplications for the parsing process, allowing the recurive loop for multiple commands.  
 The fifth element, the &lambda; (Special), contain all strings that can be interpreted as a special symbol, like heredoc and append.  
 
+# The flow   
+The program is mostly composed of three main processes that happens in a sequence for each input received, the order is essential, considering that the necessary information for the next action will be gathered during the preceding process.  
+
+## lexer;  
+The lexer receives the input string from the readline function, this line will contain the user input. This input, then, will be segmented into a linked list containing its parts, treated internally as tokens.
+
+Tokens are classified based on the internal CFG of the SEAshell.  
+
+## parser;  
+The parser will receive the token list from the lexer, then, this list will be interpreted by the automaton, validating a correct input, and, also, creating the list of commands, to be executed.
+The process will open all file descriptors necessary for pipes or file manipulation that will be used during the process of execution.  
+
+## exec;  
+The exec will receive the command table from the parser, then, this table will be executed one by one, using the pre-stabilished file descritors for input and output.  
+
+# Parser functionality;  
+
+The parser will utilize of a pushdown automaton with a finite set of states initialized to parse the desired language to create a command table based on the tokens provided by the lexer.  
+
+If, at any point during parsing of the tokens the automaton find a non-action, or a FALSE_INDEX, the parser will return NULL.  
+
 ## The Automaton;  
 
 The automaton consists of several elements, the states of the automaton act as the modes of operation, it's a set of numbers, each relating to a single mode of operation, the automaton starts in its 'starting state' and wherever it stops operating (reach the end of the input string) it will either be in one of its accepting states or not, if not, the parsing has found an error in the input.  
@@ -52,26 +73,4 @@ The automaton works duo to a set of functions:
 - automaton_find_transition:  
     This function will loop all the possible transitions the automaton can make, and, when a valid transition is found, return its value, otherwise, if no transition is valid in the situation, FALSE_INDEX will be returned. 
 
-
-
-# The flow   
-The program is mostly composed of three main processes that happens in a sequence for each input received, the order is essential, considering that the necessary information for the next action will be gathered during the preceding process.  
-
-## lexer;  
-The lexer receives the input string from the readline function, this line will contain the user input. This input, then, will be segmented into a linked list containing its parts, treated internally as tokens.
-
-Tokens are classified based on the internal CFG of the SEAshell.  
-
-## parser;  
-The parser will receive the token list from the lexer, then, this list will be interpreted by the automaton, validating a correct input, and, also, creating the list of commands, to be executed.
-The process will open all file descriptors necessary for pipes or file manipulation that will be used during the process of execution.  
-
-## exec;  
-The exec will receive the command table from the parser, then, this table will be executed one by one, using the pre-stabilished file descritors for input and output.  
-
-# Parser functionality;  
-
-The parser will utilize of a pushdown automaton with a finite set of states initialized to parse the desired language to create a command table based on the tokens provided by the lexer.  
-
-If, at any point during parsing of the tokens the automaton find a non-action, or a FALSE_INDEX, the parser will return NULL.  
 
