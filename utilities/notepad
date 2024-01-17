@@ -6,11 +6,8 @@ error when not closing quotes and single quotes:
 
 case study: echo -n jhahahaa askjaskja'
 
-TERMINAL + TERMINAL is a valid input
-
 ---------------------------------------------
 ##VALGRIND:
 
 need to free command table after parsing
 
-history leaking memory, need to check if it should be suppresed or fixed.
