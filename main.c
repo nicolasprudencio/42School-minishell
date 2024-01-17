@@ -34,13 +34,8 @@ int	main(void)
 
 		//parser
 		commands = parser(parse_bot, tokens);
-		if (!commands)
-			perror("\t\t  | -----\033[31mInvalid input\033[0m-----\n");
-		else
-		{
-			printf("\t\t  | -----\033[32m Valid input \033[0m-----\n");
-			put_cmdt(commands);
-		}
+		put_cmdt(commands);
+		automaton_cmdt_destroy(&commands);
 		// exec
 		if (!str_comp(rl_output, "exit"))
 		{

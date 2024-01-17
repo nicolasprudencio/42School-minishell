@@ -21,7 +21,8 @@
 1. new command
 2. pipe to command
 3. pipe to empty
-4. heredoc
-5. input redirection
-6. output redirection
-7. append
+4. invalid here doc
+5. heredoc
+6. input redirection
+7. output redirection
+8. append

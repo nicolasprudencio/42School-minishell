@@ -16,13 +16,11 @@ int	automaton_cmdt_create(t_pushdown_automaton *parse_bot,
 //			return (FALSE);
 	}
 //	else if (parse_bot->current_state == 3)
-		// get input from heredoc
 //	else if (parse_bot->current_state == 4)
-		// input redirection
 //	else if (parse_bot->current_state == 5)
-		// output redirection
 //	else if (parse_bot->current_state == 6)
-		// output append
+//	else if (parse_bot->current_state == 7)
+//	else if (parse_bot->current_state == 8)
 	return (TRUE);
 }
 
