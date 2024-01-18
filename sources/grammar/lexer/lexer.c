@@ -24,7 +24,7 @@ t_token	*lexer(char *line, t_dictionary *dict)
 			token_push_last(&tokens, token_new("|", "<PIPE>"));
 			i++;
 		}
-		else if (is_terminal(dict, &line[i]) != FALSE_INDEX)
+		else if (is_builtin(dict, &line[i]) != FALSE_INDEX)
 			i += st_add_terminal(dict, &tokens, &line[i]);
 		else if (is_flag(&line[i]) != FALSE_INDEX)
 			i += st_add_flag(&tokens, &line[i]);
@@ -40,7 +40,7 @@ static int	st_add_terminal(t_dictionary *dict, t_token **tokens, char *line)
 {
 	int	hold;
 
-	hold = is_terminal(dict, line);
+	hold = is_builtin(dict, line);
 	if (hold != FALSE_INDEX)
 	{
 		token_push_last(tokens,

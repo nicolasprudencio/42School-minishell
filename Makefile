@@ -5,7 +5,7 @@ M_FLAGS		=	-Wall -Wextra -Werror
 D_FLAGS		=	-g3 -ggdb
 FLAGS		=	$(M_FLAGS) $(D_FLAGS)
 
-UTILS		=	char_exists.c is_terminal.c is_flag.c str_is_enclosed.c env_expand_variables.c str_comp_upto.c str_comp_until.c str_len_until.c environment.c
+UTILS		=	char_exists.c is_terminal.c is_flag.c str_is_enclosed.c env_expand_variables.c str_comp_upto.c str_comp_until.c str_len_until.c environment.c is_builtin.c
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
 LEXER_SRCS	=	lexer.c token_new.c put_token.c token_push_last.c

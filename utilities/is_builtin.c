@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_echo.c                                        :+:      :+:    :+:   */
+/*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 17:34:33 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/16 15:36:24 by nprudenc         ###   ########.fr       */
+/*   Created: 2024/01/17 17:26:43 by nprudenc          #+#    #+#             */
+/*   Updated: 2024/01/17 17:27:28 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-int	exec_echo(char **str, int flag, int fd)
+int	is_builtin(t_dictionary *dict, char *line)
 {
-	int			i;
-	// t_lst	*aux;
+	int	i;
 
-	// if (aux)
-	// 	while (aux)
-	// 	{	
-	// 		if (str_ncmp())
-	// 		aux = aux->next;
-	// 	}
 	i = -1;
-	while (str[++i])
-		if (flag == FALSE)
-			put_endl(str[i], fd);
-		else
-			put_str(str[i], fd);
-	return (TRUE);
+	while (dict->terminals[++i])
+	{
+		if (!str_comp_upto(line, dict->terminals[i], ' '))
+			return (i);
+		else if (!str_comp_upto(line, dict->terminals[i], '|'))
+			return (i);
+	}
+	return (FALSE_INDEX);
 }

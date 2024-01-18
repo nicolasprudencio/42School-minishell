@@ -6,17 +6,17 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 16:48:14 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/12 17:13:55 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:36:24 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-int	exec_unset(t_env_lst **lst, char *var)
+int	exec_unset(t_lst **lst, char *var)
 {
-	t_env_lst	*aux;
-	t_env_lst	*head;
-	t_env_lst	*next;
+	t_lst	*aux;
+	t_lst	*head;
+	t_lst	*next;
 	
 	aux = *lst;
 	head = *lst;

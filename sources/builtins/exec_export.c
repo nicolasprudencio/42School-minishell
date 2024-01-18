@@ -6,16 +6,16 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:14:33 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/15 14:52:21 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:36:24 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-static int	st_to_replace(t_env_lst	**lst, char *var)
+static int	st_to_replace(t_lst	**lst, char *var)
 {
-	t_env_lst *aux;
-	t_env_lst *temp;
+	t_lst *aux;
+	t_lst *temp;
 
 	aux = *lst;
 	temp = *lst;
@@ -32,9 +32,9 @@ static int	st_to_replace(t_env_lst	**lst, char *var)
 	return (FALSE);
 }
 
-int	exec_export(t_env_lst *lst, char *var, int fd)
+int	exec_export(t_lst *lst, char *var, int fd)
 {
-	t_env_lst	*aux;
+	t_lst	*aux;
 
 	aux = lst;
 	if (var)

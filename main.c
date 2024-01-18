@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:37:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/15 19:57:42 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/17 18:20:24 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **env)
 	t_token	*tokens;
 	t_cmd_table	*commands;
 	t_pushdown_automaton	*parse_bot;
-	t_env_lst	*env_lst;
+	t_lst	*env_lst;
 
 	dictionary = grammar_new();
 	parse_bot = automaton_new(dictionary);
@@ -41,14 +41,15 @@ int	main(int argc, char **argv, char **env)
 	{
 		rl_output = readline("SEAshell~ ");
 		add_history(rl_output);
+		is_terminal(env_lst, rl_output);
 		tokens = lexer(rl_output, dictionary);
 
 		//parser
 		commands = parser(parse_bot, tokens);
 		if (str_comp(rl_output, "heredoc") == 0)
-			here_doc(env_lst, "eof", 1);
+			heredoc(env_lst, "eof", 1);
 		if (!commands)
-			perror("Invalid input\n");
+			printf("Invalid input\n");
 
 		// exec
 		if (!str_comp(rl_output, "exit"))

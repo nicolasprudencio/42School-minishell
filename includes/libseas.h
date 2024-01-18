@@ -14,19 +14,20 @@
 # include <readline/history.h>
 
 int	char_exists(char *s, int c);
-int	is_terminal(t_dictionary *language, char *line);
+int	is_builtin(t_dictionary *dict, char *line);
+int	is_terminal(t_lst *env_lst, char *line);
 int	is_flag(char *line);
 int	str_is_enclosed(char *line, int c);
 int	str_comp_upto(char *str1, char *str2, char end);
 int str_comp_until(char *str1, char *str2, int c);
 int	str_len_until(char	*s, int c);
-char	*env_expand_variables(char	*line, t_env_lst *lst);
+char	*env_expand_variables(char	*line, t_lst *lst);
 
 t_stack	*stack_new();
 void	stack_push(t_stack *stack, char *content);
 void	stack_rpush_tab(t_stack* stack, char **input);
 void	stack_pop(t_stack *stack);
 
-void	here_doc(t_env_lst *lst, char *eof, int fd);
+void	heredoc(t_lst *lst, char *eof, int fd);
 
 #endif

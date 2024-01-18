@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:05:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/16 20:00:30 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:11:14 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,24 +59,52 @@
 // 	return (arr);
 // }
 
-// static char	**str_split_bytwo(char *str, char c, char c2)
+// int	fp_is_count(char *str, int (*is)(int))
 // {
-// 	int		i;
-// 	char	**arr;
-// 	int		index_len;
+// 	int	i;
+// 	int	output;
 
+// 	if (!str)
+// 		return (0);
+// 	output = 0;
 // 	i = -1;
-// 	index_len = chars_count(str, c, c2) + 1;
-// 	if (str[0] == c || str[0] == c2)
-// 		index_len--;
-// 	if (str[str_len(str) - 1] == c || str[str_len(str) - 1] == c2)
-// 		index_len--;
-// 	arr = (char **)mem_calloc(index_len, sizeof (char *));
-// 	if (!arr)
+// 	while (str[++i])
+// 	{
+// 		if (is(str[i]))
+// 			output++;
+// 	}
+// 	return (output);
+// }
+
+
+
+// static char	**str_split_is(char *str, int (*is)(int))
+// {
+// 	char	**output;
+// 	char		*p;
+// 	int			grid_size;
+// 	int			i;
+
+// 	if (!str)
 // 		return (NULL);
-// 	arr = arr_define(str, arr, c, c2);
-// 	arr[index_len] = "\0";
-// 	return (arr);
+// 	grid_size = fp_is_count(str, is) + 1;
+// 	if (is(str[0]))
+// 		grid_size--;
+// 	if (is(str[str_len(str) - 1]))
+// 		grid_size--;
+// 	output = (char **)mem_calloc(grid_size + 1, sizeof(char *));
+// 	if (!output)
+// 		return (NULL);
+// 	p = (char *)str;
+// 	i = -1;
+// 	while (++i < grid_size)
+// 	{
+// 		while (p && is(str[i]))
+// 			p++;
+// 		output[i] = str_copy_upto(p, c);
+// 		p = str_find_char(p, c, 0);
+// 	}
+// 	return (output);
 // }
 
 // static int	change_var_value(char **line, t_lst *lst)
@@ -138,6 +166,36 @@
 // 	return (NULL);
 // }
 
+char	*check_variable(char *line)
+{
+	int		i;
+	char	*var;
+
+	i = -1;
+	var = NULL;
+	while (line[++i])
+	{
+		if (line[i] == '$')
+		{	
+			if (str_len_until(&line[i + 1], ' ') != FALSE_INDEX)
+				var = str_ndup(&line[i + 1], str_len_until(&line[i + 1], ' '));
+			else if (str_len_until(&line[i + 1], '\n') != FALSE_INDEX)
+				var = str_ndup(&line[i + 1], str_len_until(&line[i + 1], '\n'));
+			else if (str_len_until(&line[i + 1], '\t') != FALSE_INDEX)
+				var = str_ndup(&line[i + 1], str_len_until(&line[i + 1], '\t'));
+			else if (str_len_until(&line[i + 1], '\r') != FALSE_INDEX)
+				var = str_ndup(&line[i + 1], str_len_until(&line[i + 1], '\r'));
+			else if (str_len_until(&line[i + 1], '\v') != FALSE_INDEX)
+				var = str_ndup(&line[i + 1], str_len_until(&line[i + 1], '\v'));
+			else if (str_len_until(&line[i + 1], '\f') != FALSE_INDEX)
+				var = str_ndup(&line[i + 1], str_len_until(&line[i + 1], '\f'));	
+			else
+				var = str_ndup(&line[i + 1], str_len_until(&line[i + 1], '\0'));
+		}
+	}
+	return (var);
+}
+
 char	*env_expand_variables(char *line, t_lst *lst)
 {
 	t_lst	*aux;
@@ -145,25 +203,20 @@ char	*env_expand_variables(char *line, t_lst *lst)
 	int		i;
 
 	aux = lst;
+	var = NULL;
 	i = -1;
-	while (line[++i])
+	var = check_variable(line);
+	if (var)
 	{
-		if (line[i] == '$')
-		{	
-			if (str_len_until(&line[i + 1], ' ') != FALSE_INDEX)
-				var = str_ndup(&line[i + 1], str_len_until(&line[i + 1], ' '));
-			else
-				var = str_ndup(&line[i + 1], str_len_until(&line[i + 1], '\0'));
+		while (aux)
+		{
+			if (str_comp_until(aux->value, var, '=') == TRUE)
+			{	
+				free(var);
+				return (str_find_char(aux->value, '=', 1));
+			}
+			aux = aux->next;
 		}
-	}
-	while (aux)
-	{
-		if (str_comp_until(aux->value, var, '=') == TRUE)
-		{	
-			free(var);
-			return (str_find_char(aux->value, '=', 1));
-		}
-		aux = aux->next;
 	}
 	return (NULL);
 }
