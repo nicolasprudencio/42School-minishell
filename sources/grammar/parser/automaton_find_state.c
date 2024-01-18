@@ -13,11 +13,13 @@ void	automaton_find_state(t_pushdown_automaton *parse_bot,
 		parse_bot->current_state = PIPE_TO_CMD;
 	else if (st_pipe_validate(parse_bot, input))
 		parse_bot->current_state = PIPE_EMPTY;
-	else if (!str_comp((*input)->token_type, "<SPECIAL>"))
+	else if (!str_comp((*input)->token_type, "<SPECIAL>")
+			&& !str_comp(parse_bot->stack->top->as_str,
+				"<SPECIAL>"))
 	{
-		if (!(*input)->next || str_comp((*input)->next->value,
-					"<STRING>"))
-			parse_bot->current_state = HEREDOC_WRONG;
+		if (!((*input)->next && !str_comp((*input)->next->token_type,
+					"<STRING>")))
+			parse_bot->current_state = INVALID_REDIR;
 		else if (!str_comp((*input)->value, "<<"))
 			parse_bot->current_state = HEREDOC;
 		else if (!str_comp((*input)->value, "<"))

@@ -57,6 +57,8 @@ int		automaton_cmdt_create(t_pushdown_automaton *parse_bot,
 void		automaton_cmdt_destroy(t_cmd_table **cmd_table);
 
 int		automaton_cmd_pipe(t_cmd_table **cmd_table);
+int		automaton_cmd_iredir(t_cmd_table **cmd_table, t_token *token);
+int		automaton_cmd_oredir(t_cmd_table **cmd_table, t_token *token);
 
 int		automaton_cmd_create(t_cmd_table **cmd_table, t_token *token);
 

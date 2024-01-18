@@ -32,5 +32,19 @@ static int	st_redirect_io(int state, t_cmd_table **cmd_table,
 		if (!automaton_cmd_pipe(cmd_table))
 			return (FALSE);
 	}
+//	else if (state == PIPE_EMPTY)
+//	{
+//		
+//	}
+	else if (state == INPUT_REDIR)
+	{
+		if (!automaton_cmd_iredir(cmd_table, token))
+			return (FALSE);
+	}
+	else if (state == OUTPUT_REDIR)
+	{
+		if (!automaton_cmd_oredir(cmd_table, token))
+			return (FALSE);
+	}
 	return (TRUE);
 }

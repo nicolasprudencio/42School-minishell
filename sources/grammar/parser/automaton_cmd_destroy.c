@@ -8,7 +8,6 @@ void	automaton_cmdt_destroy(t_cmd_table **cmd_table)
 	if (!(*cmd_table))
 		return ;
 	aux1 = (*cmd_table);
-	printf("freeing command\n");
 	while (aux1)
 	{
 		if (aux1->command)
