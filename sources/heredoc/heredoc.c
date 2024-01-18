@@ -6,13 +6,13 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:43:53 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/18 12:14:05 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:35:32 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-void	out_doc_lst(t_lst **doc_lst, int fd)
+static void	out_doc_lst(t_lst **doc_lst, int fd)
 {
 	t_lst	*aux;
 	
@@ -49,16 +49,12 @@ static int	st_find_size(char *line, char *var_value)
 	return (str_len(line));
 }
 
-char 	*replace_var(char *line, char *var_value)
-{	
-	int		i;
-	int		j;
-	int		k;
-	int		size;
-	char	*out;
+static void	st_replace_var(char *line, char *output, char *var_value)
+{
+	int	i;
+	int	j;
+	int	k;
 
-	size = st_find_size(line, var_value);
-	out = mem_calloc(size + 1, sizeof(char));
 	i = -1;
 	j = -1;
 	k = 0;
@@ -69,35 +65,45 @@ char 	*replace_var(char *line, char *var_value)
 			k = i;
 			while (var_value[++j])
 			{
-				out[k] = var_value[j];
+				output[k] = var_value[j];
 				k++;
 			}
-			while (line[i] != '\0' && line[i] != ' ')
+			while (line[i] != '\0' && line[i] != ' ' && line[i] != '\\')
 				i++;
-			k = str_len(out);	
+			k = str_len(output);
 		}
-		out[k++] = line[i];
+		output[k++] = line[i];
 	}
-	out[k] = '\0';
+	output[k] = '\0';
+}
+
+static char	*st_validate_var(char *line, char *var_value)
+{
+	int		size;
+	char	*output;
+
+	size = st_find_size(line, var_value);
+	output = mem_calloc(size + 1, sizeof(char));
+	st_replace_var(line, output, var_value);
 	free(line);
-	return (out);
+	return (output);
 }
 
 void	heredoc(t_lst *env_lst, char *eof, int fd)
 {
 	char		*line;
 	char		*env_var;
-	t_lst		*aux;
 	t_lst		*doc_lst;
 	
 	doc_lst = NULL;
 	while (1)
 	{
-		aux = env_lst;
 		line = readline("> ");
-		env_var = env_expand_variables(str_find_char(line, '$', 0), env_lst);
+		env_var = env_expand_variables(line, env_lst);
 		if (env_var)
-			line = replace_var(line, env_var);
+			line = st_validate_var(line, env_var);
+		else
+			line = st_validate_var(line, " ");
 		if (str_comp(line, eof) == 0)
 		{	
 			free(line);
