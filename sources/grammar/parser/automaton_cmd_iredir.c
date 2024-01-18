@@ -18,6 +18,8 @@ int	automaton_cmd_iredir(t_cmd_table **cmd_table, t_token *token)
 		printf("SEAshell: %s: Permission denied\n", path);
 		return (FALSE);
 	}
+	if (last->command->io[STDIN_FILENO] != STDIN_FILENO)
+		close(last->command->io[STDIN_FILENO]);
 	last->command->io[STDIN_FILENO] = open(path, O_RDONLY);
 	if (!last->command->io[STDIN_FILENO])
 	{

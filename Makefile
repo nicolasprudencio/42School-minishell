@@ -16,7 +16,7 @@ PARSE_SRCS	:=	$(addprefix sources/grammar/parser/, $(PARSE_SRCS))
 
 AUT_SRCS	=	act.c astates.c find_transition.c new.c transition_relation.c find_command.c
 AUT_SRCS	+=	restart_stack.c find_state.c cmdt_create.c cmd_create.c cmd_add.c cmd_last.c
-AUT_SRCS	+=	cmd_destroy.c cmd_pipe.c cmd_iredir.c cmd_oredir.c
+AUT_SRCS	+=	cmdt_destroy.c cmd_pipe.c cmd_iredir.c cmd_oredir.c cmd_append.c
 AUT_SRCS	:=	$(addprefix sources/grammar/parser/automaton_, $(AUT_SRCS))
 
 GRAM_SRCS	=	define_production.c define_terminals.c define_variables.c new.c 

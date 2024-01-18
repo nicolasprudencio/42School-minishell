@@ -1,6 +1,6 @@
 #include "libseas.h"
 
-int	automaton_cmd_oredir(t_cmd_table **cmd_table, t_token *token)
+int	automaton_cmd_append(t_cmd_table **cmd_table, t_token *token)
 {
 	t_cmd_table	*last;
 	char	*path;
@@ -21,7 +21,7 @@ int	automaton_cmd_oredir(t_cmd_table **cmd_table, t_token *token)
 	}
 	if (last->command->io[STDOUT_FILENO] != STDOUT_FILENO)
 		close(last->command->io[STDIN_FILENO]);
-	last->command->io[STDOUT_FILENO] = open(path, O_WRONLY | O_TRUNC);
+	last->command->io[STDOUT_FILENO] = open(path, O_WRONLY | O_APPEND);
 	printf("\t\t  | opened fd: %li for file %s\n",
 			last->command->io[STDOUT_FILENO], path);
 	if (!last->command->io[STDOUT_FILENO])

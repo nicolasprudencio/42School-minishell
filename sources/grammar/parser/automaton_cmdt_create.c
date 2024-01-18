@@ -46,5 +46,10 @@ static int	st_redirect_io(int state, t_cmd_table **cmd_table,
 		if (!automaton_cmd_oredir(cmd_table, token))
 			return (FALSE);
 	}
+	else if (state == APPEND)
+	{
+		if (!automaton_cmd_append(cmd_table, token))
+			return (FALSE);
+	}
 	return (TRUE);
 }
