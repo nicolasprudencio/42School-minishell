@@ -2,6 +2,7 @@
 
 static int	st_redirect_io(int state, t_cmd_table **cmd_table,
 		t_token *token);
+static int	st_heredoc(int state, t_cmd_table **cmd_table, t_token *token);
 
 int	automaton_cmdt_create(t_pushdown_automaton *parse_bot,
 		t_cmd_table **cmd_table, t_token *token)
@@ -13,12 +14,8 @@ int	automaton_cmdt_create(t_pushdown_automaton *parse_bot,
 	}
 	if (!(st_redirect_io(parse_bot->current_state, cmd_table, token)))
 		return (FALSE);
-//	else if (parse_bot->current_state == 3)
-//	else if (parse_bot->current_state == 4)
-//	else if (parse_bot->current_state == 5)
-//	else if (parse_bot->current_state == 6)
-//	else if (parse_bot->current_state == 7)
-//	else if (parse_bot->current_state == 8)
+	if (!st_heredoc(parse_bot->current_state, cmd_table, token))
+		return (FALSE);
 	return (TRUE);
 }
 
@@ -32,10 +29,6 @@ static int	st_redirect_io(int state, t_cmd_table **cmd_table,
 		if (!automaton_cmd_pipe(cmd_table))
 			return (FALSE);
 	}
-//	else if (state == PIPE_EMPTY)
-//	{
-//		
-//	}
 	else if (state == INPUT_REDIR)
 	{
 		if (!automaton_cmd_iredir(cmd_table, token))
@@ -50,6 +43,37 @@ static int	st_redirect_io(int state, t_cmd_table **cmd_table,
 	{
 		if (!automaton_cmd_append(cmd_table, token))
 			return (FALSE);
+	}
+	return (TRUE);
+}
+
+static int	st_heredoc(int state, t_cmd_table **cmd_table, t_token *token)
+{
+	t_cmd_table	*last;
+
+	automaton_cmd_last(&last, cmd_table);
+	if (state == HEREDOC)
+	{
+		if (last->command->io[STDIN_FILENO] != STDIN_FILENO)
+			close(last->command->io[STDIN_FILENO]);
+		last->command->io[STDIN_FILENO] = FD_HEREDOC;
+	}
+	else if (state == INVALID_REDIR)
+	{
+		if (!token)
+		{
+			printf("SEAshell: %s '%s'\n",
+					"Syntax error near unexpected token:",
+					"newline");
+		}
+		else
+		{
+			printf("SEAshell: %s '%s'\n",
+					"Syntax error near unexpected token:",
+					token->value);
+		}
+		last->command->parsed[0] = "(Invalid)";
+		return (FALSE);
 	}
 	return (TRUE);
 }

@@ -2,6 +2,7 @@
 # define LIBSEAS_H
 
 # define FALSE_INDEX -1
+# define FD_HEREDOC -3
 
 # include "libfpp.h"
 
@@ -12,6 +13,9 @@
 
 # include <readline/readline.h>
 # include <readline/history.h>
+
+
+int	core(t_pushdown_automaton *parse_bot, char * prompt, int fd);
 
 int	is_terminal(t_dictionary *language, char *line);
 int	is_flag(char *line);

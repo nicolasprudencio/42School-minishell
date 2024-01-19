@@ -19,7 +19,7 @@ t_relation	*automaton_transition_relation(void)
 {
 	t_relation	*output;
 
-	output = (t_relation *)mem_calloc(18, sizeof(t_relation));
+	output = (t_relation *)mem_calloc(19, sizeof(t_relation));
 	if (!output)
 		return (NULL);
 	output[0] = (t_relation){"<TERMINAL>", "<COMMAND>"};
@@ -51,6 +51,7 @@ static void	st_validate_to_null(t_relation *input)
 	input[14] = (t_relation){"<PIPE>", "<FLAG>"};
 	input[15] = (t_relation){"<PIPE>", "<ARGUMENT>"};
 	input[16] = (t_relation){"<PIPE>", "<SPECIAL>"};
+	input[17] = (t_relation){"<PIPE>", "<STRING>"};
 
 }
 

@@ -26,7 +26,6 @@ typedef struct	s_pushdown_automaton
 	t_relation	*transition;
 	int	starting_state;
 	char	*initial_symbol;
-	int	*accepting_states;
 	t_stack	*stack;
 	t_dictionary	*language;
 }	t_pushdown_automaton;
@@ -35,7 +34,7 @@ t_cmd_table	*parser(t_pushdown_automaton *robot, t_token *tokens);
 
 // automaton control
 // 	create / destroy
-t_pushdown_automaton	*automaton_new(t_dictionary *language);
+t_pushdown_automaton	*automaton_new(void);
 void	automaton_destroy(t_pushdown_automaton *robot);
 
 int		*automaton_astates(void);

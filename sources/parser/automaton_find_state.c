@@ -30,7 +30,7 @@ void	automaton_find_state(t_pushdown_automaton *parse_bot,
 			parse_bot->current_state = APPEND;
 	}
 	else
-		parse_bot->current_state = 0;
+		parse_bot->current_state = STD_NULL;
 }
 
 static int	st_pipe_validate(t_pushdown_automaton *parse_bot, 

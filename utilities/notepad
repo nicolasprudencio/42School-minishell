@@ -6,6 +6,8 @@ error when not closing quotes and single quotes:
 
 case study: echo -n jhahahaa askjaskja'
 
+< test | echo
+
 ---------------------------------------------
 ##VALGRIND:
 

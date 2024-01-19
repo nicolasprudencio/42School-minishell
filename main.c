@@ -12,6 +12,20 @@
 
 #include "libseas.h"
 
+int	main(void)
+{
+	t_pushdown_automaton *parse_bot;
+
+	parse_bot = automaton_new();
+	while (1)
+	{
+		if (!core(parse_bot, "SEAshell~ ", STDIN_FILENO))
+			break ;
+	}
+	automaton_destroy(parse_bot);
+}
+
+/*
 static void	st_parse_bot_display_productions(t_pushdown_automaton *parse_bot);
 static void	st_parse_bot_display(void);
 
@@ -107,3 +121,4 @@ static void	st_parse_bot_display_productions(t_pushdown_automaton *parse_bot)
 		printf("_");
 	printf("\n");
 }
+*/

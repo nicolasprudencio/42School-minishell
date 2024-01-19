@@ -17,12 +17,12 @@
 
 #automaton states:
 
-0. do nothing		OK
+0. std \ nothing	OK
 1. new command		OK
 2. pipe to command	OK
-3. pipe to empty	
-4. invalid here doc	
-5. heredoc		
+3. pipe to empty	OK
+4. invalid here doc	OK
+5. heredoc		OK
 6. input redirection	OK
 7. output redirection	OK
 8. append		OK

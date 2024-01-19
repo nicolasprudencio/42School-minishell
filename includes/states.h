@@ -1,7 +1,7 @@
 #ifndef STATES_H
 #define STATES_H
 
-# define DO_NOTHING 0
+# define STD_NULL 0
 # define NEW_CMD 1
 # define PIPE_TO_CMD 2
 # define PIPE_EMPTY 3

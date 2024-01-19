@@ -14,8 +14,8 @@ void	automaton_cmdt_destroy(t_cmd_table **cmd_table)
 	{
 		if (aux1->command)
 		{
-			free(aux1->command->parsed);
 			st_close_io(&aux1);
+			free(aux1->command->parsed);
 			free(aux1->command);
 		}
 		aux2 = aux1;
