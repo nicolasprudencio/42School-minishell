@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 10:44:14 by fpolaris          #+#    #+#             */
-/*   Updated: 2024/01/17 20:27:18 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:42:51 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	is_terminal(t_lst *env_lst, char *line)
 			return (TRUE);
 		}
 	}
-	i = -1;
 	grid_free(paths);
 	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 18:48:24 by nicolas           #+#    #+#             */
-/*   Updated: 2024/01/16 15:36:24 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:46:40 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_lst	*new_lst(char **variables)
 	i = -1;
 	lst = NULL;
 	while (variables[++i])
-		lst_add_back(&lst ,lst_new(variables[i]));
+		lst_add_back(&lst, lst_new(variables[i]));
 	return (lst);	
 }
 
@@ -70,5 +70,4 @@ void	clear_lst(t_lst **lst)
 		free(aux);
 		aux = temp;
 	}
-	// free(lst);
 }
