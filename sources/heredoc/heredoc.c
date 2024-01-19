@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:43:53 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/18 17:35:32 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:24:28 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	out_doc_lst(t_lst **doc_lst, int fd)
 		put_char('\n', fd);
 		aux = aux->next;
 	}
-	clear_lst(doc_lst);
 }
 
 static int	st_find_size(char *line, char *var_value)
@@ -70,11 +69,12 @@ static void	st_replace_var(char *line, char *output, char *var_value)
 			}
 			while (line[i] != '\0' && line[i] != ' ' && line[i] != '\\')
 				i++;
+			if (!line[i])
+				return ;
 			k = str_len(output);
 		}
 		output[k++] = line[i];
 	}
-	output[k] = '\0';
 }
 
 static char	*st_validate_var(char *line, char *var_value)
@@ -94,7 +94,7 @@ void	heredoc(t_lst *env_lst, char *eof, int fd)
 	char		*line;
 	char		*env_var;
 	t_lst		*doc_lst;
-	
+
 	doc_lst = NULL;
 	while (1)
 	{
@@ -113,4 +113,5 @@ void	heredoc(t_lst *env_lst, char *eof, int fd)
 		free(line);
 	}
 	out_doc_lst(&doc_lst, fd);
+	clear_lst(&doc_lst);
 }

@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:05:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/18 17:03:19 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:24:32 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ char	*env_expand_variables(char *line, t_lst *lst)
 {
 	t_lst	*aux;
 	char	*var;
-	int		i;
 
 	aux = lst;
-	var = NULL;
-	i = -1;
 	var = check_variable(line);
 	if (var)
 	{
