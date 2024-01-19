@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_builtin.c                                       :+:      :+:    :+:   */
+/*   exec_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 17:26:43 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/17 17:27:28 by nprudenc         ###   ########.fr       */
+/*   Created: 2023/12/29 15:49:27 by nicolas           #+#    #+#             */
+/*   Updated: 2024/01/16 15:36:24 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-int	is_builtin(t_dictionary *dict, char *line)
-{
-	int	i;
+void	exec_env(t_llist *llist, int fd)
+{	
+	t_llist	*aux;
+	int			i;
 
 	i = -1;
-	while (dict->terminals[++i])
+	aux = llist;
+	while (aux)
 	{
-		if (!str_comp_upto(line, dict->terminals[i], ' '))
-			return (i);
-		else if (!str_comp_upto(line, dict->terminals[i], '|'))
-			return (i);
+		if (char_exists(aux->value, '='))
+			put_endl(aux->value, fd);
+		aux = aux->next;
 	}
-	return (FALSE_INDEX);
 }

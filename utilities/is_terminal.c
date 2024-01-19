@@ -12,9 +12,9 @@
 
 #include "libseas.h"
 
-static char	*st_find_path_variable(t_lst *env_lst)
+static char	*st_find_path_variable(t_llist *env_lst)
 {
-	t_lst	*aux;
+	t_llist	*aux;
 	char	*var;
 	char	*var_value;
 
@@ -35,7 +35,7 @@ static char	*st_find_path_variable(t_lst *env_lst)
 	return (NULL);
 }
 
-int	is_terminal(t_lst *env_lst, char *line)
+int	is_terminal(t_llist *env_lst, char *line)
 {	
 	char	*path_value;
 	char	**paths;
@@ -54,6 +54,36 @@ int	is_terminal(t_lst *env_lst, char *line)
 		paths[i] = str_join(paths[i], line, 1);		
 		if (access(paths[i], X_OK) == 0)
 		{
+			grid_free(paths);
+			return (TRUE);
+		}
+	}
+	i = -1;
+	grid_free(paths);
+	return (FALSE);
+}
+
+int	is_terminal2(t_llist *env_lst, char **line)
+{	
+	char	*path_value;
+	char	**paths;
+	int		i;
+
+	if (access(*line, X_OK) == 0)
+		return (TRUE);
+	path_value = st_find_path_variable(env_lst);
+	if (!path_value)
+		return (FALSE);
+	paths = str_split(path_value, ':');
+	i = -1;
+	while (paths[++i])
+	{
+		paths[i] = str_join(paths[i], "/", 1);
+		paths[i] = str_join(paths[i], *line, 1);		
+		if (access(paths[i], X_OK) == 0)
+		{
+			free(*line);
+			*line = str_dup(paths[i]);
 			grid_free(paths);
 			return (TRUE);
 		}

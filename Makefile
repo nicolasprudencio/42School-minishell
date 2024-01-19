@@ -9,6 +9,7 @@ CORE		=	core.c
 CORE		:=	$(addprefix sources/, $(CORE))
 
 UTILS		=	is_builtin.c is_flag.c str_is_enclosed.c str_comp_upto.c put_cmdt.c
+UTILS		+=	char_exists.c str_comp_until.c str_len_until.c is_terminal.c
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
 LEXER_SRCS	=	lexer.c token_new.c put_token.c token_push_last.c token_last_is_pipe.c
@@ -25,11 +26,15 @@ AUT_SRCS	:=	$(addprefix sources/parser/automaton_, $(AUT_SRCS))
 GRAM_SRCS	=	define_production.c define_terminals.c define_variables.c new.c 
 GRAM_SRCS	:=	$(addprefix sources/grammar_definitions/grammar_,$(GRAM_SRCS))
 
+EXEC_SRCS	=	.c _cd.c _echo.c _env.c _export.c _pwd.c _unset.c
+EXEC_SRCS	:=	$(addprefix sources/exec/exec, $(EXEC_SRCS))
+
 OBJS_DIR	=	objects
 OBJS		=	$(addprefix $(OBJS_DIR)/, $(CORE:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(GRAM_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(LEXER_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(PARSE_SRCS:.c=.o))
+OBJS		+=	$(addprefix $(OBJS_DIR)/, $(EXEC_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(AUT_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(UTILS:.c=.o))
 

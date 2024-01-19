@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_builtin.c                                       :+:      :+:    :+:   */
+/*   exec_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 17:26:43 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/17 17:27:28 by nprudenc         ###   ########.fr       */
+/*   Created: 2023/12/29 15:05:16 by nicolas           #+#    #+#             */
+/*   Updated: 2024/01/11 16:10:02 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-int	is_builtin(t_dictionary *dict, char *line)
+int	get_pwd()
 {
-	int	i;
+	char	buf[1024];
 
-	i = -1;
-	while (dict->terminals[++i])
+	if (getcwd(buf, sizeof(buf)) != NULL)
 	{
-		if (!str_comp_upto(line, dict->terminals[i], ' '))
-			return (i);
-		else if (!str_comp_upto(line, dict->terminals[i], '|'))
-			return (i);
+		printf("%s\n", buf);
+		return (TRUE);
 	}
-	return (FALSE_INDEX);
+	return (FALSE);
 }

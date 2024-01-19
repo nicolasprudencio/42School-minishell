@@ -12,11 +12,14 @@
 
 #include "libseas.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_pushdown_automaton *parse_bot;
 
-	parse_bot = automaton_new();
+	if (argc != 1)
+		return (FALSE);
+	(void)argv;
+	parse_bot = automaton_new(envp);
 	while (1)
 	{
 		if (!core(parse_bot, "SEAshell~ ", STDIN_FILENO))

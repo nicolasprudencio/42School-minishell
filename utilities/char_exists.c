@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_builtin.c                                       :+:      :+:    :+:   */
+/*   char_exists.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 17:26:43 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/17 17:27:28 by nprudenc         ###   ########.fr       */
+/*   Created: 2024/01/12 18:21:35 by nprudenc          #+#    #+#             */
+/*   Updated: 2024/01/12 18:22:48 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-int	is_builtin(t_dictionary *dict, char *line)
+int	char_exists(char *s, int c)
 {
 	int	i;
 
 	i = -1;
-	while (dict->terminals[++i])
+	while (s[++i])
 	{
-		if (!str_comp_upto(line, dict->terminals[i], ' '))
-			return (i);
-		else if (!str_comp_upto(line, dict->terminals[i], '|'))
-			return (i);
+		if (s[i] == c)
+			return (TRUE);
 	}
-	return (FALSE_INDEX);
+	return (FALSE);
 }

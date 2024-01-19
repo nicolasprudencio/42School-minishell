@@ -12,7 +12,7 @@
 
 #include "libseas.h"
 
-t_pushdown_automaton	*automaton_new(void)
+t_pushdown_automaton	*automaton_new(char **env)
 {
 	t_pushdown_automaton	*parse_bot;
 
@@ -25,6 +25,7 @@ t_pushdown_automaton	*automaton_new(void)
 	parse_bot->initial_symbol = str_dup("<COMMAND>");
 	parse_bot->stack = stck_empty('A');
 	stck_push_str(parse_bot->stack, parse_bot->initial_symbol);
+	parse_bot->env_list = ll_new(env);
 	return (parse_bot);
 }
 
@@ -37,5 +38,6 @@ void	automaton_destroy(t_pushdown_automaton *parse_bot)
 	free(parse_bot->transition);
 	free(parse_bot->initial_symbol);
 	stck_rmv(parse_bot->stack);
+	ll_clear(&parse_bot->env_list);
 	free(parse_bot);
 }

@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_builtin.c                                       :+:      :+:    :+:   */
+/*   str_comp_until.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 17:26:43 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/17 17:27:28 by nprudenc         ###   ########.fr       */
+/*   Created: 2024/01/12 16:42:18 by nprudenc          #+#    #+#             */
+/*   Updated: 2024/01/18 18:37:26 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-int	is_builtin(t_dictionary *dict, char *line)
+int	str_comp_until(char *str1, char *str2, int c)
 {
 	int	i;
 
 	i = -1;
-	while (dict->terminals[++i])
-	{
-		if (!str_comp_upto(line, dict->terminals[i], ' '))
-			return (i);
-		else if (!str_comp_upto(line, dict->terminals[i], '|'))
-			return (i);
-	}
-	return (FALSE_INDEX);
+	if (!str1 || !str2)
+		return (FALSE);
+	while (str1[++i] && str2[i] && str1[i] != c)
+		if (str1[i] != str2[i])
+			return (FALSE);
+	if ((str1[i] == c && str2[i] == '\0') ||
+			(str1[i] == c && str2[i] == c) ||
+				(str1[i] == c && str2[i] == '='))
+		return (TRUE);
+	return (FALSE);	
 }

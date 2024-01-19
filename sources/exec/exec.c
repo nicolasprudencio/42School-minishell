@@ -12,32 +12,53 @@
 
 #include "libseas.h"
 
+static int	st_child_process(t_cmd_table *cmd_table, 
+		t_pushdown_automaton * parse_bot);
+
 int	exec(t_cmd_table **cmd_table, t_pushdown_automaton *parse_bot)
 {
 	pid_t	process;
+	t_cmd_table	*aux;
+	int	status;
 
-	while (*cmd_table)
+	aux = *cmd_table;
+	while (aux)
 	{
 		process = fork();
-		if (!process)
+		if (process < 0)
 			return (FALSE);
 		if (process == 0)
 		{
-			if (!st_child_process(cmd_table, parse_bot))
+			if (!st_child_process(aux, parse_bot))
 				return (FALSE);
 		}
 		else
 		{
-			*cmd_table = (*cmd_table)->next;
-//			if (!st_parent_process(cmd_table, parse_bot))
-//				return (FALSE);
+			waitpid(process, &status, 0);
+			aux = aux->next;
 		}
 	}
 	return (TRUE);
 }
 
-static int	st_child_process(t_command_table *cmd_table, 
-		t_pushdown_automaton * parse_bot)
+static int	st_child_process(t_cmd_table *cmd_table, 
+		t_pushdown_automaton *parse_bot)
 {
-		
+	int	io[2];
+	char	**command;
+
+	command = cmd_table->command->parsed;
+	io[STDIN_FILENO] = cmd_table->command->io[STDIN_FILENO];
+	io[STDOUT_FILENO] = cmd_table->command->io[STDOUT_FILENO];
+	if (io[STDIN_FILENO] != STDIN_FILENO)
+		dup2(STDIN_FILENO, io[STDIN_FILENO]);
+	if (io[STDOUT_FILENO] != STDOUT_FILENO)
+		dup2(STDOUT_FILENO, io[STDOUT_FILENO]);
+	if (is_terminal2(parse_bot->env_list, &command[0]))
+	{
+		execve(command[0], command, NULL);
+	}
+	automaton_destroy(parse_bot);
+	automaton_cmdt_destroy(&cmd_table);
+	exit(0);
 }

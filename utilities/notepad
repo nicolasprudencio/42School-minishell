@@ -1,15 +1,10 @@
-#BUGS
+bugs to fix:
 
-##EXECUTION:
+stack getting empty after a wrong command.
+stack wrong overall.
 
-error when not closing quotes and single quotes:
+recursion on language not working properly.
 
-case study: echo -n jhahahaa askjaskja'
+!So much leaks, i dont even want to look at it
 
-< test | echo
-
----------------------------------------------
-##VALGRIND:
-
-need to free command table after parsing
-
+need to apply split on path env variable
