@@ -8,7 +8,7 @@ FLAGS		=	$(M_FLAGS) $(D_FLAGS)
 CORE		=	core.c
 CORE		:=	$(addprefix sources/, $(CORE))
 
-UTILS		=	is_terminal.c is_flag.c str_is_enclosed.c str_comp_upto.c put_cmdt.c
+UTILS		=	is_builtin.c is_flag.c str_is_enclosed.c str_comp_upto.c put_cmdt.c
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
 LEXER_SRCS	=	lexer.c token_new.c put_token.c token_push_last.c token_last_is_pipe.c

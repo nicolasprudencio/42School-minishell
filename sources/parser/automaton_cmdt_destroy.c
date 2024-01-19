@@ -4,6 +4,7 @@ static void	st_close_io(t_cmd_table **cmd);
 
 void	automaton_cmdt_destroy(t_cmd_table **cmd_table)
 {
+	int			i;
 	t_cmd_table	*aux1;
 	t_cmd_table	*aux2;
 
@@ -15,6 +16,9 @@ void	automaton_cmdt_destroy(t_cmd_table **cmd_table)
 		if (aux1->command)
 		{
 			st_close_io(&aux1);
+			i = -1;
+			while (aux1->command->parsed[++i])
+				free(aux1->command->parsed[i]);
 			free(aux1->command->parsed);
 			free(aux1->command);
 		}

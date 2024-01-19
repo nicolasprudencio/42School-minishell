@@ -27,7 +27,6 @@ int	automaton_cmd_create(t_cmd_table **cmd_table, t_token *input)
 			return (FALSE);
 		last_cmd->next = aux;
 	}
-	printf("\t\t  | -----\033[1m New Command \033[0m-----\n");
 	return (TRUE);
 }
 
@@ -75,7 +74,7 @@ static void	st_fill_command(t_cmd_table **cmd_table, t_token *input,
 	i = -1;
 	while (++i < lenght)
 	{
-		(*cmd_table)->command->parsed[i] = input->value;
+		(*cmd_table)->command->parsed[i] = str_dup(input->value);
 		input = input->next;
 	}
 }

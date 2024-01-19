@@ -20,7 +20,6 @@ t_cmd_table	*parser(t_pushdown_automaton *parse_bot, t_token *tokens)
 
 	temp = tokens;
 	output = NULL;
-	printf("\033[1m{ O - o }\033[0m\t <| \033[1mparsing process initializing\033[0m\n");
 	while (temp)
 	{
 		act = automaton_act(parse_bot, &temp);

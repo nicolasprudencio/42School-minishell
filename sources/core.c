@@ -25,19 +25,17 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 	st_check_initial_fd(&cmd_table, fd);
 //	open heredoc
 	recursive_case = st_check_for_recursion(parse_bot, &cmd_table);
-//	exec(cmd_table);
+	token_free(&tokens);
 	if (!str_comp(rl_output, "exit"))
 	{
-		token_free(&tokens);
 		free(rl_output);
 		automaton_cmdt_destroy(&cmd_table);
 		return (FALSE);
 	}
-	put_cmdt(cmd_table);
+	free(rl_output);
+	exec(&cmd_table, parse_bot);
 	if (recursive_case)
 		core(parse_bot, "> ", recursive_case);
-	token_free(&tokens);
-	free(rl_output);
 	automaton_cmdt_destroy(&cmd_table);
 	return (TRUE);
 }

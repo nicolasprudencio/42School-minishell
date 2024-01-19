@@ -17,7 +17,7 @@
 
 int	core(t_pushdown_automaton *parse_bot, char * prompt, int fd);
 
-int	is_terminal(t_dictionary *language, char *line);
+int	is_builtin(t_dictionary *language, char *line);
 int	is_flag(char *line);
 
 int	str_is_enclosed(char *line, int c);

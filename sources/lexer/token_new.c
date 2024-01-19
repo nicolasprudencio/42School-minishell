@@ -29,17 +29,14 @@ void	token_free(t_token **tokens)
 {
 	t_token	*aux;
 
-	if (tokens)
+	while (*tokens)
 	{
-		while (*tokens)
-		{
-			aux = (*tokens)->next;
-			if ((*tokens)->value)
-				free((*tokens)->value);
-			if ((*tokens)->token_type)
-				free((*tokens)->token_type);
-			free((*tokens));
-			*tokens = aux;
-		}
+		aux = (*tokens)->next;
+		if ((*tokens)->value)
+			free((*tokens)->value);
+		if ((*tokens)->token_type)
+			free((*tokens)->token_type);
+		free((*tokens));
+		*tokens = aux;
 	}
 }
