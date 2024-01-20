@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_expand_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:05:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/19 19:05:43 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/20 17:54:33 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,67 +85,83 @@ static char	**str_split_is(char *str, int (*is)(int))
 		output[i] = str_copy_upis(p, is);
 		p = str_find_is(p, is, 1);
 	}
+	// output[++i] = "\0";
 	return (output);
 }
 
-// static int	change_var_value(char **line, t_lst *lst)
-// {	
-// 	t_lst *aux;
-// 	int		checker;
-// 	int		i;
+char	*ft_strstr(const char* haystack, const char* needle)
+{	
+	const char* h;
+	const char* n;
+	
+	while (*haystack)
+	{
+		h = haystack;
+		n = needle;
+		while (*haystack && *n && *haystack == *n)
+		{
+			haystack++;
+			n++;
+		}	
+		if (!*n) {
+			return (char*)h;
+		}	
+		haystack = h + 1;
+	}	
+	return NULL;
+}
 
-// 	i = -1;
-// 	while (line[++i])
-// 	{	
-// 		aux = lst;
-// 		checker = str_len_until(line[i], '$');
-// 		if (checker != FALSE_INDEX && str_len(line[i]) > 1)
-// 		{
-// 			while (aux)
-// 			{	
-// 				if (str_comp_until(aux->value, &line[i][1], '='))
-// 				{
-// 					free(line[i]);
-// 					line[i] = str_dup(str_find_char(aux->value, '=', 1));
-// 				}
-// 				aux = aux->next;
-// 			}
-// 		}
-// 	}
-// 	return (TRUE);
-// }
+void	replace_word(char *str, const char *target, const char *replacement)
+{
+	char *pos;
 
-static int	change_var_value(char **line, t_lst *lst)
+	pos = str;
+	while (ft_strstr(pos, target) != NULL)
+	{
+		pos = ft_strstr(pos, target);
+		mem_move(pos + str_len(replacement), pos + str_len(target), str_len(pos + str_len(target)) + 1);
+		mem_cpy(pos, replacement, str_len(replacement));
+		pos += str_len(replacement);
+	}
+}
+
+char	*str_dup_len(char *s, int len)
+{
+	char	*s2;
+	int		i;
+
+	s2 = (char *)mem_calloc(len, sizeof(char)) + 1;
+	i = -1;
+	while (++i < len)
+		s2[i] = s[i];
+	s2[i] = '\0';
+	return (s2);	
+}
+
+static void	change_var_value(char *line, t_lst *lst)
 {	
 	t_lst	*aux;
-	char	*new_line;
-	int		i;
-	int		j;
+	char	*str;
+	char	*temp;
 
-	i = -1;
-	new_line = NULL;
-	while (line[++i])
+	aux = lst;
+	if (str_len_until(line, '$') != FALSE_INDEX)
 	{
-		j = -1;
-		aux = lst;
-		if (str_len_until(line[i], '$') == TRUE)
-			new_line = str_copy_upto(line[i], '$');
-		while (line[i][++j])
+		str = str_find_char(line, '$', 1);
+		while (aux)
 		{
-			while (aux)
-			{
-				if (str_comp_until(aux->value, &line[i][j], '='))
-					new_line = str_join(new_line, aux->value, 1);
-				aux = aux->next;
+			if (str_comp_until(aux->value, &str[1], '='))
+			{	
+				temp = str_copy_upto(str_find_char(aux->value, '=', 1), '\0');
+				str = str_dup_len(&str[0], str_len_until(aux->value, '=') + 1);
+				replace_word(line, str, temp);
+				// free(temp);
+				change_var_value(line, lst);
 			}
-			if (new_line)
-			{
-				free(line[i]);
-				line[i] = new_line;
-			}
+			aux = aux->next;
 		}
 	}
-	return (TRUE);
+	return ;
 }
 
 static char *str_from_array(char **arr)
@@ -162,17 +178,17 @@ static char *str_from_array(char **arr)
 
 char	*env_expand_variables(char	*line, t_lst *lst)
 {
-	char		**str_arr;
-	char		*output;
-	int			i;
+	char	**str_arr;
+	char	*output;
+	int		i;
+
 	i = -1;
 	str_arr = NULL;
 	if (str_len_until(line, '$') != FALSE_INDEX)
 	{
 		str_arr = str_split_is(line, is_space);
-		// while (str_arr[++i])
-		// 	printf("%s\n", str_arr[i]);
-		change_var_value(str_arr, lst);	
+		while (str_arr[++i])
+			change_var_value(str_arr[i], lst);
 		output = str_from_array(str_arr);
 	}
 	if (str_arr)
