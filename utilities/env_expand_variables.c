@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:05:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/20 17:54:33 by nicolas          ###   ########.fr       */
+/*   Updated: 2024/01/22 20:42:01 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*ft_strstr(const char* haystack, const char* needle)
 	return NULL;
 }
 
-void	replace_word(char *str, const char *target, const char *replacement)
+char	*replace_word(char *str, const char *target, const char *replacement)
 {
 	char *pos;
 
@@ -123,6 +123,7 @@ void	replace_word(char *str, const char *target, const char *replacement)
 		mem_cpy(pos, replacement, str_len(replacement));
 		pos += str_len(replacement);
 	}
+	return (str);
 }
 
 char	*str_dup_len(char *s, int len)
@@ -138,7 +139,7 @@ char	*str_dup_len(char *s, int len)
 	return (s2);	
 }
 
-static void	change_var_value(char *line, t_lst *lst)
+static char	*change_var_value(char *line, t_lst *lst)
 {	
 	t_lst	*aux;
 	char	*str;
@@ -161,7 +162,7 @@ static void	change_var_value(char *line, t_lst *lst)
 			aux = aux->next;
 		}
 	}
-	return ;
+	return (line);
 }
 
 static char *str_from_array(char **arr)
@@ -179,6 +180,7 @@ static char *str_from_array(char **arr)
 char	*env_expand_variables(char	*line, t_lst *lst)
 {
 	char	**str_arr;
+	// char	*aux;
 	char	*output;
 	int		i;
 
@@ -188,7 +190,12 @@ char	*env_expand_variables(char	*line, t_lst *lst)
 	{
 		str_arr = str_split_is(line, is_space);
 		while (str_arr[++i])
-			change_var_value(str_arr[i], lst);
+		{	
+			// aux = str_arr[i];
+			str_arr[i] = change_var_value(str_dup(str_arr[i]), lst);
+			// SIGABRT when free aux ??
+			// free(aux);
+		}	
 		output = str_from_array(str_arr);
 	}
 	if (str_arr)

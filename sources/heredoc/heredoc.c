@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:43:53 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/19 17:32:50 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/22 20:41:04 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void	heredoc(t_lst *env_lst, char *eof, int fd)
 			break ;
 		}
 		lst_add_back(&doc_lst, lst_new(line));
-		free(line);
+		// SIGABRT when free line??
+		// free(line);
 	}
 	out_doc_lst(&doc_lst, fd);
 	clear_lst(&doc_lst);
