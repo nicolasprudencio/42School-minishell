@@ -6,11 +6,13 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:05:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/24 13:39:02 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/24 18:12:28 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
+
+static char	*change_var_value(char *line, t_lst *lst);
 
 int	fp_is_count(char *str, int (*is)(int))
 {
@@ -116,13 +118,10 @@ char	*replace_word(char *str, const char *target, const char *replacement)
 	char *pos;
 
 	pos = str;
-	while (ft_strstr(pos, target) != NULL)
-	{
-		pos = ft_strstr(pos, target);
-		mem_move(pos + str_len(replacement), pos + str_len(target), str_len(pos + str_len(target)) + 1);
-		mem_cpy(pos, replacement, str_len(replacement));
-		pos += str_len(replacement);
-	}
+	pos = ft_strstr(pos, target);
+	mem_move(pos + str_len(replacement), pos + str_len(target), str_len(pos + str_len(target)) + 1);
+	mem_cpy(pos, replacement, str_len(replacement));
+	pos += str_len(replacement);
 	return (str);
 }
 
@@ -139,6 +138,30 @@ char	*str_dup_len(char *s, int len)
 	return (s2);	
 }
 
+static void	rev_srch(char *line, t_lst *lst)
+{	
+	t_lst	*aux;
+	char	*str;
+	char	*temp;
+
+	aux = lst;	
+	str = str_rfind_char(line, '$');
+	if (!str)
+		return ;
+	while (aux)
+	{
+		if (str_comp_until(aux->value, &str[1], '='))
+		{	
+			temp = str_copy_upto(str_find_char(aux->value, '=', 1), '\0');
+			str = str_dup_len(str, str_len_until(aux->value, '=') + 1);
+			replace_word(line, str, temp);
+			// free(temp);
+			rev_srch(line, lst);
+		}
+		aux = aux->next;
+	}
+}
+
 static char	*change_var_value(char *line, t_lst *lst)
 {	
 	t_lst	*aux;
@@ -146,22 +169,21 @@ static char	*change_var_value(char *line, t_lst *lst)
 	char	*temp;
 
 	aux = lst;
-	if (str_len_until(line, '$') != FALSE_INDEX)
+	str = str_find_char(line, '$', 0);
+	while (aux)
 	{
-		str = str_find_char(line, '$', 1);
-		while (aux)
-		{
-			if (str_comp_until(aux->value, &str[1], '='))
-			{	
-				temp = str_copy_upto(str_find_char(aux->value, '=', 1), '\0');
-				str = str_dup_len(&str[0], str_len_until(aux->value, '=') + 1);
-				replace_word(line, str, temp);
-				// free(temp);
-				change_var_value(line, lst);
-			}
-			aux = aux->next;
+		if (str_comp_until(aux->value, &str[1], '='))
+		{	
+			temp = str_copy_upto(str_find_char(aux->value, '=', 1), '\0');
+			str = str_dup_len(str, str_len_until(aux->value, '=') + 1);
+			replace_word(line, str, temp);
+			// free(temp);
+			change_var_value(line, lst);
 		}
+		aux = aux->next;
 	}
+	if (!aux)
+		rev_srch(line, lst);
 	return (line);
 }
 
