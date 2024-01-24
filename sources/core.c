@@ -11,6 +11,7 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 	t_token	*tokens;
 	t_cmd_table	*cmd_table;
 
+
 	rl_output = readline(prompt);
 	add_history(rl_output);
 	tokens = lexer(rl_output, parse_bot->language);
@@ -24,6 +25,8 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 	}
 	st_check_initial_fd(&cmd_table, fd);
 //	open heredoc
+	if (str_comp(rl_output, "heredoc") == 0)
+			heredoc(parse_bot->env_list, "eof", 1);
 	recursive_case = st_check_for_recursion(parse_bot, &cmd_table);
 	token_free(&tokens);
 	if (!str_comp(rl_output, "exit"))

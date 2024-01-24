@@ -6,19 +6,19 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:14:33 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/16 15:36:24 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:20:29 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-static int	st_to_replace(t_llist **llist, char *var)
+static int	st_to_replace(t_lst **lst, char *var)
 {
-	t_llist *aux;
-	t_llist *temp;
+	t_lst *aux;
+	t_lst *temp;
 
-	aux = *llist;
-	temp = *llist;
+	aux = *lst;
+	temp = *lst;
 	while (aux)
 	{	
 		if (str_comp_until(aux->value, var, '=') == TRUE)
@@ -32,17 +32,17 @@ static int	st_to_replace(t_llist **llist, char *var)
 	return (FALSE);
 }
 
-int	exec_export(t_llist *llist, char *var, int fd)
+int	exec_export(t_lst *lst, char *var, int fd)
 {
-	t_llist	*aux;
+	t_lst	*aux;
 
-	aux = llist;
+	aux = lst;
 	if (var)
 	{	
-		if (st_to_replace(&llist, var) == TRUE)
+		if (st_to_replace(&lst, var) == TRUE)
 			return (TRUE);
 		else
-			ll_add_back(&llist, ll_node(var));
+			lst_add_back(&lst, lst_new(var));
 		return (TRUE);
 	}
 	while (aux)

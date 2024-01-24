@@ -6,15 +6,15 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:49:27 by nicolas           #+#    #+#             */
-/*   Updated: 2024/01/16 15:36:24 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:14:30 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-void	exec_env(t_llist *llist, int fd)
+void	exec_env(t_lst *llist, int fd)
 {	
-	t_llist	*aux;
+	t_lst	*aux;
 	int			i;
 
 	i = -1;

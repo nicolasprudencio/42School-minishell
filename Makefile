@@ -9,11 +9,14 @@ CORE		=	core.c
 CORE		:=	$(addprefix sources/, $(CORE))
 
 UTILS		=	is_builtin.c is_flag.c str_is_enclosed.c str_comp_upto.c put_cmdt.c
-UTILS		+=	char_exists.c str_comp_until.c str_len_until.c is_terminal.c
+UTILS		+=	char_exists.c str_comp_until.c str_len_until.c is_terminal.c environment.c env_expand_variables.c
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
 LEXER_SRCS	=	lexer.c token_new.c put_token.c token_push_last.c token_last_is_pipe.c
 LEXER_SRCS	:=	$(addprefix sources/lexer/, $(LEXER_SRCS))
+
+HERE_SRCS	=	heredoc.c
+HERE_SRCS	:=	$(addprefix sources/heredoc/, $(HERE_SRCS))
 
 PARSE_SRCS	=	parser.c
 PARSE_SRCS	:=	$(addprefix sources/parser/, $(PARSE_SRCS))
@@ -37,6 +40,7 @@ OBJS		+=	$(addprefix $(OBJS_DIR)/, $(PARSE_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(EXEC_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(AUT_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(UTILS:.c=.o))
+OBJS		+=	$(addprefix $(OBJS_DIR)/, $(HERE_SRCS:.c=.o))
 
 HEADERS		=	-I./includes -I./libft/header
 READLINE	=	-lreadline
@@ -83,7 +87,7 @@ $(NAME):
 	@echo "\t    \\   ( --_)"
 	@echo "\t     |  (|_)"
 	@echo "\t     L_ (|) by: Fauna Polaris"
-	@echo "\t      \\_|)             || Nicolas Prudencio"
+	@echo "\t      \\_|)             && Nicolas Prudencio"
 	@echo
 
 clean:

@@ -6,15 +6,15 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:21:36 by nicolas           #+#    #+#             */
-/*   Updated: 2024/01/16 15:36:24 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:13:16 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-static void	st_update_pwd(t_llist **lst, char *new_path)
+static void	st_update_pwd(t_lst **lst, char *new_path)
 {
-	t_llist *aux;
+	t_lst *aux;
 	
 	aux = *lst;
 	while (aux)
@@ -29,9 +29,9 @@ static void	st_update_pwd(t_llist **lst, char *new_path)
 	}
 }
 
-static void	st_update_oldpwd(t_llist **lst, char *old_path)
+static void	st_update_oldpwd(t_lst **lst, char *old_path)
 {
-	t_llist *aux;
+	t_lst *aux;
 	
 	aux = *lst;
 	while (aux)
@@ -46,7 +46,7 @@ static void	st_update_oldpwd(t_llist **lst, char *old_path)
 	}
 }
 
-int	exec_cd(char *dir, t_llist **lst)
+int	exec_cd(char *dir, t_lst **lst)
 {
 	char	buffer[1024];
 	

@@ -1,16 +1,16 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-typedef struct s_env_lst {
+typedef struct s_lst {
 	char		*value;
-	struct s_env_lst	*next;
+	struct s_lst	*next;
 }	t_lst;
 
 t_lst	*new_lst(char **variables);
-void		lst_add_back(t_lst	**lst, t_lst *new);
+void	lst_add_back(t_lst	**lst, t_lst *new);
 t_lst	*lst_new(char *value);
-void		lst_del_one(t_lst *lst);
-void		clear_lst(t_lst **lst);
+void	lst_del_one(t_lst *lst);
+void	clear_lst(t_lst **lst);
 
 int		exec_cd(char *dir, t_lst **lst);
 int		exec_echo(char **str, int flag, int fd);

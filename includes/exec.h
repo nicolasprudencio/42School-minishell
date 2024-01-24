@@ -1,6 +1,8 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+# include "libseas.h"
+
 int		exec(t_cmd_table **cmd_table,
 		t_pushdown_automaton *parse_bot);
 
