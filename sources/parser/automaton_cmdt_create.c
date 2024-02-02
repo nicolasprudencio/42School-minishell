@@ -50,7 +50,6 @@ static int	st_redirect_io(int state, t_cmd_table **cmd_table,
 static int	st_heredoc(int state, t_cmd_table **cmd_table, t_token *token)
 {
 	t_cmd_table	*last;
-	int		i;
 
 	automaton_cmd_last(&last, cmd_table);
 	if (state == HEREDOC)
@@ -65,7 +64,6 @@ static int	st_heredoc(int state, t_cmd_table **cmd_table, t_token *token)
 			printf("STD_ERROR %s\n", "newline");
 		else
 			printf("STD_ERROR %s\n", token->value);
-		i = -1;
 		free(last->command->parsed[0]);
 		last->command->parsed[0] = str_dup("(Invalid)");
 		return (FALSE);

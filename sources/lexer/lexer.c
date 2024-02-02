@@ -88,6 +88,7 @@ static int	st_add_string(t_token **tokens, char *line)
 	hold = 0;
 	if (!line[hold])
 		return (1);
+	// error	
 	if (str_is_enclosed(line, '\"') != FALSE_INDEX)
 		hold = str_is_enclosed(line, '\"');
 	else if (str_is_enclosed(line, '\'') != FALSE_INDEX)

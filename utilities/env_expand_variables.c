@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_expand_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:05:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/24 18:12:28 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:09:06 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,28 +195,33 @@ static char *str_from_array(char **arr)
 	i = -1;
 	str = NULL;
 	while (arr[++i])
+	{	
+		if (i > 0)
+			arr[i] = str_join(str_dup(" "), arr[i], 0);
 		str = str_join(str, arr[i], 1);
+	}
 	return (str);
 }
 
 char	*env_expand_variables(char	*line, t_lst *lst)
 {
 	char	**str_arr;
-	// char	*aux;
+	char	*aux;
 	char	*output;
 	int		i;
 
 	i = -1;
 	str_arr = NULL;
+	aux = NULL;
 	if (str_len_until(line, '$') != FALSE_INDEX)
 	{
 		str_arr = str_split_is(line, is_space);
 		while (str_arr[++i])
 		{	
-			// aux = str_arr[i];
+			aux = str_arr[i];
 			str_arr[i] = change_var_value(str_dup(str_arr[i]), lst);
 			// SIGABRT when free aux ??
-			// free(aux);
+			free(aux);
 		}	
 		output = str_from_array(str_arr);
 	}

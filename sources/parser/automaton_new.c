@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   automaton_new.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 14:29:56 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/24 13:34:09 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:36:45 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ t_pushdown_automaton	*automaton_new(char **env)
 
 void	automaton_destroy(t_pushdown_automaton *parse_bot)
 {
-	int	i;
-
-	i = -1;
 	grammar_end(parse_bot->language);
 	free(parse_bot->transition);
 	free(parse_bot->initial_symbol);

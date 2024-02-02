@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:14:33 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/24 13:20:29 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/25 17:36:26 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 static int	st_to_replace(t_lst **lst, char *var)
 {
 	t_lst *aux;
-	t_lst *temp;
 
 	aux = *lst;
-	temp = *lst;
 	while (aux)
 	{	
 		if (str_comp_until(aux->value, var, '=') == TRUE)

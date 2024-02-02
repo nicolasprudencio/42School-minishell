@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:43:53 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/24 17:08:10 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:11:58 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,21 @@ static void	out_doc_lst(t_lst **doc_lst, int fd)
 
 void	heredoc(t_lst *env_lst, char *eof, int fd)
 {
-	char		*line;
-	char		*aux;
-	t_lst		*doc_lst;
+	char	*line;
+	// char	*aux;
+	t_lst	*doc_lst;
 
 	doc_lst = NULL;
 	while (1)
 	{
+		// aux = NULL;
 		line = readline("> ");
-		aux = env_expand_variables(line, env_lst);
-		if (aux)
-		{
-			free(line);
-			line = aux;
-		}
+		check_if_variable(env_lst, line);
+		// if (aux)
+		// {
+		// 	free(line);
+		// 	line = aux;
+		// }
 		// else
 		// 	line = st_validate_var(line, " ");
 		if (str_comp(line, eof) == 0)
@@ -85,7 +86,7 @@ void	heredoc(t_lst *env_lst, char *eof, int fd)
 		}
 		lst_add_back(&doc_lst, lst_new(line));
 		// SIGABRT when free line??
-		// free(line);
+		free(line);
 	}
 	out_doc_lst(&doc_lst, fd);
 	clear_lst(&doc_lst);
