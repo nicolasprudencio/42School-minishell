@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 08:01:00 by nicolas           #+#    #+#             */
-/*   Updated: 2024/01/26 08:59:31 by nicolas          ###   ########.fr       */
+/*   Updated: 2024/02/15 15:06:59 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*str_dup_len(char *s, int len)
 	while (++i < len)
 		s2[i] = s[i];
 	s2[i] = '\0';
-	return (s2);	
+	return (s2);
 }
 
 static char	*ft_strstr(const char* pointer, const char* word)
@@ -47,13 +47,15 @@ static char	*ft_strstr(const char* pointer, const char* word)
 	return NULL;
 }
 
-static char	*replace_word(char *str, const char *target, const char *replacement)
+static char	*replace_word(char *str, char *target, const char *replacement)
 {
 	char *pos;
 
 	pos = str;
+	// printf("bef: %s\n", pos);
 	pos = ft_strstr(pos, target);
-	mem_move(pos + str_len(replacement), pos + str_len(target), str_len(pos + str_len(target)) + 1);
+	// printf("after: %s\n", pos);
+	// mem_move(pos + str_len(replacement), pos + str_len(target), str_len(pos + str_len(target)) + 1);
 	mem_cpy(pos, replacement, str_len(replacement));
 	pos += str_len(replacement);
 	return (str);
@@ -64,9 +66,12 @@ void	expand_variable(char *line, char *var)
 	char	*to_replace;
 	char	*temp;
 
-	to_replace = str_find_char(line, '$', 0);
 	temp = str_copy_upto(str_find_char(var, '=', 1), '\0');
-	to_replace = str_dup_len(to_replace, str_len_until(var, '=') + 1);
+	to_replace = str_dup_len(line, str_len_until(var, '=') + 1);
+	// printf("temp: %s\n", temp);
+	// printf("replace: %s\n", to_replace);
+	// printf("line: %s\n", line);
+
 	replace_word(line, to_replace, temp);
 }
 

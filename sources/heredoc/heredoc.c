@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:43:53 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/26 09:11:58 by nicolas          ###   ########.fr       */
+/*   Updated: 2024/02/07 14:35:55 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,67 +25,26 @@ static void	out_doc_lst(t_lst **doc_lst, int fd)
 	}
 }
 
-// static int	st_find_size(char *line, char *var_value)
-// {	
-// 	int	i;
-// 	int	var_len;
-
-// 	i = -1;
-// 	while (line[++i])
-// 	{
-// 		if (line[i] == '$')
-// 		{	
-// 			var_len = str_len_until(&line[i + 1], ' ');
-// 			if (var_len != FALSE_INDEX)
-// 				return (str_len(line) - var_len + str_len(var_value));
-// 			else
-// 			{
-// 				var_len = str_len_until(&line[i], '\0'); 
-// 				return (str_len(line) - var_len + str_len(var_value));
-// 			}
-// 		}
-// 	}
-// 	return (str_len(line));
-// }
-
-// static char	*st_validate_var(char *line, char *var_value)
-// {
-// 	int		size;
-// 	char	*output;
-
-// 	size = st_find_size(line, var_value);
-// 	output = mem_calloc(size + 1, sizeof(char));
-// 	st_replace_var(line, output, var_value);
-// 	free(line);
-// 	return (output);
-// }
-
 void	heredoc(t_lst *env_lst, char *eof, int fd)
 {
 	char	*line;
-	// char	*aux;
 	t_lst	*doc_lst;
 
 	doc_lst = NULL;
 	while (1)
 	{
-		// aux = NULL;
 		line = readline("> ");
-		check_if_variable(env_lst, line);
-		// if (aux)
+		// if (!line)
 		// {
-		// 	free(line);
-		// 	line = aux;
+			// c+d signal exit heredoc
 		// }
-		// else
-		// 	line = st_validate_var(line, " ");
+		check_if_variable(env_lst, line);
 		if (str_comp(line, eof) == 0)
 		{	
 			free(line);
 			break ;
 		}
 		lst_add_back(&doc_lst, lst_new(line));
-		// SIGABRT when free line??
 		free(line);
 	}
 	out_doc_lst(&doc_lst, fd);

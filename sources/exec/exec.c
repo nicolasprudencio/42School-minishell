@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:36:07 by fpolaris          #+#    #+#             */
-/*   Updated: 2024/01/19 12:36:08 by fpolaris         ###   ########.fr       */
+/*   Updated: 2024/02/07 16:37:13 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,24 @@ static int	st_child_process(t_cmd_table *cmd_table,
 
 int	exec(t_cmd_table **cmd_table, t_pushdown_automaton *parse_bot)
 {
-	pid_t	process;
+	pid_t	pid;
 	t_cmd_table	*aux;
 	int	status;
 
 	aux = *cmd_table;
 	while (aux)
 	{
-		process = fork();
-		if (process < 0)
+		pid = fork();
+		if (pid < 0)
 			return (FALSE);
-		if (process == 0)
+		if (pid == 0)
 		{
 			if (!st_child_process(aux, parse_bot))
 				return (FALSE);
 		}
 		else
 		{
-			waitpid(process, &status, 0);
+			waitpid(pid, &status, 0);
 			aux = aux->next;
 		}
 	}
