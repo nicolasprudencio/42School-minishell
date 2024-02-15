@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 08:01:00 by nicolas           #+#    #+#             */
-/*   Updated: 2024/02/15 18:17:33 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:23:54 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ static char	*st_next_variable(char *line)
 	str = str_find_char(line, '$', 0);
 	while (str[0] && !is_alpha(str[1]))
 		str = str_find_char(&str[1], '$', 0);
-	if (str)	
-		return (str);
-	return (NULL);	
+	return (str);
 }
 
 char	*expand_variable(t_lst *lst, char *line)
@@ -92,17 +90,16 @@ char	*expand_variable(t_lst *lst, char *line)
 	str = st_next_variable(line);
 	while (aux)
 	{
-		if (str && str_comp_until(aux->value, &str[1], '='))
+		if (str[0] && str_comp_until(aux->value, &str[1], '='))
 		{	
 			line = st_replace_word(line, aux->value);
-			if (str)
-				line = expand_variable(lst, line);
+			// if (st_next_variable(line))
+			line = expand_variable(lst, line);
 			break ;
 		}
 		aux = aux->next;
 	}
 	str = st_next_variable(line);
-	printf("%s\n", str);
 	if (str[0] && is_alpha(str[1]))
 	{
 		line = st_remove_word(line, str_len(str));
