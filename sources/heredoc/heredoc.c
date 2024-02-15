@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:43:53 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/07 14:35:55 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:25:57 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	heredoc(t_lst *env_lst, char *eof, int fd)
 		// {
 			// c+d signal exit heredoc
 		// }
-		check_if_variable(env_lst, line);
+		if (str_len_until(line, '$') != FALSE_INDEX)
+			line = expand_variable(env_lst, line);
 		if (str_comp(line, eof) == 0)
 		{	
 			free(line);
