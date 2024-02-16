@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 08:01:00 by nicolas           #+#    #+#             */
-/*   Updated: 2024/02/15 18:23:54 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:47:10 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	*st_remove_word(char *line, int rest_len)
 	output = str_ndup(line, before_len);
 	if (!output)
 		return (line);
-	while(line[before_len] && !is_space(line[++before_len]))
+	while(line[++before_len] && !is_space(line[before_len]) && line[before_len] != '$')
 		;
 	output = str_join(output, &line[before_len], 1);
 	if (!output)
@@ -81,11 +81,43 @@ static char	*st_next_variable(char *line)
 	return (str);
 }
 
+static int	st_counter_validate(char *line)
+{
+	int	counter;
+	int	i;
+
+	i = -1;
+	counter = 0;
+	while (line[++i])
+	{
+		if (line[i] == '$' && line[i + 1] == '$')
+			counter++;
+	}
+	return (counter);
+}
+
+int	var_exists(t_lst *lst, char *var)
+{	
+	t_lst	*aux;
+
+	aux = lst;
+	while (aux)
+	{
+		if (str_comp_until(aux->value, &var[1], '='))
+			return (TRUE);
+		aux = aux->next;
+	}
+	return (FALSE);
+}
+
 char	*expand_variable(t_lst *lst, char *line)
 {
 	t_lst	*aux;
 	char	*str;
-
+	static int	counter = -1;
+	
+	if (counter == -1)
+		counter = st_counter_validate(line);
 	aux = lst;
 	str = st_next_variable(line);
 	while (aux)
@@ -100,10 +132,20 @@ char	*expand_variable(t_lst *lst, char *line)
 		aux = aux->next;
 	}
 	str = st_next_variable(line);
+	/*
+		-> $USER$EOF$USER$$USER
+		quando ele expande todas as variáveis e depois sai do primeiro loop, as condições do if se satisfazem e por conta disso ele acaba por remover o cifrãoe tudo após, pois o before_len na remove_word passa a ser a contagem
+		até o final da string
+	*/
 	if (str[0] && is_alpha(str[1]))
-	{
-		line = st_remove_word(line, str_len(str));
-		line = expand_variable(lst, line);
+	{	
+		if (counter != 0 && counter != -1)
+		{	
+			counter--;
+			line = st_remove_word(line, str_len(str));
+			if (var_exists(lst, st_next_variable(line)))
+				line = expand_variable(lst, line);
+		}
 	}
 	return (line);
 }
