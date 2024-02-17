@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:36:07 by fpolaris          #+#    #+#             */
-/*   Updated: 2024/02/17 01:47:42 by fpolaris         ###   ########.fr       */
+/*   Updated: 2024/02/17 02:19:49 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	exec(t_cmd_table **cmd_table, t_pushdown_automaton *parse_bot)
 		aux = aux->next;
 	}
 	aux = *cmd_table;
-	printf("SEA: starting to run command\n");
-	printf("SEA: quantity of commands: %i\n", cmd_quantity);
 	while (cmd_quantity--)
 	{
 		if (is_builtin(parse_bot->language,
