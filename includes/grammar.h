@@ -1,20 +1,6 @@
 #ifndef GRAMMAR_H
 # define GRAMMAR_H
 
-typedef struct s_prodution
-{
-	char	*variable;
-	char	**output;
-}	t_production;
-
-typedef struct	s_dictionary
-{
-	char	**variables;
-	char	**terminals;
-	t_production	*production;
-	char	*start;
-}	t_dictionary;
-
 t_dictionary	*grammar_new();
 void	grammar_end(t_dictionary *seas_script);
 

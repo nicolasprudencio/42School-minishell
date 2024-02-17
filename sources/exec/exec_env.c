@@ -12,9 +12,9 @@
 
 #include "libseas.h"
 
-void	exec_env(t_lst *llist, int fd)
+void	exec_env(t_llist *llist, int fd)
 {	
-	t_lst	*aux;
+	t_llist	*aux;
 
 	aux = llist;
 	while (aux)

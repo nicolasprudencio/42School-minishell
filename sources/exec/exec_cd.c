@@ -12,11 +12,11 @@
 
 #include "libseas.h"
 
-static void	st_update_pwd(t_lst **lst, char *new_path)
+static void	st_update_pwd(t_llist **ll, char *new_path)
 {
-	t_lst *aux;
+	t_llist *aux;
 	
-	aux = *lst;
+	aux = *ll;
 	while (aux)
 	{
 		if (str_ncmp(aux->value, "PWD", str_len("PWD")) == 0)
@@ -29,11 +29,11 @@ static void	st_update_pwd(t_lst **lst, char *new_path)
 	}
 }
 
-static void	st_update_oldpwd(t_lst **lst, char *old_path)
+static void	st_update_oldpwd(t_llist **ll, char *old_path)
 {
-	t_lst *aux;
+	t_llist *aux;
 	
-	aux = *lst;
+	aux = *ll;
 	while (aux)
 	{
 		if (str_ncmp(aux->value, "OLDPWD", str_len("OLDPWD")) == 0)
@@ -46,16 +46,16 @@ static void	st_update_oldpwd(t_lst **lst, char *old_path)
 	}
 }
 
-int	exec_cd(char *dir, t_lst **lst)
+int	exec_cd(char *dir, t_llist **env)
 {
 	char	buffer[1024];
 	
 	if (getcwd(buffer, sizeof(buffer)) != NULL)
 	{	
-		st_update_oldpwd(lst, buffer);
+		st_update_oldpwd(env, buffer);
 		chdir(dir);
 		getcwd(buffer, sizeof(buffer));
-		st_update_pwd(lst, buffer);
+		st_update_pwd(env, buffer);
 		return (TRUE);
 	}
 	return (FALSE);

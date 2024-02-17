@@ -6,15 +6,15 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 10:44:14 by fpolaris          #+#    #+#             */
-/*   Updated: 2024/01/24 13:16:20 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:50:15 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-static char	*st_find_path_variable(t_lst *env_lst)
+static char	*st_find_path_variable(t_llist *env_lst)
 {
-	t_lst	*aux;
+	t_llist	*aux;
 	char	*var;
 	char	*var_value;
 
@@ -35,7 +35,7 @@ static char	*st_find_path_variable(t_lst *env_lst)
 	return (NULL);
 }
 
-int	is_terminal(t_lst *env_lst, char *line)
+int	is_terminal(t_llist *env_lst, char *line)
 {	
 	char	*path_value;
 	char	**paths;
@@ -58,12 +58,11 @@ int	is_terminal(t_lst *env_lst, char *line)
 			return (TRUE);
 		}
 	}
-	i = -1;
 	grid_free(paths);
 	return (FALSE);
 }
 
-int	is_terminal2(t_lst *env_lst, char **line)
+int	is_terminal2(t_llist *env_lst, char **line)
 {	
 	char	*path_value;
 	char	**paths;
@@ -88,7 +87,6 @@ int	is_terminal2(t_lst *env_lst, char **line)
 			return (TRUE);
 		}
 	}
-	i = -1;
 	grid_free(paths);
 	return (FALSE);
 }

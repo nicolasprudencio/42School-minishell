@@ -12,19 +12,6 @@
 
 #include "libseas.h"
 
-// static char	*str_dup_len(char *s, int len)
-// {
-// 	char	*s2;
-// 	int		i;
-
-// 	s2 = (char *)mem_calloc(len, sizeof(char)) + 1;
-// 	i = -1;
-// 	while (++i < len)
-// 		s2[i] = s[i];
-// 	s2[i] = '\0';
-// 	return (s2);
-// }
-
 static char	*st_replace_word(char *line, char *var)
 {
 	int		before_len;
@@ -81,9 +68,9 @@ static char	*st_next_variable(char *line)
 	return (str);
 }
 
-char	*expand_variable(t_lst *lst, char *line)
+char	*expand_variable(t_llist *lst, char *line)
 {
-	t_lst	*aux;
+	t_llist	*aux;
 	char	*str;
 
 	aux = lst;

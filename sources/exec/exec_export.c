@@ -6,17 +6,17 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:14:33 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/25 17:36:26 by nicolas          ###   ########.fr       */
+/*   Updated: 2024/02/16 16:58:17 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-static int	st_to_replace(t_lst **lst, char *var)
+static int	st_to_replace(t_llist **ll, char *var)
 {
-	t_lst *aux;
+	t_llist *aux;
 
-	aux = *lst;
+	aux = *ll;
 	while (aux)
 	{	
 		if (str_comp_until(aux->value, var, '=') == TRUE)
@@ -30,17 +30,17 @@ static int	st_to_replace(t_lst **lst, char *var)
 	return (FALSE);
 }
 
-int	exec_export(t_lst *lst, char *var, int fd)
+int	exec_export(t_llist *ll, char *var, int fd)
 {
-	t_lst	*aux;
+	t_llist	*aux;
 
-	aux = lst;
+	aux = ll;
 	if (var)
 	{	
-		if (st_to_replace(&lst, var) == TRUE)
+		if (st_to_replace(&ll, var) == TRUE)
 			return (TRUE);
 		else
-			lst_add_back(&lst, lst_new(var));
+			ll_add_back(&ll, ll_node(var));
 		return (TRUE);
 	}
 	while (aux)

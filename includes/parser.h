@@ -1,36 +1,6 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-typedef struct	s_command
-{
-	char	**parsed;
-	long int	io[2];
-}	t_command;
-
-typedef struct	s_cmd_table
-{
-	t_command	*command;
-	struct s_cmd_table	*next;
-	struct s_cmd_table	*prev;
-}	t_cmd_table;
-
-typedef struct s_relation
-{
-	char	*input;
-	char	*stack_top;
-}	t_relation;
-
-typedef struct	s_pushdown_automaton
-{
-	int	current_state;
-	t_relation	*transition;
-	int	starting_state;
-	char	*initial_symbol;
-	t_stack	*stack;
-	t_dictionary	*language;
-	t_lst		*env_list;
-}	t_pushdown_automaton;
-
 t_cmd_table	*parser(t_pushdown_automaton *robot, t_token *tokens);
 
 // automaton control

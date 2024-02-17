@@ -6,17 +6,17 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 16:48:14 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/24 13:16:37 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:58:50 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-int	exec_unset(t_lst **llist, char *var)
+int	exec_unset(t_llist **llist, char *var)
 {
-	t_lst	*aux;
-	t_lst	*head;
-	t_lst	*next;
+	t_llist	*aux;
+	t_llist	*head;
+	t_llist	*next;
 	
 	aux = *llist;
 	head = *llist;
@@ -27,13 +27,13 @@ int	exec_unset(t_lst **llist, char *var)
 		if (str_comp_until(head->value, var, '=') == TRUE)
 		{
 			*llist = next;
-			lst_del_one(head);
+			ll_del_one(head);
 			return (TRUE);
 		}
 		if (str_comp_until(next->value, var, '=') == TRUE)
 		{
 			aux->next = next->next;
-			lst_del_one(next);
+			ll_del_one(next);
 			return (TRUE);
 		}
 		aux = aux->next;

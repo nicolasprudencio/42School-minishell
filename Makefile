@@ -9,10 +9,11 @@ CORE		=	core.c
 CORE		:=	$(addprefix sources/, $(CORE))
 
 UTILS		=	is_builtin.c is_flag.c str_is_enclosed.c str_comp_upto.c put_cmdt.c
-UTILS		+=	char_exists.c str_comp_until.c str_len_until.c is_terminal.c environment.c env_expand_variables.c test.c
+UTILS		+=	char_exists.c str_comp_until.c str_len_until.c is_terminal.c test.c
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
 LEXER_SRCS	=	lexer.c token_new.c put_token.c token_push_last.c token_last_is_pipe.c
+LEXER_SRCS	+=	token_add_string.c token_add_terminal.c token_add_special.c token_add_flag.c
 LEXER_SRCS	:=	$(addprefix sources/lexer/, $(LEXER_SRCS))
 
 HERE_SRCS	=	heredoc.c
@@ -29,7 +30,7 @@ AUT_SRCS	:=	$(addprefix sources/parser/automaton_, $(AUT_SRCS))
 GRAM_SRCS	=	define_production.c define_terminals.c define_variables.c new.c 
 GRAM_SRCS	:=	$(addprefix sources/grammar_definitions/grammar_,$(GRAM_SRCS))
 
-EXEC_SRCS	=	.c _cd.c _echo.c _env.c _export.c _pwd.c _unset.c
+EXEC_SRCS	=	.c _cd.c _echo.c _env.c _export.c _pwd.c _unset.c _open_process.c
 EXEC_SRCS	:=	$(addprefix sources/exec/exec, $(EXEC_SRCS))
 
 OBJS_DIR	=	objects

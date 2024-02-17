@@ -14,10 +14,11 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 
 	rl_output = readline(prompt);
 	add_history(rl_output);
-	tokens = lexer(rl_output, parse_bot->language);
+	tokens = lexer(rl_output, parse_bot);
 	if (!tokens)
 		return (FALSE);
 	cmd_table = parser(parse_bot, tokens);
+	put_cmdt(cmd_table);
 	if (!cmd_table)
 	{
 		token_free(&tokens);

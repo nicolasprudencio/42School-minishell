@@ -33,6 +33,7 @@ int	automaton_cmd_create(t_cmd_table **cmd_table, t_token *input)
 static int	st_allocate_new(t_cmd_table **cmd_table, t_token *input)
 {
 	int	lenght;
+
 	if (!*cmd_table)
 		return (FALSE);
 	(*cmd_table)->command = (t_command *)mem_calloc(1, sizeof(t_command));
@@ -60,8 +61,8 @@ static int	st_find_size(t_token *input)
 			break ;
 		if (!str_comp(input->token_type, "<SPECIAL>"))
 			break ;
-		i++;
 		input = input->next;
+		i++;
 	}
 	return (i);
 }
