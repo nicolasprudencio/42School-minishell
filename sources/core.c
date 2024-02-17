@@ -18,7 +18,6 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 	if (!tokens)
 		return (FALSE);
 	cmd_table = parser(parse_bot, tokens);
-	put_cmdt(cmd_table);
 	if (!cmd_table)
 	{
 		token_free(&tokens);

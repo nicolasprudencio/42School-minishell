@@ -8,7 +8,7 @@ void	put_cmdt(t_cmd_table *cmd_table)
 	while (cmd_table)
 	{
 		printf("\t   --------------------------------------------\n");
-		printf("\t  %-15s\t%-15li\t%-15li  \n",
+		printf("\t  %-15s\t%-15i\t%-15i  \n",
 				" ",
 				cmd_table->command->io[0],
 				cmd_table->command->io[1]);

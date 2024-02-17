@@ -10,7 +10,7 @@ int	automaton_cmd_oredir(t_cmd_table **cmd_table, t_token *token)
 	if (access(path, F_OK == FALSE_INDEX))
 	{
 		last->command->io[STDOUT_FILENO] = open(path, O_CREAT);
-		printf("\t\t  | opened fd: %li for file %s\n",
+		printf("\t\t  | opened fd: %i for file %s\n",
 				last->command->io[STDOUT_FILENO], path);
 		return (TRUE);
 	}
@@ -22,7 +22,7 @@ int	automaton_cmd_oredir(t_cmd_table **cmd_table, t_token *token)
 	if (last->command->io[STDOUT_FILENO] != STDOUT_FILENO)
 		close(last->command->io[STDIN_FILENO]);
 	last->command->io[STDOUT_FILENO] = open(path, O_WRONLY | O_TRUNC);
-	printf("\t\t  | opened fd: %li for file %s\n",
+	printf("\t\t  | opened fd: %i for file %s\n",
 			last->command->io[STDOUT_FILENO], path);
 	if (!last->command->io[STDOUT_FILENO])
 	{

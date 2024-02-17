@@ -24,8 +24,8 @@ typedef struct s_token {
 
 typedef struct	s_command
 {
-	char	**parsed;
-	long int	io[2];
+	char	**	parsed;
+	int		io[2];
 }	t_command;
 
 typedef struct	s_cmd_table
