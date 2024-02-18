@@ -19,7 +19,6 @@ int	cmd_create(t_cmd_table **cmd_table, t_token *input)
 	else
 	{
 		cmd_last(&last_cmd, cmd_table);
-		aux = NULL;
 		aux = (t_cmd_table *)mem_calloc(1, sizeof(t_cmd_table));
 		if (!aux)
 			return (FALSE);
@@ -34,6 +33,8 @@ static int	st_allocate_new(t_cmd_table **cmd_table, t_token *input)
 {
 	int	lenght;
 
+	if (!str_comp(input->token_type, "<SPECIAL>"))
+		return (st_special_start(cmd_table, input));
 	if (!*cmd_table)
 		return (FALSE);
 	(*cmd_table)->command = (t_command *)mem_calloc(1, sizeof(t_command));
@@ -48,6 +49,11 @@ static int	st_allocate_new(t_cmd_table **cmd_table, t_token *input)
 	(*cmd_table)->command->io[0] = 0;
 	(*cmd_table)->command->io[1] = 1;
 	return (TRUE);
+}
+
+static int	st_special_start(t_cmd_table **cmd_table, t_token *input)
+{
+	
 }
 
 static int	st_find_size(t_token *input)

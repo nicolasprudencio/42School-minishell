@@ -22,8 +22,7 @@ void		automaton_find_state(t_pushdown_automaton *parse_bot,
 			t_token **input);
 
 //	command_table actions
-int		cmdt_create(t_pushdown_automaton *parse_bot, 
-						t_cmd_table **cmd_table, t_token *token);
+int		cmdt_create(int state, t_cmd_table **cmd_table, t_token *token);
 void	cmdt_destroy(t_cmd_table **cmd_table);
 void	cmd_destroy(t_cmd_table *cmd);
 

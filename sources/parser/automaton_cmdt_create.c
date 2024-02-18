@@ -4,17 +4,16 @@ static int	st_redirect_io(int state, t_cmd_table **cmd_table,
 		t_token *token);
 static int	st_heredoc(int state, t_cmd_table **cmd_table, t_token *token);
 
-int	cmdt_create(t_pushdown_automaton *parse_bot,
-		t_cmd_table **cmd_table, t_token *token)
+int	cmdt_create(int	state, t_cmd_table **cmd_table, t_token *token)
 {
-	if (parse_bot->current_state == NEW_CMD)
+	if (state == NEW_CMD)
 	{
 		if (!cmd_create(cmd_table, token))
 			return (FALSE);
 	}
-	if (!(st_redirect_io(parse_bot->current_state, cmd_table, token)))
+	if (!(st_redirect_io(state, cmd_table, token)))
 		return (FALSE);
-	if (!st_heredoc(parse_bot->current_state, cmd_table, token))
+	if (!st_heredoc(state, cmd_table, token))
 		return (FALSE);
 	return (TRUE);
 }

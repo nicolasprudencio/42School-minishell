@@ -14,14 +14,13 @@
 
 int	automaton_act(t_pushdown_automaton *parse_bot, t_token **input)
 {
-	int	act;
-	char	*stack_top = parse_bot->stack->top->as_str;
+	int		act;
+	char	*stack_top;
 
-	act = automaton_find_transition(parse_bot,
-			*input, stack_top);
+	stack_top = parse_bot->stack->top->as_str;
+	act = automaton_find_transition(parse_bot, *input, stack_top);
 	automaton_find_state(parse_bot, input);
-	if (!str_comp((*input)->token_type,
-				parse_bot->stack->top->as_str))
+	if (!str_comp((*input)->token_type, parse_bot->stack->top->as_str))
 		(*input) = (*input)->next;
 	if (act != FALSE_INDEX)
 	{

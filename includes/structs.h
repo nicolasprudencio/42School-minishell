@@ -12,19 +12,19 @@ typedef struct	s_dictionary
 	char	**variables;
 	char	**terminals;
 	t_production	*production;
-	char	*start;
+	char		*start;
 }	t_dictionary;
 
 typedef struct s_token {
-	char 	*token_type;
-	char	*value;
+	char 		*token_type;
+	char		*value;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
 
 typedef struct	s_command
 {
-	char	**	parsed;
+	char	**parsed;
 	int		io[2];
 }	t_command;
 
