@@ -15,20 +15,19 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 	rl_output = readline(prompt);
 	add_history(rl_output);
 	tokens = lexer(rl_output, parse_bot);
+	put_token(tokens);
 	if (!tokens)
 		return (FALSE);
 	cmd_table = parser(parse_bot, tokens);
+	put_cmdt(cmd_table);
+	token_free(&tokens);
 	if (!cmd_table)
-	{
-		token_free(&tokens);
 		return (FALSE);
-	}
 	st_check_initial_fd(&cmd_table, fd);
 //	open heredoc
 	if (str_comp(rl_output, "heredoc") == 0)
 			heredoc(parse_bot->env_list, "eof", fd);
 	recursive_case = st_check_for_recursion(parse_bot, &cmd_table);
-	token_free(&tokens);
 	if (!str_comp(rl_output, "exit"))
 	{
 		free(rl_output);
