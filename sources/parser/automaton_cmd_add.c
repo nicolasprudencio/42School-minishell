@@ -1,6 +1,6 @@
 #include "libseas.h"
 
-int	automaton_cmd_add(t_cmd_table **cmd, t_token *token, int flag)
+int	cmd_add(t_cmd_table **cmd, t_token *token, int flag)
 {
 	if (flag)
 	{

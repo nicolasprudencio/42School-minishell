@@ -1,13 +1,13 @@
 #include "libseas.h"
 
-int	automaton_cmd_pipe(t_cmd_table **cmd_table)
+int	cmd_pipe(t_cmd_table **cmd_table)
 {
 	t_cmd_table	*last;
 	t_command	*cmd_i;
 	t_command	*cmd_o;
 	int				pipefd[2];
 
-	automaton_cmd_last(&last, cmd_table);
+	cmd_last(&last, cmd_table);
 	if (pipe(pipefd))
 		return (FALSE);
 	cmd_i = last->command;

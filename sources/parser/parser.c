@@ -30,7 +30,7 @@ t_cmd_table	*parser(t_pushdown_automaton *parse_bot, t_token *tokens)
 					temp->value);
 			break ;
 		}
-		if (!automaton_cmdt_create(parse_bot, &output, temp))
+		if (!cmdt_create(parse_bot, &output, temp))
 			break ;
 	}
 	automaton_restart_stack(parse_bot);

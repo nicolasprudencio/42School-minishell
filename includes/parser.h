@@ -21,22 +21,23 @@ int		automaton_restart_stack(t_pushdown_automaton *parse_bot);
 void		automaton_find_state(t_pushdown_automaton *parse_bot,
 			t_token **input);
 
-//	state actions
-int		automaton_cmdt_create(t_pushdown_automaton *parse_bot,
-			t_cmd_table **cmd_table, t_token *token);
-void		automaton_cmdt_destroy(t_cmd_table **cmd_table);
+//	command_table actions
+int		cmdt_create(t_pushdown_automaton *parse_bot, 
+						t_cmd_table **cmd_table, t_token *token);
+void	cmdt_destroy(t_cmd_table **cmd_table);
+void	cmd_destroy(t_cmd_table *cmd);
 
-int		automaton_cmd_pipe(t_cmd_table **cmd_table);
-int		automaton_cmd_iredir(t_cmd_table **cmd_table, t_token *token);
-int		automaton_cmd_oredir(t_cmd_table **cmd_table, t_token *token);
-int		automaton_cmd_append(t_cmd_table **cmd_table, t_token *token);
+int		cmd_pipe(t_cmd_table **cmd_table);
+int		cmd_iredir(t_cmd_table **cmd_table, t_token *token);
+int		cmd_oredir(t_cmd_table **cmd_table, t_token *token);
+int		cmd_append(t_cmd_table **cmd_table, t_token *token);
 
-int		automaton_cmd_create(t_cmd_table **cmd_table, t_token *token);
+int		cmd_create(t_cmd_table **cmd_table, t_token *token);
 
-int		automaton_cmd_add(t_cmd_table **cmd, t_token *token, int flag);
-void		automaton_cmd_last(t_cmd_table **last, t_cmd_table **cmd_table);
+int		cmd_add(t_cmd_table **cmd, t_token *token, int flag);
+void	cmd_last(t_cmd_table **last, t_cmd_table **cmd_table);
 
-void		put_cmdt(t_cmd_table *cmd_table);
+void	put_cmdt(t_cmd_table *cmd_table);
 
 
 // to libfpp

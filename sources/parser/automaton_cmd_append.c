@@ -1,12 +1,12 @@
 #include "libseas.h"
 
-int	automaton_cmd_append(t_cmd_table **cmd_table, t_token *token)
+int	cmd_append(t_cmd_table **cmd_table, t_token *token)
 {
 	t_cmd_table	*last;
 	char	*path;
 
 	path = token->value;
-	automaton_cmd_last(&last, cmd_table);
+	cmd_last(&last, cmd_table);
 	if (access(path, F_OK == FALSE_INDEX))
 	{
 		last->command->io[STDOUT_FILENO] = open(path, O_CREAT);

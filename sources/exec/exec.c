@@ -13,35 +13,51 @@
 #include "libseas.h"
 
 static int	st_run_builtin(t_command *cmd, t_llist *env);
+static int	st_count_commands(t_cmd_table *cmd_table);
+static void	st_go_to_next_command(t_cmd_table **cmd_table);
 
 int	exec(t_cmd_table **cmd_table, t_pushdown_automaton *parse_bot)
 {
-	t_cmd_table	*aux;
-	int			status;
-	int			cmd_quantity;
-	int			current_cmd;
+	int	status;
+	int	cmd_quantity;
 
-	current_cmd = -1;
+	cmd_quantity = st_count_commands(*cmd_table);
+	while (cmd_quantity--)
+	{
+		if (is_builtin(parse_bot->language,
+				(*cmd_table)->command->parsed[0]) != FALSE_INDEX)
+			status = st_run_builtin((*cmd_table)->command, 
+					parse_bot->env_list);
+		else
+			status = exec_open_process(cmd_table, parse_bot);
+		st_go_to_next_command(cmd_table);
+	}
+	return (status);
+}
+
+static void	st_go_to_next_command(t_cmd_table **cmd_table)
+{
+	t_cmd_table *aux;
+
+	aux = (*cmd_table);
+	(*cmd_table) = (*cmd_table)->next;
+	cmd_destroy(aux);
+}
+
+static int	st_count_commands(t_cmd_table *cmd_table)
+{
+	t_cmd_table	*aux;
+	int			cmd_quantity;
+
 	cmd_quantity = 0;
-	aux = *cmd_table;
+	aux = cmd_table;
 	while (aux)
 	{
 		cmd_quantity++;
 		aux = aux->next;
 	}
-	aux = *cmd_table;
-	while (cmd_quantity--)
-	{
-		if (is_builtin(parse_bot->language,
-				aux->command->parsed[0]) != FALSE_INDEX)
-			status = st_run_builtin(aux->command, 
-					parse_bot->env_list);
-		else
-			status = exec_open_process(cmd_table, ++current_cmd, parse_bot);
-	}
-	return (status);
+	return (cmd_quantity);
 }
-
 
 static int	st_run_builtin(t_command *cmd, t_llist *env)
 {

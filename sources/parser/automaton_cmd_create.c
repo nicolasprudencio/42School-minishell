@@ -5,7 +5,7 @@ static int	st_find_size(t_token *input);
 static void	st_fill_command(t_cmd_table **cmd_table, t_token *input, 
 		int lenght);
 
-int	automaton_cmd_create(t_cmd_table **cmd_table, t_token *input)
+int	cmd_create(t_cmd_table **cmd_table, t_token *input)
 {
 	t_cmd_table	*aux;
 	t_cmd_table	*last_cmd;
@@ -18,7 +18,7 @@ int	automaton_cmd_create(t_cmd_table **cmd_table, t_token *input)
 	}
 	else
 	{
-		automaton_cmd_last(&last_cmd, cmd_table);
+		cmd_last(&last_cmd, cmd_table);
 		aux = NULL;
 		aux = (t_cmd_table *)mem_calloc(1, sizeof(t_cmd_table));
 		if (!aux)

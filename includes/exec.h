@@ -4,8 +4,7 @@
 # include "libseas.h"
 
 int	exec(t_cmd_table **cmd_table, t_pushdown_automaton *parse_bot);
-int	exec_open_process(t_cmd_table **cmd, int current_cmd,
-				t_pushdown_automaton *parse_bot);
+int	exec_open_process(t_cmd_table **cmd, t_pushdown_automaton *parse_bot);
 
 // builtins
 
