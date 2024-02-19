@@ -72,7 +72,8 @@ static int	st_run_builtin(t_cmd_table *cmd, t_pushdown_automaton *parse_bot)
 		return (exec_export(parse_bot->env_list, cmd->command));
 	if (!str_comp(cmd->command->parsed[0], "unset"))
 		return (exec_unset(&parse_bot->env_list, cmd->command->parsed));
-//	if (!str_comp(cmd->parsed[0], "env"))
+	if (!str_comp(cmd->command->parsed[0], "env") && !cmd->command->parsed[1])
+		return (exec_env(parse_bot->env_list, cmd->command->io[STDOUT_FILENO]));
 	if (!str_comp(cmd->command->parsed[0], "exit") && !cmd->next)
 		return (exec_exit(parse_bot, cmd));
 	return (1);

@@ -6,12 +6,13 @@
 
 # define STD_ERROR "SEAshell: Syntax error near unexpected token:"
 
+# include "libfpp.h"
+
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 
-# include "libfpp.h"
 # include "structs.h"
 # include "states.h"
 # include "grammar.h"
@@ -30,6 +31,5 @@ int	char_exists(char *s, int c);
 int	str_comp_until(char *str1, char *str2, int c);
 int	str_len_until(char *s, int c);
 int	str_is_enclosed(char *line, int c);
-int	str_comp_upto(char *str1, char *str2, char end);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "libseas.h"
 
-void	exec_env(t_llist *llist, int fd)
+int	exec_env(t_llist *llist, int fd)
 {	
 	t_llist	*aux;
 
@@ -23,4 +23,5 @@ void	exec_env(t_llist *llist, int fd)
 			put_endl(aux->value, fd);
 		aux = aux->next;
 	}
+	return (0);
 }

@@ -30,23 +30,30 @@ int	exec_export(t_llist *env, t_command *cmd)
 static void	st_add_to_list(t_llist **env, char **values)
 {
 	int		i;
+	int		has_added;
 	t_llist	*aux;
 
-	aux = *env;
-	while (aux)
+	i = -1;
+	while (values[++i])
 	{
-		i = -1;
-		while (values[++i])
+		aux = *env;
+		has_added = 0;
+		while (aux)
 		{
 			if (!str_comp_upto(aux->value, values[i], '='))
 			{
 				free(aux->value);
 				aux->value = str_dup(values[i]);
+				has_added = 1;
+				break ;
 			}
-			else
-				ll_add_back(env, ll_node(values[i]));
+			aux = aux->next;
 		}
-		aux = aux->next;
+		if (!has_added)
+		{
+			ll_add_back(env, ll_node(values[i]));
+			has_added = 1;
+		}
 	}
 }
 

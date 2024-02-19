@@ -75,20 +75,20 @@ $(OBJS_DIR)/%.o:%.c
 $(NAME):
 	@$(CC) $(FLAGS) $(OBJS) $(MAIN) $(HEADERS) $(LIBFPP) $(READLINE) -o $@
 	@echo
-	@echo "\t      Â      ___ ___   _       _        _ _"
-	@echo "\t    _{ }    / __| __| /_\   __| |_  ___| | |"
-	@echo "\t  _(  | )   \__ \ _| / _ \ (_-< ' \/ -_) | |"
-	@echo "\t_{__(}  _}  |___/___/_/ \_\/__/_||_\___|_|_|"
+	@echo -e "\t      Â      ___ ___   _       _        _ _"
+	@echo -e "\t    _{ }    / __| __| /_\   __| |_  ___| | |"
+	@echo -e "\t  _(  | )   \__ \ _| / _ \ (_-< ' \/ -_) | |"
+	@echo -e "\t_{__(}  _}  |___/___/_/ \_\/__/_||_\___|_|_|"
 	@echo "       (    /     )"
 	@echo "      { __()__  _ _} -42 school project minishell-"
 	@echo "     {(_( )      _ ()"
 	@echo "      (  {}_   _/  --\\_"
 	@echo "       (  |    ( - - - \\"
-	@echo "\t(__|_ _|- -- -_)"
-	@echo "\t    \\   ( --_)"
-	@echo "\t     |  (|_)"
-	@echo "\t     L_ (|) by: Fauna Polaris"
-	@echo "\t      \\_|)             && Nicolas Prudencio"
+	@echo -e "\t(__|_ _|- -- -_)"
+	@echo -e "\t    \\   ( --_)"
+	@echo -e "\t     |  (|_)"
+	@echo -e "\t     L_ (|) by: Fauna Polaris"
+	@echo -e "\t      \\_|)             && Nicolas Prudencio"
 	@echo
 
 clean:

@@ -23,10 +23,8 @@ int	exec_open_process(t_cmd_table **cmd, t_pushdown_automaton *parse_bot)
 
 static void	st_close_all_fds(t_cmd_table *cmd)
 {
-	int		i;
 	t_cmd_table	*aux;
 
-	i = 0;
 	aux = cmd;
 	while (aux->next)
 	{
@@ -45,9 +43,7 @@ static int	st_child_process(t_cmd_table *cmd_table,
 {
 	char	**command;
 //	char	**env;
-	int		i;
 	
-	i = -1;
 	command = cmd_table->command->parsed;
 	if (is_terminal2(parse_bot->env_list, &command[0]))
 	{
@@ -57,6 +53,8 @@ static int	st_child_process(t_cmd_table *cmd_table,
 		execve(command[0], command, NULL);
 //		free(env);
 	}
+	else
+		printf("SEAshell: %s: command not found\n", command[0]);
 	automaton_destroy(parse_bot);
 	cmdt_destroy(&cmd_table);
 	exit(1);
