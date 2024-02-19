@@ -15,16 +15,10 @@ int	cmd_pipe(t_cmd_table **cmd_table)
 	if (cmd_i->io[STDIN_FILENO] == STDIN_FILENO)
 		cmd_i->io[STDIN_FILENO] = pipefd[STDIN_FILENO];
 	else
-	{
-		printf("cmd_pipe closing fd: %i\n", pipefd[STDIN_FILENO]);
 		close(pipefd[STDIN_FILENO]);
-	}
 	if (cmd_o->io[STDOUT_FILENO] == STDOUT_FILENO)
 		cmd_o->io[STDOUT_FILENO] = pipefd[STDOUT_FILENO];
 	else
-	{
-		printf("cmd_pipe closing fd: %i\n", pipefd[STDOUT_FILENO]);
 		close(pipefd[STDOUT_FILENO]);
-	}
 	return (TRUE);
 }

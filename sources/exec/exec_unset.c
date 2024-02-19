@@ -12,31 +12,12 @@
 
 #include "libseas.h"
 
-int	exec_unset(t_llist **llist, char *var)
+int	exec_unset(t_llist **env, char **cmd)
 {
-	t_llist	*aux;
-	t_llist	*head;
-	t_llist	*next;
-	
-	aux = *llist;
-	head = *llist;
-	while (aux)
-	{	
-		if (aux->next)
-			next = aux->next;
-		if (str_comp_until(head->value, var, '=') == TRUE)
-		{
-			*llist = next;
-			ll_del_one(head);
-			return (TRUE);
-		}
-		if (str_comp_until(next->value, var, '=') == TRUE)
-		{
-			aux->next = next->next;
-			ll_del_one(next);
-			return (TRUE);
-		}
-		aux = aux->next;
-	}
-	return (FALSE);
+	int	argument_count;
+
+	argument_count = grid_len(cmd);
+	while (--argument_count != FALSE_INDEX)
+		ll_remove_node(env, cmd[argument_count]);
+	return (0);
 }

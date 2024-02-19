@@ -12,13 +12,13 @@
 
 #include "libseas.h"
 
-int	get_pwd()
+int	get_pwd(int fd)
 {
 	char	buf[1024];
 
 	if (getcwd(buf, sizeof(buf)) != NULL)
 	{
-		printf("%s\n", buf);
+		put_endl(buf, fd);
 		return (TRUE);
 	}
 	return (FALSE);

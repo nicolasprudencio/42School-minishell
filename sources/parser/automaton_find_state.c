@@ -17,7 +17,7 @@ void	automaton_find_state(t_pushdown_automaton *parse_bot,
 			&& !str_comp(parse_bot->stack->top->as_str, "<SPECIAL>"))
 	{
 		if (!((*input)->next && !str_comp((*input)->next->token_type,
-					"<STRING>")))
+						"<STRING>")))
 			parse_bot->current_state = INVALID_REDIR;
 		else if (!str_comp((*input)->value, "<<"))
 			parse_bot->current_state = HEREDOC;

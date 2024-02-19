@@ -60,9 +60,9 @@ static int	st_heredoc(int state, t_cmd_table **cmd_table, t_token *token)
 	else if (state == INVALID_REDIR)
 	{
 		if (!token)
-			printf("STD_ERROR %s\n", "newline");
+			printf("%s '%s'\n", STD_ERROR, "newline");
 		else
-			printf("STD_ERROR %s\n", token->value);
+			printf("%s '%s'\n", STD_ERROR, token->value);
 		free(last->command->parsed[0]);
 		last->command->parsed[0] = str_dup("(Invalid)");
 		return (FALSE);

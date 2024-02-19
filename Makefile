@@ -8,7 +8,7 @@ FLAGS		=	$(M_FLAGS) $(D_FLAGS)
 CORE		=	core.c
 CORE		:=	$(addprefix sources/, $(CORE))
 
-UTILS		=	is_builtin.c is_flag.c str_is_enclosed.c str_comp_upto.c put_cmdt.c
+UTILS		=	is_builtin.c is_flag.c str_is_enclosed.c put_cmdt.c
 UTILS		+=	char_exists.c str_comp_until.c str_len_until.c is_terminal.c test.c
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
@@ -22,7 +22,7 @@ HERE_SRCS	:=	$(addprefix sources/heredoc/, $(HERE_SRCS))
 PARSE_SRCS	=	parser.c
 PARSE_SRCS	:=	$(addprefix sources/parser/, $(PARSE_SRCS))
 
-AUT_SRCS	=	act.c astates.c find_transition.c new.c transition_relation.c find_command.c
+AUT_SRCS	=	act.c find_transition.c new.c transition_relation.c find_command.c
 AUT_SRCS	+=	restart_stack.c find_state.c cmdt_create.c cmd_create.c cmd_add.c cmd_last.c
 AUT_SRCS	+=	cmdt_destroy.c cmd_pipe.c cmd_iredir.c cmd_oredir.c cmd_append.c
 AUT_SRCS	:=	$(addprefix sources/parser/automaton_, $(AUT_SRCS))
@@ -30,7 +30,7 @@ AUT_SRCS	:=	$(addprefix sources/parser/automaton_, $(AUT_SRCS))
 GRAM_SRCS	=	define_production.c define_terminals.c define_variables.c new.c 
 GRAM_SRCS	:=	$(addprefix sources/grammar_definitions/grammar_,$(GRAM_SRCS))
 
-EXEC_SRCS	=	.c _cd.c _echo.c _env.c _export.c _pwd.c _unset.c _open_process.c
+EXEC_SRCS	=	.c _cd.c _echo.c _env.c _export.c _pwd.c _unset.c _open_process.c _exit.c
 EXEC_SRCS	:=	$(addprefix sources/exec/exec, $(EXEC_SRCS))
 
 OBJS_DIR	=	objects

@@ -2,8 +2,8 @@
 
 static int	st_allocate_new(t_cmd_table **cmd_table, t_token *input);
 static int	st_find_size(t_token *input);
-static void	st_fill_command(t_cmd_table **cmd_table, t_token *input, 
-		int lenght);
+static int	st_fill_command(t_cmd_table **cmd_table, t_token *input);
+static int	st_special_case(t_cmd_table **cmd_table, t_token *input);
 
 int	cmd_create(t_cmd_table **cmd_table, t_token *input)
 {
@@ -31,31 +31,35 @@ int	cmd_create(t_cmd_table **cmd_table, t_token *input)
 
 static int	st_allocate_new(t_cmd_table **cmd_table, t_token *input)
 {
-	int	lenght;
-
-	if (!str_comp(input->token_type, "<SPECIAL>"))
-		return (st_special_start(cmd_table, input));
 	if (!*cmd_table)
 		return (FALSE);
 	(*cmd_table)->command = (t_command *)mem_calloc(1, sizeof(t_command));
 	if (!(*cmd_table)->command)
 		return (FALSE);
-	lenght = st_find_size(input);
-	(*cmd_table)->command->parsed = (char **)mem_calloc(lenght + 1,
-			sizeof(char *));
-	if (!(*cmd_table)->command->parsed)
-		return (FALSE);
-	st_fill_command(cmd_table, input, lenght);
-	(*cmd_table)->command->io[0] = 0;
-	(*cmd_table)->command->io[1] = 1;
+	if (!str_comp(input->token_type, "<SPECIAL>"))
+		return (st_special_case(cmd_table, input));
+	return (st_fill_command(cmd_table, input));
+}
+
+static int	st_special_case(t_cmd_table **cmd_table, t_token *input)
+{
+	input = input->next;
+	if (input && input->next && str_comp(input->next->token_type, "<PIPE>")
+			&& str_comp(input->next->token_type, "<SPECIAL>"))
+		input = input->next;
+	if (!input)
+	{
+		(*cmd_table)->command->parsed = (char **)mem_calloc(2, sizeof(char *));
+		if (!(*cmd_table)->command->parsed)
+			return (FALSE);
+		(*cmd_table)->command->parsed[0] = str_dup("(Invalid)");
+		if (!(*cmd_table)->command->parsed[0])
+			return (FALSE);
+	}
+	else
+		return (st_fill_command(cmd_table, input));
 	return (TRUE);
 }
-
-static int	st_special_start(t_cmd_table **cmd_table, t_token *input)
-{
-	
-}
-
 static int	st_find_size(t_token *input)
 {
 	int	i;
@@ -73,15 +77,22 @@ static int	st_find_size(t_token *input)
 	return (i);
 }
 
-static void	st_fill_command(t_cmd_table **cmd_table, t_token *input, 
-		int lenght)
+static int	st_fill_command(t_cmd_table **cmd_table, t_token *input)
 {
 	int	i;
+	int	len;
 
+	len = st_find_size(input);
+	(*cmd_table)->command->parsed = (char **)mem_calloc(len + 1, sizeof(char *));
+	if (!(*cmd_table)->command->parsed)
+		return (FALSE);
 	i = -1;
-	while (++i < lenght)
+	while (++i < len)
 	{
 		(*cmd_table)->command->parsed[i] = str_dup(input->value);
 		input = input->next;
 	}
+	(*cmd_table)->command->io[0] = 0;
+	(*cmd_table)->command->io[1] = 1;
+	return (TRUE);
 }

@@ -12,37 +12,49 @@
 
 #include "libseas.h"
 
-static int	st_to_replace(t_llist **ll, char *var)
-{
-	t_llist *aux;
+static void	st_put_env(t_llist *env, int fd);
+static void	st_add_to_list(t_llist **env, char **values);
 
-	aux = *ll;
+int	exec_export(t_llist *env, t_command *cmd)
+{
+	int		argument_count;
+
+	argument_count = grid_len(cmd->parsed);
+	if (argument_count == 1)
+		st_put_env(env, cmd->io[STDOUT_FILENO]);
+	else
+		st_add_to_list(&env, &cmd->parsed[1]);
+	return (TRUE);
+}
+
+static void	st_add_to_list(t_llist **env, char **values)
+{
+	int		i;
+	t_llist	*aux;
+
+	aux = *env;
 	while (aux)
-	{	
-		if (str_comp_until(aux->value, var, '=') == TRUE)
+	{
+		i = -1;
+		while (values[++i])
 		{
-			free(aux->value);
-			aux->value = str_dup(var);
-			return (TRUE);
+			if (!str_comp_upto(aux->value, values[i], '='))
+			{
+				free(aux->value);
+				aux->value = str_dup(values[i]);
+			}
+			else
+				ll_add_back(env, ll_node(values[i]));
 		}
 		aux = aux->next;
 	}
-	return (FALSE);
 }
 
-int	exec_export(t_llist *ll, char *var, int fd)
+static void	st_put_env(t_llist *env, int fd)
 {
 	t_llist	*aux;
 
-	aux = ll;
-	if (var)
-	{	
-		if (st_to_replace(&ll, var) == TRUE)
-			return (TRUE);
-		else
-			ll_add_back(&ll, ll_node(var));
-		return (TRUE);
-	}
+	aux = env;
 	while (aux)
 	{	
 		put_str("declare -x ", fd);
@@ -52,5 +64,4 @@ int	exec_export(t_llist *ll, char *var, int fd)
 		put_str("\n", fd);	
 		aux = aux->next;
 	}
-	return (TRUE);
 }

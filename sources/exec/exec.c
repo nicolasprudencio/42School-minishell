@@ -6,15 +6,15 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:36:07 by fpolaris          #+#    #+#             */
-/*   Updated: 2024/02/17 02:19:49 by fpolaris         ###   ########.fr       */
+/*   Updated: 2024/02/19 08:06:38 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-static int	st_run_builtin(t_command *cmd, t_llist *env);
 static int	st_count_commands(t_cmd_table *cmd_table);
 static void	st_go_to_next_command(t_cmd_table **cmd_table);
+static int	st_run_builtin(t_cmd_table *cmd, t_pushdown_automaton *parse_bot);
 
 int	exec(t_cmd_table **cmd_table, t_pushdown_automaton *parse_bot)
 {
@@ -26,8 +26,8 @@ int	exec(t_cmd_table **cmd_table, t_pushdown_automaton *parse_bot)
 	{
 		if (is_builtin(parse_bot->language,
 				(*cmd_table)->command->parsed[0]) != FALSE_INDEX)
-			status = st_run_builtin((*cmd_table)->command, 
-					parse_bot->env_list);
+			status = st_run_builtin(*cmd_table, 
+					parse_bot);
 		else
 			status = exec_open_process(cmd_table, parse_bot);
 		st_go_to_next_command(cmd_table);
@@ -59,16 +59,21 @@ static int	st_count_commands(t_cmd_table *cmd_table)
 	return (cmd_quantity);
 }
 
-static int	st_run_builtin(t_command *cmd, t_llist *env)
+static int	st_run_builtin(t_cmd_table *cmd, t_pushdown_automaton *parse_bot)
 {
-	if (!str_comp(cmd->parsed[0], "echo"))
-		return (exec_echo(cmd->parsed, cmd->io[STDOUT_FILENO]));
-	if (!str_comp(cmd->parsed[0], "cd"))
-		return (exec_cd(cmd->parsed[1], &env));
-//	if (!str_comp(cmd->parsed[0], "pwd"))
-//	if (!str_comp(cmd->parsed[0], "export"))
-//	if (!str_comp(cmd->parsed[0], "unset"))
+	if (!str_comp(cmd->command->parsed[0], "echo"))
+		return (exec_echo(cmd->command->parsed,
+					cmd->command->io[STDOUT_FILENO]));
+	if (!str_comp(cmd->command->parsed[0], "cd"))
+		return (exec_cd(cmd->command->parsed[1], &parse_bot->env_list));
+	if (!str_comp(cmd->command->parsed[0], "pwd"))
+		return (get_pwd(cmd->command->io[STDOUT_FILENO]));
+	if (!str_comp(cmd->command->parsed[0], "export"))
+		return (exec_export(parse_bot->env_list, cmd->command));
+	if (!str_comp(cmd->command->parsed[0], "unset"))
+		return (exec_unset(&parse_bot->env_list, cmd->command->parsed));
 //	if (!str_comp(cmd->parsed[0], "env"))
-//	if (!str_comp(cmd->parsed[0], "exit"))
+	if (!str_comp(cmd->command->parsed[0], "exit") && !cmd->next)
+		return (exec_exit(parse_bot, cmd));
 	return (1);
 }

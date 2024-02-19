@@ -8,7 +8,7 @@ t_cmd_table	*parser(t_pushdown_automaton *robot, t_token *tokens);
 t_pushdown_automaton	*automaton_new(char **env);
 void	automaton_destroy(t_pushdown_automaton *robot);
 
-int		*automaton_astates(void);
+//int		*automaton_astates(void);
 t_relation	*automaton_transition_relation(void);
 
 //	actions
@@ -33,7 +33,7 @@ int		cmd_append(t_cmd_table **cmd_table, t_token *token);
 
 int		cmd_create(t_cmd_table **cmd_table, t_token *token);
 
-int		cmd_add(t_cmd_table **cmd, t_token *token, int flag);
+//int		cmd_add(t_cmd_table **cmd, t_token *token, int flag);
 void	cmd_last(t_cmd_table **last, t_cmd_table **cmd_table);
 
 void	put_cmdt(t_cmd_table *cmd_table);

@@ -25,9 +25,7 @@ t_cmd_table	*parser(t_pushdown_automaton *parse_bot, t_token *tokens)
 		act = automaton_act(parse_bot, &temp);
 		if (act == FALSE_INDEX)
 		{
-			printf("%s%s'%s'\n", "SEAshell: ",
-					"syntax error near unexpected token ",
-					temp->value);
+			printf("%s '%s'\n", STD_ERROR, temp->value);
 			break ;
 		}
 		if (!cmdt_create(parse_bot->current_state, &output, temp))
