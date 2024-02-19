@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_expand_variables.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 17:05:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/26 09:09:06 by nicolas          ###   ########.fr       */
+/*   Updated: 2024/02/19 14:21:06 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ static void	rev_srch(char *line, t_lst *lst)
 		return ;
 	while (aux)
 	{
-		if (str_comp_until(aux->value, &str[1], '='))
+		if (is_valid_env(aux->value, &str[1], '='))
 		{	
 			temp = str_copy_upto(str_find_char(aux->value, '=', 1), '\0');
 			str = str_dup_len(str, str_len_until(aux->value, '=') + 1);
@@ -172,7 +172,7 @@ static char	*change_var_value(char *line, t_lst *lst)
 	str = str_find_char(line, '$', 0);
 	while (aux)
 	{
-		if (str_comp_until(aux->value, &str[1], '='))
+		if (is_valid_env(aux->value, &str[1], '='))
 		{	
 			temp = str_copy_upto(str_find_char(aux->value, '=', 1), '\0');
 			str = str_dup_len(str, str_len_until(aux->value, '=') + 1);
@@ -263,7 +263,7 @@ char	*env_expand_variables(char	*line, t_lst *lst)
 // 	{
 // 		while (aux)
 // 		{
-// 			if (str_comp_until(var, aux->value, '\\') || str_comp_until(aux->value, var, '='))
+// 			if (is_valid_env(var, aux->value, '\\') || is_valid_env(aux->value, var, '='))
 // 			{	
 // 				free(var);
 // 				return (str_find_char(aux->value, '=', 1));

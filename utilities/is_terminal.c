@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 10:44:14 by fpolaris          #+#    #+#             */
-/*   Updated: 2024/01/24 13:16:20 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:21:06 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*st_find_path_variable(t_lst *env_lst)
 	aux = env_lst;
 	while (aux)
 	{
-		if (str_comp_until(aux->value, "PATH", '=') == TRUE)
+		if (is_valid_env(aux->value, "PATH", '=') == TRUE)
 		{	
 			var = str_find_char(aux->value, '=', 1);
 			var_value = mem_calloc(str_len(var), sizeof(char));

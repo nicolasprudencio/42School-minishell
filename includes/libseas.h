@@ -29,7 +29,7 @@ int	is_flag(char *line);
 int	is_terminal(t_lst *env_lst, char *line);
 int	is_terminal2(t_lst *env_lst, char **line);
 int	char_exists(char *s, int c);
-int	str_comp_until(char *str1, char *str2, int c);
+int	is_valid_env(char *env, char *value, int c);
 int	str_len_until(char *s, int c);
 int	str_is_enclosed(char *line, int c);
 int	str_comp_upto(char *str1, char *str2, char end);

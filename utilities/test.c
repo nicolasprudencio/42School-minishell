@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 08:01:00 by nicolas           #+#    #+#             */
-/*   Updated: 2024/02/16 18:47:10 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:21:06 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	var_exists(t_lst *lst, char *var)
 	aux = lst;
 	while (aux)
 	{
-		if (str_comp_until(aux->value, &var[1], '='))
+		if (is_valid_env(aux->value, &var[1], '='))
 			return (TRUE);
 		aux = aux->next;
 	}
@@ -122,7 +122,7 @@ char	*expand_variable(t_lst *lst, char *line)
 	str = st_next_variable(line);
 	while (aux)
 	{
-		if (str[0] && str_comp_until(aux->value, &str[1], '='))
+		if (str[0] && is_valid_env(aux->value, &str[1], '='))
 		{	
 			line = st_replace_word(line, aux->value);
 			// if (st_next_variable(line))

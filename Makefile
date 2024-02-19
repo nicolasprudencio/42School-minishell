@@ -9,7 +9,7 @@ CORE		=	core.c
 CORE		:=	$(addprefix sources/, $(CORE))
 
 UTILS		=	is_builtin.c is_flag.c str_is_enclosed.c str_comp_upto.c put_cmdt.c
-UTILS		+=	char_exists.c str_comp_until.c str_len_until.c is_terminal.c environment.c env_expand_variables.c test.c
+UTILS		+=	char_exists.c is_valid_env.c str_len_until.c is_terminal.c environment.c env_expand_variables.c test.c
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
 LEXER_SRCS	=	lexer.c token_new.c put_token.c token_push_last.c token_last_is_pipe.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:14:33 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/25 17:36:26 by nicolas          ###   ########.fr       */
+/*   Updated: 2024/02/19 14:21:06 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	st_to_replace(t_lst **lst, char *var)
 	aux = *lst;
 	while (aux)
 	{	
-		if (str_comp_until(aux->value, var, '=') == TRUE)
+		if (is_valid_env(aux->value, var, '=') == TRUE)
 		{
 			free(aux->value);
 			aux->value = str_dup(var);

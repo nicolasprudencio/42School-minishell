@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   str_comp_until.c                                   :+:      :+:    :+:   */
+/*   is_valid_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 16:42:18 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/15 18:07:31 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:21:51 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-int	str_comp_until(char *str1, char *str2, int c)
+int	is_valid_env(char *env, char *value, int c)
 {
 	int	i;
 
 	i = 0;
-	if (!str1 || !str2)
+	if (!env || !value)
 		return (FALSE);
-	while (str1[i] && str2[i] && str1[i] != c)
+	while (env[i] && value[i] && env[i] != c)
 	{	
-		if (str1[i] != str2[i])
+		if (env[i] != value[i])
 			return (FALSE);
-		i++;	
-	}		
-	if ((str1[i] == c && str2[i] == '\0') ||
-			(str1[i] == c && str2[i] == c) ||
-				(str1[i] == c && is_space(str2[i])) ||
-					(str1[i] == c && str2[i] == '$') ||
-						(str1[i] == c && str2[i] == '\\'))
+		i++;
+	}
+	if ((env[i] == c && value[i] == c) || \
+		(env[i] == c && value[i] == '$') || \
+		(env[i] == c && value[i] == '\\') || \
+		(env[i] == c && value[i] == '\"') || \
+		(env[i] == c && value[i] == '\'') || \
+		(env[i] == c && value[i] == '\0') || \
+		(env[i] == c && is_space(value[i])))
 		return (TRUE);
 	return (FALSE);
 }

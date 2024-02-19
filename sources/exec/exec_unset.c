@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 16:48:14 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/24 13:16:37 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/19 14:21:06 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	exec_unset(t_lst **llist, char *var)
 	{	
 		if (aux->next)
 			next = aux->next;
-		if (str_comp_until(head->value, var, '=') == TRUE)
+		if (is_valid_env(head->value, var, '=') == TRUE)
 		{
 			*llist = next;
 			lst_del_one(head);
 			return (TRUE);
 		}
-		if (str_comp_until(next->value, var, '=') == TRUE)
+		if (is_valid_env(next->value, var, '=') == TRUE)
 		{
 			aux->next = next->next;
 			lst_del_one(next);
