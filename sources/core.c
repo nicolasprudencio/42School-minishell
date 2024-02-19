@@ -18,6 +18,7 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 	if (!tokens)
 		return (FALSE);
 	cmd_table = parser(parse_bot, tokens);
+	heredoc(parse_bot->env_list, tokens, cmd_table);
 	token_free(&tokens);
 	if (!cmd_table)
 		return (FALSE);

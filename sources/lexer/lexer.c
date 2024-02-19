@@ -25,7 +25,7 @@ t_token	*lexer(char *line, t_pushdown_automaton *parse_bot)
 		else if (line[i] == '<' || line[i] == '>')
 			i += token_add_special(&tokens, &line[i]);
 		else if (line [i])
-			i += token_add_string(&tokens, &line[i]);
+			i += token_add_string(&tokens, &line[i], parse_bot->env_list);
 	}
 	return (tokens);
 }
