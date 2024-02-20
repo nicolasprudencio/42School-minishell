@@ -35,7 +35,6 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 	recursive_case = st_check_for_recursion(parse_bot, &cmd_table);
 	free(rl_output);
 	*get_status() = exec(&cmd_table, parse_bot);
-	printf("status_code: %i\n", *get_status());
 	if (recursive_case)
 		core(parse_bot, "> ", recursive_case);
 	cmdt_destroy(&cmd_table);
@@ -47,10 +46,13 @@ static void	st_check_initial_fd(t_cmd_table **cmd_table, int fd)
 	t_cmd_table	*last;
 
 	cmd_last(&last, cmd_table);
-	if (last->command->io[STDIN_FILENO] == STDIN_FILENO)
+	if (last)
+	{
+		if (last->command->io[STDIN_FILENO] == STDIN_FILENO)
 		last->command->io[STDIN_FILENO] = fd;
-	else if (fd != STDIN_FILENO)
-		close(fd);
+		else if (fd != STDIN_FILENO)
+			close(fd);
+	}
 }
 
 static int	st_check_for_recursion(t_pushdown_automaton *parse_bot,

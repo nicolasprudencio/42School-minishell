@@ -37,5 +37,6 @@ int		is_terminal2(t_llist *env_lst, char **line);
 int		char_exists(char *s, int c);
 int		str_len_until(char *s, int c);
 int		str_is_enclosed(char *line, int c);
+char	*ft_itoa(int n);
 
 #endif
