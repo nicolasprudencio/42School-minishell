@@ -24,7 +24,7 @@
 int		core(t_pushdown_automaton *parse_bot, char * prompt, int fd);
 void	heredoc(t_llist *env_lst, t_token *tokens, t_cmd_table *cmd);
 void	handle_signals(void);
-void	handle_exec_signals(int pid);
+void	handle_exec_signals();
 char	*expand_variable(t_llist *lst, char *line);
 
 // UTILITIES

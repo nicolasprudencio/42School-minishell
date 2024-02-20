@@ -13,6 +13,8 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 
 	handle_signals();
 	rl_output = readline(prompt);
+	if (!rl_output)
+		put_str("exit\n", 0 );
 	add_history(rl_output);
 	tokens = lexer(rl_output, parse_bot);
 	if (!tokens)
@@ -23,7 +25,6 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 	if (!cmd_table)
 		return (FALSE);
 	st_check_initial_fd(&cmd_table, fd);
-//	open heredoc
 	recursive_case = st_check_for_recursion(parse_bot, &cmd_table);
 	free(rl_output);
 	exec(&cmd_table, parse_bot);

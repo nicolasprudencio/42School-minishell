@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:43:53 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/19 20:46:58 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/20 13:25:54 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void st_get_input(t_llist *env, char *eof, int fd)
 	counter = 0;
 	if (!eof)
 		return ;
+	// handle_exec_signals();
 	while (1)
 	{
 		line = readline("> ");
