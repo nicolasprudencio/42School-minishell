@@ -28,7 +28,7 @@ int	token_add_string(t_token **tokens, char *line, t_llist *env)
 
 static void	st_expand(t_llist *env, char **content)
 {
-	if (str_is_enclosed(*content, '\''))
+	if (str_is_enclosed(*content, '\'') != FALSE_INDEX)
 		return ;
 	if (str_len_until(*content, '$') != FALSE_INDEX)
 		*content = expand_variable(env, *content);

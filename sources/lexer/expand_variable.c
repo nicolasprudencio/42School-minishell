@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 08:01:00 by nicolas           #+#    #+#             */
-/*   Updated: 2024/02/19 18:16:24 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:05:02 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,13 @@ char	*expand_variable(t_llist *lst, char *line)
 			}
 			else
 				line = st_remove_word(line, str_len(&line[i]));
+		}
+		else if (line[i] == '$' && line[i + 1] == '?')
+		{
+			line = st_replace_word(line, conv_itoa(*get_status()), i);
+
+			while (line[i] && !is_space(line[i]) && line[i] != '$')
+				i++;
 		}
 		else
 			i++;
