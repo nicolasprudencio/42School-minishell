@@ -9,7 +9,7 @@ CORE		=	core.c
 CORE		:=	$(addprefix sources/, $(CORE))
 
 UTILS		=	is_builtin.c is_flag.c str_is_enclosed.c put_cmdt.c
-UTILS		+=	char_exists.c str_comp_until.c str_len_until.c is_terminal.c 
+UTILS		+=	char_exists.c str_len_until.c is_terminal.c 
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
 LEXER_SRCS	=	lexer.c token_new.c put_token.c token_push_last.c token_last_is_pipe.c
@@ -22,6 +22,9 @@ HERE_SRCS	:=	$(addprefix sources/heredoc/, $(HERE_SRCS))
 
 PARSE_SRCS	=	parser.c
 PARSE_SRCS	:=	$(addprefix sources/parser/, $(PARSE_SRCS))
+
+SIGNAL_SRCS	=	signals.c
+SIGNAL_SRCS	:=	$(addprefix sources/signals/, $(SIGNAL_SRCS))
 
 AUT_SRCS	=	act.c find_transition.c new.c transition_relation.c find_command.c
 AUT_SRCS	+=	restart_stack.c find_state.c cmdt_create.c cmd_create.c cmd_add.c cmd_last.c
@@ -43,6 +46,7 @@ OBJS		+=	$(addprefix $(OBJS_DIR)/, $(EXEC_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(AUT_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(UTILS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(HERE_SRCS:.c=.o))
+OBJS		+=	$(addprefix $(OBJS_DIR)/, $(SIGNAL_SRCS:.c=.o))
 
 HEADERS		=	-I./includes -I./libft/header
 READLINE	=	-lreadline

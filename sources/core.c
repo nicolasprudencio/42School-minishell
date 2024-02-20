@@ -11,7 +11,7 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 	t_token	*tokens;
 	t_cmd_table	*cmd_table;
 
-
+	handle_signals();
 	rl_output = readline(prompt);
 	add_history(rl_output);
 	tokens = lexer(rl_output, parse_bot);

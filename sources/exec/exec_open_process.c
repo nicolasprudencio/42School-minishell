@@ -11,6 +11,7 @@ int	exec_open_process(t_cmd_table **cmd, t_pushdown_automaton *parse_bot)
 	pid_t		pid;
 
 	pid = fork();
+	handle_exec_signals(pid);
 	status = 0;
 	if (pid < 0)
 		return (FALSE);

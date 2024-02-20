@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:43:53 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/16 16:54:24 by fpolaris         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:46:58 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,24 @@ static char *st_find_eof(t_token *tokens, int current)
 static void st_get_input(t_llist *env, char *eof, int fd)
 {
 	char	*line;
+	int		counter;
 	t_llist	*doc_lst;
 
 	doc_lst = NULL;
+	counter = 0;
 	if (!eof)
 		return ;
 	while (1)
 	{
 		line = readline("> ");
+		counter++;
+		if (!line)
+		{
+			printf("bash: warning: here-document at line %i delimited by end-of-file (wanted `%s')\n", counter, eof);
+			if (doc_lst)
+				ll_clear(&doc_lst);
+			return ;	
+		}
 		if (str_len_until(line, '$') != FALSE_INDEX)
 			line = expand_variable(env, line);
 		if (str_comp(line, eof) == 0)
