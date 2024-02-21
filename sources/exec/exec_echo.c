@@ -29,7 +29,7 @@ int	exec_echo(char **str, int fd)
 			i++;
 		}
 		else
-			break;
+			break ;
 	}
 	while (str[i])
 	{

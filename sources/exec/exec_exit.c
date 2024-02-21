@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_exit.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 11:08:53 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:08:55 by fpolaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libseas.h"
 
 static int	st_check_input(char *input);
@@ -30,7 +42,7 @@ static int	st_check_input(char *input)
 	if (!str_is_digit(input))
 	{
 		printf("SEAshell: exit: %s: numeric argument required\n",
-				input);
+			input);
 		return (2);
 	}
 	return (conv_atoi(input));

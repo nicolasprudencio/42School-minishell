@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   core.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 10:52:53 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 10:52:55 by fpolaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libseas.h"
 
 static void	st_check_initial_fd(t_cmd_table **cmd_table, int fd);
@@ -7,6 +19,7 @@ static int	st_check_for_recursion(t_pushdown_automaton *parse_bot,
 int	get_status(int new_status)
 {	
 	static int	status = 0;
+
 	if (new_status == -1)
 		return (status);
 	status = new_status;
@@ -15,9 +28,9 @@ int	get_status(int new_status)
 
 int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 {
-	int	recursive_case;
-	char	*rl_output;
-	t_token	*tokens;
+	int			recursive_case;
+	char		*rl_output;
+	t_token		*tokens;
 	t_cmd_table	*cmd_table;
 
 	handle_signals();
@@ -58,7 +71,7 @@ static int	st_check_for_recursion(t_pushdown_automaton *parse_bot,
 {
 	t_cmd_table	*recursion_helper;
 	t_command	*cmd_o;
-	int		pipefd[2];
+	int			pipefd[2];
 
 	if (parse_bot->current_state == PIPE_EMPTY)
 	{
@@ -74,4 +87,3 @@ static int	st_check_for_recursion(t_pushdown_automaton *parse_bot,
 	}
 	return (FALSE);
 }
-

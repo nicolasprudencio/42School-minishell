@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libseas.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 10:44:48 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 10:44:49 by fpolaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBSEAS_H
 # define LIBSEAS_H
 
@@ -21,10 +33,10 @@
 # include "parser.h"
 # include "exec.h"
 
-int		core(t_pushdown_automaton *parse_bot, char * prompt, int fd);
+int		core(t_pushdown_automaton *parse_bot, char *prompt, int fd);
 void	heredoc(t_llist *env_lst, t_token *tokens, t_cmd_table *cmd);
 void	handle_signals(void);
-void	handle_exec_signals();
+void	handle_exec_signals(void);
 char	*expand_variable(t_llist *lst, char *line);
 int		get_status(int new_status);
 

@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_pushdown_automaton *parse_bot;
+	t_pushdown_automaton	*parse_bot;
 
 	if (argc != 1)
 		return (FALSE);

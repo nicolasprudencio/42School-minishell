@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 10:44:26 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 10:44:27 by fpolaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LEXER_H
 # define LEXER_H
 
@@ -18,6 +30,5 @@ char	*expand_variable(t_llist *env_list, char *line);
 int		is_valid_env(char *env, char *value, int c);
 
 void	put_token(t_token *tokens);
-
 
 #endif

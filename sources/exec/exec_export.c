@@ -35,7 +35,7 @@ int	exec_export(t_llist *env, t_command *cmd)
 
 static int	st_already_exists(t_llist **env, char *value, int *has_added)
 {
-	t_llist *aux;
+	t_llist	*aux;
 
 	aux = *env;
 	while (aux)
@@ -62,7 +62,8 @@ static int	st_add_to_list(t_llist **env, char **values)
 	{	
 		if (is_digit(values[i][0]))
 		{
-			printf("SEAshell: export: `%s': not a valid identifier\n", values[i]);
+			printf("SEAshell: export: `%s': not a valid identifier\n",
+				values[i]);
 			return (FALSE);
 		}
 		has_added = 0;
@@ -88,7 +89,7 @@ static int	st_put_env(t_llist *env, int fd)
 		put_str(aux->value, fd);
 		if (aux->value[str_len_until(aux->value, '=') + 1] == '\0')
 			put_str("\"\"", fd);
-		put_str("\n", fd);	
+		put_str("\n", fd);
 		aux = aux->next;
 	}
 	return (TRUE);

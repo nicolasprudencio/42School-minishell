@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/19 18:19:20 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/19 18:19:21 by nprudenc         ###   ########.fr       */
+/*   Created: 2024/02/21 11:15:26 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:15:28 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 t_token	*lexer(char *line, t_pushdown_automaton *parse_bot)
 {
-	int			i;
+	int		i;
 	t_token	*tokens;
 
 	i = 0;
 	tokens = NULL;
-	if (!line)
-		return (NULL);
-	while (line[i])
+	while (line && line[i])
 	{
 		while (is_space(line[i]))
 				i++;

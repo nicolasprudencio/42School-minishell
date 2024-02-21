@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   grammar_define_variables.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/29 18:48:54 by nprudenc          #+#    #+#             */
-/*   Updated: 2023/12/07 19:33:20 by nprudenc         ###   ########.fr       */
+/*   Created: 2024/02/21 11:13:31 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:13:33 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-char	**grammar_define_variables()
+char	**grammar_define_variables(void)
 {
 	char	**output;
 	char	*temp;

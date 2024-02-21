@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   grammar_new.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/30 19:51:22 by nprudenc          #+#    #+#             */
-/*   Updated: 2023/11/30 19:58:19 by nprudenc         ###   ########.fr       */
+/*   Created: 2024/02/21 11:13:58 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:13:59 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-t_dictionary	*grammar_new()
+t_dictionary	*grammar_new(void)
 {
 	t_dictionary	*seas_script;
 

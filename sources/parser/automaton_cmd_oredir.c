@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   automaton_cmd_oredir.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 11:24:01 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:24:02 by fpolaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libseas.h"
 
 int	cmd_oredir(t_cmd_table **cmd_table, t_token *token)
 {
 	t_cmd_table	*last;
-	char	*path;
+	char		*path;
 
 	path = token->value;
 	cmd_last(&last, cmd_table);
@@ -15,7 +27,7 @@ int	cmd_oredir(t_cmd_table **cmd_table, t_token *token)
 		return (FALSE);
 	}
 	if (last->command->io[STDOUT_FILENO] != STDOUT_FILENO
-			&& last->command->io[STDOUT_FILENO] != FD_HEREDOC)
+		&& last->command->io[STDOUT_FILENO] != FD_HEREDOC)
 		close(last->command->io[STDIN_FILENO]);
 	last->command->io[STDOUT_FILENO] = open(path, O_WRONLY | O_TRUNC);
 	if (!last->command->io[STDOUT_FILENO])

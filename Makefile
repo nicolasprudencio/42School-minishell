@@ -27,7 +27,7 @@ SIGNAL_SRCS	=	signals.c
 SIGNAL_SRCS	:=	$(addprefix sources/signals/, $(SIGNAL_SRCS))
 
 AUT_SRCS	=	act.c find_transition.c new.c transition_relation.c find_command.c
-AUT_SRCS	+=	restart_stack.c find_state.c cmdt_create.c cmd_create.c cmd_add.c cmd_last.c
+AUT_SRCS	+=	restart_stack.c find_state.c cmdt_create.c cmd_create.c cmd_last.c
 AUT_SRCS	+=	cmdt_destroy.c cmd_pipe.c cmd_iredir.c cmd_oredir.c cmd_append.c
 AUT_SRCS	:=	$(addprefix sources/parser/automaton_, $(AUT_SRCS))
 
