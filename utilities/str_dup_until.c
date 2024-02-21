@@ -24,5 +24,5 @@ char	*str_dup_until(char *s, int c)
 	while (s[++i] != c)
 		s2[i] = s[i];
 	s2[i] = '\0';
-	return (s2);	
+	return (s2);
 }
