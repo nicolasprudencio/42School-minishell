@@ -12,31 +12,30 @@ void	automaton_destroy(t_pushdown_automaton *robot);
 t_relation	*automaton_transition_relation(void);
 
 //	actions
-int		automaton_act(t_pushdown_automaton *robot,
-		t_token **input);
+int			automaton_act(t_pushdown_automaton *robot,
+				t_token **input);
 char		**automaton_find_command(t_token *tokens);
-int		automaton_find_transition(t_pushdown_automaton *robot,
+int			automaton_find_transition(t_pushdown_automaton *robot,
 			t_token *token, char *stack_top);
-int		automaton_restart_stack(t_pushdown_automaton *parse_bot);
+int			automaton_restart_stack(t_pushdown_automaton *parse_bot);
 void		automaton_find_state(t_pushdown_automaton *parse_bot,
 			t_token **input);
 
 //	command_table actions
-int		cmdt_create(int state, t_cmd_table **cmd_table, t_token *token);
-void	cmdt_destroy(t_cmd_table **cmd_table);
-void	cmd_destroy(t_cmd_table *cmd);
+int			cmdt_create(int state, t_cmd_table **cmd_table, t_token *token);
+void		cmdt_destroy(t_cmd_table **cmd_table);
+void		cmd_destroy(t_cmd_table *cmd);
 
-int		cmd_pipe(t_cmd_table **cmd_table);
-int		cmd_iredir(t_cmd_table **cmd_table, t_token *token);
-int		cmd_oredir(t_cmd_table **cmd_table, t_token *token);
-int		cmd_append(t_cmd_table **cmd_table, t_token *token);
+int			cmd_pipe(t_cmd_table **cmd_table);
+int			cmd_iredir(t_cmd_table **cmd_table, t_token *token);
+int			cmd_oredir(t_cmd_table **cmd_table, t_token *token);
+int			cmd_append(t_cmd_table **cmd_table, t_token *token);
 
-int		cmd_create(t_cmd_table **cmd_table, t_token *token);
+int			cmd_create(t_cmd_table **cmd_table, t_token *token);
 
-//int		cmd_add(t_cmd_table **cmd, t_token *token, int flag);
-void	cmd_last(t_cmd_table **last, t_cmd_table **cmd_table);
+void		cmd_last(t_cmd_table **last, t_cmd_table **cmd_table);
 
-void	put_cmdt(t_cmd_table *cmd_table);
+void		put_cmdt(t_cmd_table *cmd_table);
 
 
 // to libfpp

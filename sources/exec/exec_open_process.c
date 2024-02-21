@@ -53,7 +53,7 @@ static int	st_child_process(t_cmd_table *cmd_table,
 		st_dup(cmd_table);
 		st_close_all_fds(cmd_table);
 		env = ll_to_tab(parse_bot->env_list);
-		execve(command[0], command, NULL);
+		execve(command[0], command, env);
 		free(env);
 	}
 	else if (str_comp(command[0], "(Invalid)"))

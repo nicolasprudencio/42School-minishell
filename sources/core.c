@@ -4,11 +4,13 @@ static void	st_check_initial_fd(t_cmd_table **cmd_table, int fd);
 static int	st_check_for_recursion(t_pushdown_automaton *parse_bot,
 				t_cmd_table **cmd_table);
 
-int	*get_status()
+int	get_status(int new_status)
 {	
-	static int	status;
-
-	return (&status);
+	static int	status = 0;
+	if (new_status == -1)
+		return (status);
+	status = new_status;
+	return (status);
 }
 
 int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
@@ -24,17 +26,13 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 		put_str("exit\n", 0);
 	add_history(rl_output);
 	tokens = lexer(rl_output, parse_bot);
-	if (!tokens)
-		return (FALSE);
 	cmd_table = parser(parse_bot, tokens);
 	heredoc(parse_bot->env_list, tokens, cmd_table);
 	token_free(&tokens);
-	if (!cmd_table)
-		return (FALSE);
 	st_check_initial_fd(&cmd_table, fd);
 	recursive_case = st_check_for_recursion(parse_bot, &cmd_table);
 	free(rl_output);
-	*get_status() = exec(&cmd_table, parse_bot);
+	get_status(exec(&cmd_table, parse_bot));
 	if (recursive_case)
 		core(parse_bot, "> ", recursive_case);
 	cmdt_destroy(&cmd_table);

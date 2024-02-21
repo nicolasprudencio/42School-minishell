@@ -12,20 +12,25 @@
 
 #include "libseas.h"
 
-static void	st_put_env(t_llist *env, int fd);
-static void	st_add_to_list(t_llist **env, char **values);
+static int	st_put_env(t_llist *env, int fd);
+static int	st_add_to_list(t_llist **env, char **values);
 
 int	exec_export(t_llist *env, t_command *cmd)
 {
 	int		argument_count;
 
 	argument_count = grid_len(cmd->parsed);
-	*get_status() = 0;
 	if (argument_count == 1)
-		st_put_env(env, cmd->io[STDOUT_FILENO]);
+	{
+		if (!st_put_env(env, cmd->io[STDOUT_FILENO]))
+			return (1);
+	}
 	else
-		st_add_to_list(&env, &cmd->parsed[1]);
-	return (TRUE);
+	{
+		if (!st_add_to_list(&env, &cmd->parsed[1]))
+			return (1);
+	}
+	return (0);
 }
 
 static int	st_already_exists(t_llist **env, char *value, int *has_added)
@@ -47,7 +52,7 @@ static int	st_already_exists(t_llist **env, char *value, int *has_added)
 	return (FALSE);
 }
 
-static void	st_add_to_list(t_llist **env, char **values)
+static int	st_add_to_list(t_llist **env, char **values)
 {
 	int		i;
 	int		has_added;
@@ -57,8 +62,8 @@ static void	st_add_to_list(t_llist **env, char **values)
 	{	
 		if (is_digit(values[i][0]))
 		{
-			printf("bash: export: `%s': not a valid identifier\n", values[i]);
-			*get_status() = 1;
+			printf("SEAshell: export: `%s': not a valid identifier\n", values[i]);
+			return (FALSE);
 		}
 		has_added = 0;
 		if (st_already_exists(env, values[i], &has_added))
@@ -69,9 +74,10 @@ static void	st_add_to_list(t_llist **env, char **values)
 			has_added = 1;
 		}
 	}
+	return (TRUE);
 }
 
-static void	st_put_env(t_llist *env, int fd)
+static int	st_put_env(t_llist *env, int fd)
 {
 	t_llist	*aux;
 
@@ -85,5 +91,5 @@ static void	st_put_env(t_llist *env, int fd)
 		put_str("\n", fd);	
 		aux = aux->next;
 	}
-	*get_status() = 0;
+	return (TRUE);
 }

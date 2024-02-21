@@ -109,7 +109,7 @@ char	*expand_variable(t_llist *lst, char *line)
 		}
 		else if (line[i] == '$' && line[i + 1] == '?')
 		{
-			line = st_replace_status(line, ft_itoa(*get_status()), i);
+			line = st_replace_status(line, ft_itoa(get_status(-1)), i);
 			while (line[i] && !is_space(line[i]) && line[i] != '$')
 				i++;
 		}

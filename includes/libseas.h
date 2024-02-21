@@ -26,7 +26,7 @@ void	heredoc(t_llist *env_lst, t_token *tokens, t_cmd_table *cmd);
 void	handle_signals(void);
 void	handle_exec_signals();
 char	*expand_variable(t_llist *lst, char *line);
-int		*get_status();
+int		get_status(int new_status);
 
 // UTILITIES
 
