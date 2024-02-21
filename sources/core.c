@@ -71,11 +71,7 @@ static int	st_check_for_recursion(t_pushdown_automaton *parse_bot,
 		if (cmd_o->io[STDOUT_FILENO] == STDOUT_FILENO)
 			cmd_o->io[STDOUT_FILENO] = pipefd[STDOUT_FILENO];
 		else
-		{
-			printf("st_check_for_recursion closing fd: %i\n", 
-					pipefd[STDOUT_FILENO]);
 			close(pipefd[STDOUT_FILENO]);
-		}
 		return (pipefd[STDIN_FILENO]);
 	}
 	return (FALSE);

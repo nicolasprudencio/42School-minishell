@@ -28,7 +28,7 @@ int	exec(t_cmd_table **cmd_table, t_pushdown_automaton *parse_bot)
 				(*cmd_table)->command->parsed[0]) != FALSE_INDEX)
 			status = st_run_builtin(*cmd_table, 
 					parse_bot);
-		else
+		else if (str_comp((*cmd_table)->command->parsed[0], "(Invalid)"))
 			status = exec_open_process(cmd_table, parse_bot);
 		st_go_to_next_command(cmd_table);
 	}

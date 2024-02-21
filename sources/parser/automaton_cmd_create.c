@@ -43,21 +43,25 @@ static int	st_allocate_new(t_cmd_table **cmd_table, t_token *input)
 
 static int	st_special_case(t_cmd_table **cmd_table, t_token *input)
 {
+	int	len;
+
 	input = input->next;
-	if (input && input->next && str_comp(input->next->token_type, "<PIPE>")
-			&& str_comp(input->next->token_type, "<SPECIAL>"))
-		input = input->next;
-	if (!input)
+	len = st_find_size(input);
+	if (len == 2)
 	{
-		(*cmd_table)->command->parsed = (char **)mem_calloc(2, sizeof(char *));
+		input = input->next;
+		return (st_fill_command(cmd_table, input));
+	}
+	else
+	{
+		(*cmd_table)->command->parsed = (char **)mem_calloc(2,
+				sizeof(char *));
 		if (!(*cmd_table)->command->parsed)
 			return (FALSE);
 		(*cmd_table)->command->parsed[0] = str_dup("(Invalid)");
 		if (!(*cmd_table)->command->parsed[0])
 			return (FALSE);
 	}
-	else
-		return (st_fill_command(cmd_table, input));
 	return (TRUE);
 }
 static int	st_find_size(t_token *input)

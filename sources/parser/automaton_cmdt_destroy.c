@@ -39,8 +39,8 @@ static void	st_close_io(t_cmd_table **cmd)
 
 	inp_fd = (*cmd)->command->io[STDIN_FILENO];
 	out_fd = (*cmd)->command->io[STDOUT_FILENO];
-	if (inp_fd != STDIN_FILENO)
+	if (inp_fd != STDIN_FILENO && inp_fd > 0)
 		close(inp_fd);
-	if (out_fd != STDOUT_FILENO)
+	if (out_fd != STDOUT_FILENO && out_fd > 0)
 		close(out_fd);
 }

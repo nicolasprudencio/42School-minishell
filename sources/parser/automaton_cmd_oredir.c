@@ -14,7 +14,8 @@ int	cmd_oredir(t_cmd_table **cmd_table, t_token *token)
 		printf("SEAshell: %s: Permission denied\n", path);
 		return (FALSE);
 	}
-	if (last->command->io[STDOUT_FILENO] != STDOUT_FILENO)
+	if (last->command->io[STDOUT_FILENO] != STDOUT_FILENO
+			&& last->command->io[STDOUT_FILENO] != FD_HEREDOC)
 		close(last->command->io[STDIN_FILENO]);
 	last->command->io[STDOUT_FILENO] = open(path, O_WRONLY | O_TRUNC);
 	if (!last->command->io[STDOUT_FILENO])

@@ -45,18 +45,18 @@ static int	st_child_process(t_cmd_table *cmd_table,
 		t_pushdown_automaton *parse_bot)
 {
 	char	**command;
-//	char	**env;
+	char	**env;
 	
 	command = cmd_table->command->parsed;
 	if (is_terminal2(parse_bot->env_list, &command[0]))
 	{
 		st_dup(cmd_table);
 		st_close_all_fds(cmd_table);
-//		env = ll_to_tab(parse_bot->env_list);
+		env = ll_to_tab(parse_bot->env_list);
 		execve(command[0], command, NULL);
-//		free(env);
+		free(env);
 	}
-	else
+	else if (str_comp(command[0], "(Invalid)"))
 		printf("SEAshell: %s: command not found\n", command[0]);
 	automaton_destroy(parse_bot);
 	cmdt_destroy(&cmd_table);
