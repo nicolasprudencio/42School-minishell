@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:14:33 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/20 20:21:05 by nicolas          ###   ########.fr       */
+/*   Updated: 2024/02/20 20:44:04 by nicolas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	exec_export(t_llist *env, t_command *cmd)
 	int		argument_count;
 
 	argument_count = grid_len(cmd->parsed);
+	*get_status() = 0;
 	if (argument_count == 1)
 		st_put_env(env, cmd->io[STDOUT_FILENO]);
 	else
@@ -39,7 +40,6 @@ static int	st_already_exists(t_llist **env, char *value, int *has_added)
 			free(aux->value);
 			aux->value = str_dup(value);
 			*has_added = 1;
-			*get_status() = 0;
 			return (TRUE);
 		}
 		aux = aux->next;
@@ -66,7 +66,6 @@ static void	st_add_to_list(t_llist **env, char **values)
 		if (!has_added)
 		{	
 			ll_add_back(env, ll_node(values[i]));
-			*get_status() = 0;
 			has_added = 1;
 		}
 	}

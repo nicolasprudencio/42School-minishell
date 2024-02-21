@@ -19,7 +19,9 @@ int	exec_open_process(t_cmd_table **cmd, t_pushdown_automaton *parse_bot)
 		st_child_process(*cmd, parse_bot);
 	else
 		waitpid(pid, &status, 0);
-	return (WEXITSTATUS(status));
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (0);
 }
 
 static void	st_close_all_fds(t_cmd_table *cmd)

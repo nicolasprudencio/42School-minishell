@@ -21,7 +21,7 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 	handle_signals();
 	rl_output = readline(prompt);
 	if (!rl_output)
-		put_str("exit\n", 0 );
+		put_str("exit\n", 0);
 	add_history(rl_output);
 	tokens = lexer(rl_output, parse_bot);
 	if (!tokens)
