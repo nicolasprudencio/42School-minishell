@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 08:01:00 by nicolas           #+#    #+#             */
-/*   Updated: 2024/02/22 17:19:37 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:39:57 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ static char	*st_remove_word(char *line, int rest_len)
 	before_len = str_len(line) - rest_len;
 	output = str_ndup(line, before_len);
 	if (!output)
-		return (line);
+		return (line);	
 	after_var = st_var_size(&line[before_len]) + before_len;
-	if (before_len == 0 || after_var == (int)str_len(line))
+	if (after_var == (int)str_len(line))
 	{
 		free(line);
 		line = NULL;

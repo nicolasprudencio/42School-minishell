@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   cmd_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:43:53 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/22 04:52:02 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:33:56 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ static char	*st_get_input(t_pushdown_automaton *parse_bot, char *eof)
 	{
 		printf(HERE_ERROR, parse_bot->input_count, eof);
 	}
-	if (str_len_until(line, '$') != FALSE_INDEX)
-		line = expand_variable(parse_bot->env_list, line);
+	line = expand_variable(parse_bot->env_list, line);
 	if (str_comp(line, eof) == 0)
 	{
 		free(line);
