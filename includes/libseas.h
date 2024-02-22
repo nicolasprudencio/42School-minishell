@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 22:29:20 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/21 22:39:16 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/22 03:15:03 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	heredoc(t_llist *env_lst, t_token *tokens, t_cmd_table *cmd);
 void	run_heredoc(t_llist **doc_lst, t_llist *env, char *eof);
 void	handle_signals(void);
 void	handle_exec_signals(void);
-void	handle_heredoc_sig(void);
+void	handle_heredoc_sig(int *fd);
 char	*expand_variable(t_llist *lst, char *line);
 int		get_status(int new_status);
 

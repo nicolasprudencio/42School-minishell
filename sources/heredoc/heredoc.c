@@ -6,13 +6,13 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:43:53 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/21 22:39:05 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/22 04:31:07 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-static void	st_get_input(t_llist *env, char *eof, int fd);
+static void	st_get_input(t_llist *env, char *eof, int *fd);
 static void	st_out_doc_lst(t_llist **doc_lst, int fd);
 static char	*st_find_eof(t_token *tokens, int current);
 
@@ -61,7 +61,6 @@ void	heredoc(t_llist *env_lst, t_token *tokens, t_cmd_table *cmd)
 	t_cmd_table	*aux;
 	int			current;
 	int			pipefd[2];
-	char		*eof;
 
 	aux = cmd;
 	current = 0;
@@ -69,12 +68,12 @@ void	heredoc(t_llist *env_lst, t_token *tokens, t_cmd_table *cmd)
 	{
 		if (cmd->command->io[STDIN_FILENO] == FD_HEREDOC)
 		{
-			// handle_heredoc_sig();
 			pipe(pipefd);
-			eof = st_find_eof(tokens, current++);
-			st_get_input(env_lst, eof, pipefd[STDOUT_FILENO]);
+			st_get_input(env_lst, st_find_eof(tokens, current++),
+				pipefd);
 			close(pipefd[STDOUT_FILENO]);
-			cmd->command->io[STDIN_FILENO] = pipefd[0];
+			cmd->command->io[STDIN_FILENO] = pipefd[STDIN_FILENO];
+			
 		}
 		aux = aux->next;
 	}
@@ -102,16 +101,29 @@ static char	*st_find_eof(t_token *tokens, int current)
 	return (NULL);
 }
 
-static void	st_get_input(t_llist *env, char *eof, int fd)
+static void	st_get_input(t_llist *env, char *eof, int *fd)
 {
 	t_llist	*doc_lst;
+	pid_t	pid;
 
 	if (!eof)
 		return ;
-	doc_lst = NULL;
-	run_heredoc(&doc_lst, env, eof);
-	st_out_doc_lst(&doc_lst, fd);
-	ll_clear(&doc_lst);
+	pid = fork();
+	if (pid == 0)
+	{	
+		close(fd[STDIN_FILENO]);
+		handle_heredoc_sig(fd);
+		doc_lst = NULL;
+		run_heredoc(&doc_lst, env, eof);
+		if (doc_lst)
+		{
+			st_out_doc_lst(&doc_lst, fd[STDOUT_FILENO]);
+			ll_clear(&doc_lst);
+		}
+		close(fd[STDOUT_FILENO]);
+		exit(0);
+	}
+	wait(NULL);
 }
 
 static void	st_out_doc_lst(t_llist **doc_lst, int fd)

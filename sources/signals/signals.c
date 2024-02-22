@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:33:02 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/21 21:40:52 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/22 03:47:58 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,25 @@ static void	st_handle_child(int sig)
 // 	// put_cmdt(table);
 // }
 
-// static void	st_handle_here(int sig)
-// {
-// 	if (sig == SIGINT)
-// 	{	
-// 		g_key = 1;
-// 		put_endl("", 0);
-// 		rl_on_new_line();
-// 		close(0);
-// 		// printf("key : %i\n", g_key);
-// 		// printf("amigo sto aqui\n");
-// 	}
-// }
+static void	st_handle_here(int sig)
+{
+	if (sig == SIGINT)
+	{	
+		put_endl("", 0);
+		rl_on_new_line();
+		exit(0);
+		// printf("key : %i\n", g_key);
+		// printf("amigo sto aqui\n");
+	}
+}
 
-void	handle_heredoc_sig(void)
+void	handle_heredoc_sig(int *fd)
 {
 	struct sigaction	sa_sigint;
 	struct sigaction	sa_sigquit;
 
-	sa_sigint.sa_handler = SIG_DFL;
+	(void)fd;
+	sa_sigint.sa_handler = &st_handle_here;
 	sa_sigint.sa_flags = 0;
 	sigemptyset(&sa_sigint.sa_mask);
 	sigaction(SIGINT, &sa_sigint, NULL);

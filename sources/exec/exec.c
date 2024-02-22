@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 12:36:07 by fpolaris          #+#    #+#             */
-/*   Updated: 2024/02/21 23:35:27 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/22 01:00:51 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	st_run_builtin(t_cmd_table *cmd, t_pushdown_automaton *parse_bot)
 {
 	if (!str_comp(cmd->command->parsed[0], "echo"))
 		return (exec_echo(cmd->command->parsed,
-					cmd->command->io[STDOUT_FILENO]));
+				cmd->command->io[STDOUT_FILENO]));
 	if (!str_comp(cmd->command->parsed[0], "cd"))
 		return (exec_cd(cmd->command->parsed[1], &parse_bot->env_list));
 	if (!str_comp(cmd->command->parsed[0], "pwd"))
@@ -77,7 +77,8 @@ static int	st_run_builtin(t_cmd_table *cmd, t_pushdown_automaton *parse_bot)
 		return (exec_env(parse_bot->env_list, cmd->command->io[STDOUT_FILENO]));
 	if (!str_comp(cmd->command->parsed[0], "env") && cmd->command->parsed[1])
 	{
-		printf("env: ‘%s’: No such file or directory\n", cmd->command->parsed[1]);
+		printf("env: ‘%s’: No such file or directory\n", \
+		cmd->command->parsed[1]);
 		return (127);
 	}
 	if (!str_comp(cmd->command->parsed[0], "exit") && !cmd->next)
