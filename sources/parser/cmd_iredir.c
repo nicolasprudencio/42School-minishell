@@ -22,8 +22,7 @@ int	cmd_iredir(t_cmd_table **cmd_table, t_token *token)
 	path = token->value;
 	cmd_last(&last, cmd_table);
 	st_try_to_access(&last, path);
-	if (last->command->io[STDIN_FILENO] != STDIN_FILENO
-		&& last->command->io[STDIN_FILENO] != FD_HEREDOC)
+	if (last->command->io[STDIN_FILENO] > 1)
 		close(last->command->io[STDIN_FILENO]);
 	last->command->io[STDIN_FILENO] = open(path, O_RDONLY);
 	if (!last->command->io[STDIN_FILENO])

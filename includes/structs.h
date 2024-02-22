@@ -57,6 +57,7 @@ typedef struct s_relation
 typedef struct s_pushdown_automaton
 {
 	int				current_state;
+	int				input_count;
 	t_relation		*transition;
 	int				starting_state;
 	char			*initial_symbol;

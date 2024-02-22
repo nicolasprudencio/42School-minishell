@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   signals_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 11:29:43 by fpolaris          #+#    #+#             */
-/*   Updated: 2024/02/21 11:29:45 by fpolaris         ###   ########.fr       */
+/*   Created: 2024/02/22 09:28:32 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/22 09:28:34 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-t_cmd_table	*parser(t_pushdown_automaton *parse_bot, t_token *tokens)
-{
-	t_cmd_table	*output;
-	t_token		*temp;
-	int			act;
+static void	st_sighandler(int signal);
 
-	temp = tokens;
-	output = NULL;
-	while (temp)
+void	handle_heredoc_signals(void)
+{
+	struct sigaction	sa_sig;
+
+	sa_sig.sa_flags = 0;
+	sa_sig.sa_handler = &st_sighandler;
+	sigemptyset(&sa_sig.sa_mask);
+	sigaction(SIGINT, &sa_sig, NULL);
+	sigaction(SIGQUIT, &sa_sig, NULL);
+}
+
+static void	st_sighandler(int signal)
+{
+	if (signal == SIGINT)
 	{
-		act = automaton_act(parse_bot, &temp);
-		if (act == FALSE_INDEX)
-		{
-			printf("%s '%s'\n", STD_ERROR, temp->value);
-			break ;
-		}
-		if (!cmdt_create(parse_bot, &output, temp))
-			break ;
+		put_endl("", 1);
+		if (get_pipe(-1) != -1)
+			close(get_pipe(-1));
+		exit(get_status(-1));
 	}
-	automaton_restart_stack(parse_bot);
-	return (output);
 }

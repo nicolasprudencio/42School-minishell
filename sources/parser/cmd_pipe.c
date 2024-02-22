@@ -26,11 +26,11 @@ int	cmd_pipe(t_cmd_table **cmd_table)
 	cmd_o = last->prev->command;
 	if (cmd_i->io[STDIN_FILENO] == STDIN_FILENO)
 		cmd_i->io[STDIN_FILENO] = pipefd[STDIN_FILENO];
-	else if (cmd_i->io[STDIN_FILENO] != FD_HEREDOC)
+	else if (cmd_i->io[STDIN_FILENO] > 1)
 		close(pipefd[STDIN_FILENO]);
 	if (cmd_o->io[STDOUT_FILENO] == STDOUT_FILENO)
 		cmd_o->io[STDOUT_FILENO] = pipefd[STDOUT_FILENO];
-	else if (cmd_o->io[STDOUT_FILENO] != FD_HEREDOC)
+	else if (cmd_o->io[STDOUT_FILENO] > 1)
 		close(pipefd[STDOUT_FILENO]);
 	return (TRUE);
 }
