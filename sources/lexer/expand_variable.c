@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 08:01:00 by nicolas           #+#    #+#             */
-/*   Updated: 2024/02/21 22:34:22 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:19:37 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,25 +52,42 @@ static char	*st_replace_word(char *line, char *var, int before_len)
 	if (!output)
 		return (line);
 	free(line);
+	line = NULL;
 	return (output);
+}
+
+static int	st_var_size(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[++i] && !is_space(line[i]) && line[i] != '$')
+		;
+	return (i);	
 }
 
 static char	*st_remove_word(char *line, int rest_len)
 {
 	int		before_len;
 	char	*output;
+	int		after_var;
 
 	before_len = str_len(line) - rest_len;
 	output = str_ndup(line, before_len);
 	if (!output)
 		return (line);
-	while (line[before_len++] && !is_space(line[before_len])
-		&& line[before_len] != '$')
-		;
-	output = str_join(output, &line[before_len], 1);
+	after_var = st_var_size(&line[before_len]) + before_len;
+	if (before_len == 0 || after_var == (int)str_len(line))
+	{
+		free(line);
+		line = NULL;
+		return(output);
+	}
+	output = str_join(output, &line[after_var], 1);
 	if (!output)
 		return (line);
 	free(line);
+	line = NULL;
 	return (output);
 }
 
@@ -95,7 +112,8 @@ char	*expand_variable(t_llist *lst, char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '$' && is_alpha(line[i + 1]))
+		if ((line[i] == '$' && is_alpha(line[i + 1])) \
+		|| (line[i] == '$' && line[i + 1] == '_'))
 		{
 			var = var_exists(lst, &line[i]);
 			line = st_check_var(line, var, i);

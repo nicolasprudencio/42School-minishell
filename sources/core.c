@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 04:44:49 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/22 04:45:33 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:18:38 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 	token_free(&tokens);
 	st_check_initial_fd(&cmd_table, fd);
 	recursive_case = st_check_for_recursion(parse_bot, &cmd_table);
-	free(rl_output);
 	get_status(exec(&cmd_table, parse_bot));
 	if (recursive_case)
 		core(parse_bot, "> ", recursive_case);
