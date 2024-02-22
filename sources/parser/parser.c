@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 14:30:37 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/08 14:30:37 by nprudenc         ###   ########.fr       */
+/*   Created: 2024/02/21 11:29:43 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:29:45 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_cmd_table	*parser(t_pushdown_automaton *parse_bot, t_token *tokens)
 {
 	t_cmd_table	*output;
 	t_token		*temp;
-	int	act;
+	int			act;
 
 	temp = tokens;
 	output = NULL;

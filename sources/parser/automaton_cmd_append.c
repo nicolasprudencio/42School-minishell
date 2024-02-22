@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   automaton_cmd_append.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 11:21:43 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:21:44 by fpolaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libseas.h"
 
 int	cmd_append(t_cmd_table **cmd_table, t_token *token)
 {
 	t_cmd_table	*last;
-	char	*path;
+	char		*path;
 
 	path = token->value;
 	cmd_last(&last, cmd_table);

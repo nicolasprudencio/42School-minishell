@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:33:02 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/22 03:47:58 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/22 04:47:34 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,30 +54,15 @@ static void	st_handle_child(int sig)
 	}
 }
 
-// static void	st_handle_here(int sig, siginfo_t *info, void *context)
+// static void	st_handle_here(int sig)
 // {
-// 	t_cmd_table *table;
-
-// 	(void)context;
-// 	table = (t_cmd_table *)info->si_value.sival_ptr;
 // 	if (sig == SIGINT)
-// 		get_status(130);
-// 	put_cmdt(table);
-// 	cmdt_destroy(&table);
-// 	// put_cmdt(table);
+// 	{	
+// 		put_endl("", 0);
+// 		rl_on_new_line();
+// 		exit(0);
+// 	}
 // }
-
-static void	st_handle_here(int sig)
-{
-	if (sig == SIGINT)
-	{	
-		put_endl("", 0);
-		rl_on_new_line();
-		exit(0);
-		// printf("key : %i\n", g_key);
-		// printf("amigo sto aqui\n");
-	}
-}
 
 void	handle_heredoc_sig(int *fd)
 {
@@ -85,7 +70,7 @@ void	handle_heredoc_sig(int *fd)
 	struct sigaction	sa_sigquit;
 
 	(void)fd;
-	sa_sigint.sa_handler = &st_handle_here;
+	sa_sigint.sa_handler = SIG_DFL;
 	sa_sigint.sa_flags = 0;
 	sigemptyset(&sa_sigint.sa_mask);
 	sigaction(SIGINT, &sa_sigint, NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   automaton_act.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 14:29:52 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/08 14:29:52 by nprudenc         ###   ########.fr       */
+/*   Created: 2024/02/21 11:20:50 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:20:51 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	automaton_act(t_pushdown_automaton *parse_bot, t_token **input)
 	{
 		stck_pop(parse_bot->stack);
 		stck_rpush_tab(parse_bot->stack,
-				(parse_bot->language->production[act]).output);
+			(parse_bot->language->production[act]).output);
 	}
 	return (act);
 }

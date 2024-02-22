@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   automaton_cmdt_create.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 11:25:19 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:25:20 by fpolaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libseas.h"
 
 static int	st_redirect_io(int state, t_cmd_table **cmd_table,
-		t_token *token);
+				t_token *token);
 static int	st_heredoc(int state, t_cmd_table **cmd_table, t_token *token);
 
-int	cmdt_create(int	state, t_cmd_table **cmd_table, t_token *token)
+int	cmdt_create(int state, t_cmd_table **cmd_table, t_token *token)
 {
 	if (state == NEW_CMD)
 	{

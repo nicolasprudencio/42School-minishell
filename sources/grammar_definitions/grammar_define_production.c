@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   grammar_define_production.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 11:12:13 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:12:15 by fpolaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libseas.h"
 
 static void	st_recursive_cases(t_production *input);
 
-t_production	*grammar_define_productions()
+t_production	*grammar_define_productions(void)
 {
 	t_production	*output;
 
@@ -10,10 +22,10 @@ t_production	*grammar_define_productions()
 	if (!output)
 		return (NULL);
 	output[0].variable = "<COMMAND>";
-	output[0].output = 
+	output[0].output = \
 		str_split("<TERMINAL> <FLAG> <ARGUMENT> <SPECIAL> <PIPE>", ' ');
 	output[1].variable = "<COMMAND>";
-	output[1].output = 
+	output[1].output = \
 		str_split("<STRING> <FLAG> <ARGUMENT> <SPECIAL> <PIPE>", ' ');
 	output[2].variable = "<COMMAND>";
 	output[2].output = str_split("<SPECIAL> <STRING> <PIPE>", ' ');
@@ -46,6 +58,3 @@ void	grammar_free_productions(t_production *product)
 	}
 	free(product);
 }
-
-//	output[].variable = "<>";
-//	output[].output = str_split("<>", ' ');

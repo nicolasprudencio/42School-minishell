@@ -51,7 +51,7 @@ int	is_terminal(t_llist *env_lst, char *line)
 	while (paths[++i])
 	{
 		paths[i] = str_join(paths[i], "/", 1);
-		paths[i] = str_join(paths[i], line, 1);		
+		paths[i] = str_join(paths[i], line, 1);
 		if (access(paths[i], X_OK) == 0)
 		{
 			grid_free(paths);
@@ -78,7 +78,7 @@ int	is_terminal2(t_llist *env_lst, char **line)
 	while (paths[++i])
 	{
 		paths[i] = str_join(paths[i], "/", 1);
-		paths[i] = str_join(paths[i], *line, 1);		
+		paths[i] = str_join(paths[i], *line, 1);
 		if (access(paths[i], X_OK) == 0)
 		{
 			free(*line);

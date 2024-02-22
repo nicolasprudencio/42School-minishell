@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_open_process.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 10:56:26 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/22 04:39:42 by nprudenc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libseas.h"
 
 static int	st_child_process(t_cmd_table *cmd_table,
-		t_pushdown_automaton * parse_bot);
+				t_pushdown_automaton *parse_bot);
 static void	st_close_all_fds(t_cmd_table *cmd);
 static void	st_dup(t_cmd_table *cmd);
 
 int	exec_open_process(t_cmd_table **cmd, t_pushdown_automaton *parse_bot)
 {
-	int		status;
-	pid_t	pid;
+	int			status;
+	pid_t		pid;
 
 	handle_exec_signals();
 	pid = fork();
@@ -41,12 +53,12 @@ static void	st_close_all_fds(t_cmd_table *cmd)
 	}
 }
 
-static int	st_child_process(t_cmd_table *cmd_table, 
+static int	st_child_process(t_cmd_table *cmd_table,
 		t_pushdown_automaton *parse_bot)
 {
 	char	**command;
 	char	**env;
-	
+
 	command = cmd_table->command->parsed;
 	if (is_terminal2(parse_bot->env_list, &command[0]))
 	{

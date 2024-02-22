@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   automaton_transition_relation.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 14:30:33 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/08 14:30:33 by nprudenc         ###   ########.fr       */
+/*   Created: 2024/02/21 11:29:19 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:29:20 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	st_recursive_cases(t_relation *input)
 	input[5] = (t_relation){"<SPECIAL>", "<SPECIAL>"};
 	input[6] = (t_relation){"<PIPE>", "<PIPE>"};
 }
-
 
 static void	st_validate_to_null(t_relation *input)
 {

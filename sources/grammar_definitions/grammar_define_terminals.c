@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   grammar_define_terminals.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/29 18:49:04 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/16 16:27:19 by fpolaris         ###   ########.fr       */
+/*   Created: 2024/02/21 11:11:40 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:11:42 by fpolaris         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libfpp.h"
 
-char	**grammar_define_terminals()
+char	**grammar_define_terminals(void)
 {
 	char	**terminals;
-	
+
 	terminals = (char **)mem_calloc(8, sizeof(char *));
 	terminals[0] = str_dup("echo");
 	terminals[1] = str_dup("cd");

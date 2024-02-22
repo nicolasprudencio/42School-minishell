@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 12:36:07 by fpolaris          #+#    #+#             */
-/*   Updated: 2024/02/22 01:00:51 by nprudenc         ###   ########.fr       */
+/*   Created: 2024/02/21 10:54:13 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/22 04:46:02 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int	exec(t_cmd_table **cmd_table, t_pushdown_automaton *parse_bot)
 	{
 		if (is_builtin(parse_bot->language,
 				(*cmd_table)->command->parsed[0]) != FALSE_INDEX)
-			status = st_run_builtin(*cmd_table,
-					parse_bot);
+			status = st_run_builtin(*cmd_table, parse_bot);
 		else if (str_comp((*cmd_table)->command->parsed[0], "(Invalid)"))
 			status = exec_open_process(cmd_table, parse_bot);
 		st_go_to_next_command(cmd_table);

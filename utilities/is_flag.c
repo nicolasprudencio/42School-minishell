@@ -15,6 +15,6 @@
 int	is_flag(char *line)
 {
 	if (line[0] == '-' && is_alpha(line[1]))
-			return (1);
+		return (1);
 	return (FALSE_INDEX);
 }

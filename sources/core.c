@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 21:57:09 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/22 04:26:52 by nprudenc         ###   ########.fr       */
+/*   Created: 2024/02/22 04:44:49 by nprudenc          #+#    #+#             */
+/*   Updated: 2024/02/22 04:45:33 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	st_check_for_recursion(t_pushdown_automaton *parse_bot,
 {
 	t_cmd_table	*recursion_helper;
 	t_command	*cmd_o;
-	int		pipefd[2];
+	int			pipefd[2];
 
 	if (parse_bot->current_state == PIPE_EMPTY)
 	{
@@ -88,4 +88,3 @@ static int	st_check_for_recursion(t_pushdown_automaton *parse_bot,
 	}
 	return (FALSE);
 }
-

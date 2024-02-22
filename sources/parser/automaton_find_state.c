@@ -1,23 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   automaton_find_state.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 11:26:53 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:26:54 by fpolaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libseas.h"
 
-static int	st_pipe_validate(t_pushdown_automaton *parse_bot, 
-		t_token **input);
+static int	st_pipe_validate(t_pushdown_automaton *parse_bot,
+				t_token **input);
 
 void	automaton_find_state(t_pushdown_automaton *parse_bot,
 		t_token **input)
 {
-	if (!str_comp(parse_bot->stack->top->as_str, "<COMMAND>") &&
-			!(*input)->prev)
+	if (!str_comp(parse_bot->stack->top->as_str, "<COMMAND>")
+		&& !(*input)->prev)
 		parse_bot->current_state = NEW_CMD;
 	else if (st_pipe_validate(parse_bot, input) && (*input)->next)
 		parse_bot->current_state = PIPE_TO_CMD;
 	else if (st_pipe_validate(parse_bot, input))
 		parse_bot->current_state = PIPE_EMPTY;
 	else if (!str_comp((*input)->token_type, "<SPECIAL>")
-			&& !str_comp(parse_bot->stack->top->as_str, "<SPECIAL>"))
+		&& !str_comp(parse_bot->stack->top->as_str, "<SPECIAL>"))
 	{
 		if (!((*input)->next && !str_comp((*input)->next->token_type,
-						"<STRING>")))
+					"<STRING>")))
 			parse_bot->current_state = INVALID_REDIR;
 		else if (!str_comp((*input)->value, "<<"))
 			parse_bot->current_state = HEREDOC;
@@ -32,12 +44,12 @@ void	automaton_find_state(t_pushdown_automaton *parse_bot,
 		parse_bot->current_state = STD_NULL;
 }
 
-static int	st_pipe_validate(t_pushdown_automaton *parse_bot, 
+static int	st_pipe_validate(t_pushdown_automaton *parse_bot,
 		t_token **input)
 {
-	if (!str_comp((*input)->token_type, "<PIPE>") 
-				&& !str_comp(parse_bot->stack->top->as_str,
-					"<PIPE>"))
+	if (!str_comp((*input)->token_type, "<PIPE>")
+		&& !str_comp(parse_bot->stack->top->as_str,
+			"<PIPE>"))
 		return (TRUE);
 	return (FALSE);
 }

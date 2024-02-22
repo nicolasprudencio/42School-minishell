@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 22:29:20 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/22 03:15:03 by nprudenc         ###   ########.fr       */
+/*   Created: 2024/02/21 10:44:48 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/22 04:49:37 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ by end-of-file (wanted `%s')\n"
 # include "lexer.h"
 # include "parser.h"
 # include "exec.h"
-
-extern int	g_key;
 
 int		core(t_pushdown_automaton *parse_bot, char *prompt, int fd);
 void	heredoc(t_llist *env_lst, t_token *tokens, t_cmd_table *cmd);

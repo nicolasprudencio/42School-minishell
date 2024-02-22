@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:21:36 by nicolas           #+#    #+#             */
-/*   Updated: 2024/02/21 10:37:43 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/22 04:46:40 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	st_update_pwd(t_llist **ll, char *new_path)
 {
-	t_llist *aux;
-	
+	t_llist	*aux;
+
 	aux = *ll;
 	while (aux)
 	{
@@ -31,8 +31,8 @@ static void	st_update_pwd(t_llist **ll, char *new_path)
 
 static void	st_update_oldpwd(t_llist **ll, char *old_path)
 {
-	t_llist *aux;
-	
+	t_llist	*aux;
+
 	aux = *ll;
 	while (aux)
 	{
@@ -42,14 +42,14 @@ static void	st_update_oldpwd(t_llist **ll, char *old_path)
 			aux->value = str_join("OLDPWD=", old_path, 0);
 			return ;
 		}
-		aux = aux->next;	
+		aux = aux->next;
 	}
 }
 
 int	exec_cd(char *dir, t_llist **env)
 {
 	char	buffer[1024];
-	
+
 	getcwd(buffer, sizeof(buffer));
 	if (chdir(dir) != FALSE_INDEX)
 	{	

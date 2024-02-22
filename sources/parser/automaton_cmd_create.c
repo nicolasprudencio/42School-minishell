@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   automaton_cmd_create.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fpolaris <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 11:22:05 by fpolaris          #+#    #+#             */
+/*   Updated: 2024/02/21 11:22:05 by fpolaris         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libseas.h"
 
 static int	st_allocate_new(t_cmd_table **cmd_table, t_token *input);
@@ -64,6 +76,7 @@ static int	st_special_case(t_cmd_table **cmd_table, t_token *input)
 	}
 	return (TRUE);
 }
+
 static int	st_find_size(t_token *input)
 {
 	int	i;
@@ -87,7 +100,8 @@ static int	st_fill_command(t_cmd_table **cmd_table, t_token *input)
 	int	len;
 
 	len = st_find_size(input);
-	(*cmd_table)->command->parsed = (char **)mem_calloc(len + 1, sizeof(char *));
+	(*cmd_table)->command->parsed = (char **)mem_calloc(len + 1,
+			sizeof(char *));
 	if (!(*cmd_table)->command->parsed)
 		return (FALSE);
 	i = -1;

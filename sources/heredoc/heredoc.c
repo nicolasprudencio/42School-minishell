@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:43:53 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/22 04:31:07 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/22 04:52:02 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	heredoc(t_llist *env_lst, t_token *tokens, t_cmd_table *cmd)
 				pipefd);
 			close(pipefd[STDOUT_FILENO]);
 			cmd->command->io[STDIN_FILENO] = pipefd[STDIN_FILENO];
-			
 		}
 		aux = aux->next;
 	}
