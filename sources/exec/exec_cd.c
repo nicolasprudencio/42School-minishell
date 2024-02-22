@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:21:36 by nicolas           #+#    #+#             */
-/*   Updated: 2024/01/24 13:13:16 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/21 10:37:43 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,15 @@ int	exec_cd(char *dir, t_llist **env)
 {
 	char	buffer[1024];
 	
-	if (getcwd(buffer, sizeof(buffer)) != NULL)
+	getcwd(buffer, sizeof(buffer));
+	if (chdir(dir) != FALSE_INDEX)
 	{	
 		st_update_oldpwd(env, buffer);
-		chdir(dir);
 		getcwd(buffer, sizeof(buffer));
 		st_update_pwd(env, buffer);
-		return (TRUE);
+		return (0);
 	}
-	return (FALSE);
+	else
+		printf("SEAshell: cd: %s: No such file or directory\n", dir);
+	return (1);
 }

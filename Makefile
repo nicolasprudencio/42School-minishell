@@ -8,7 +8,7 @@ FLAGS		=	$(M_FLAGS) $(D_FLAGS)
 CORE		=	core.c
 CORE		:=	$(addprefix sources/, $(CORE))
 
-UTILS		=	is_builtin.c is_flag.c str_is_enclosed.c put_cmdt.c
+UTILS		=	is_builtin.c is_flag.c str_is_enclosed.c put_cmdt.c var_exists.c
 UTILS		+=	char_exists.c str_len_until.c is_terminal.c ft_itoa.c
 UTILS		:=	$(addprefix utilities/, $(UTILS))
 
@@ -17,7 +17,7 @@ LEXER_SRCS	+=	token_add_string.c token_add_terminal.c token_add_special.c token_
 LEXER_SRCS	+=	expand_variable.c is_valid_env.c
 LEXER_SRCS	:=	$(addprefix sources/lexer/, $(LEXER_SRCS))
 
-HERE_SRCS	=	heredoc.c
+HERE_SRCS	=	heredoc.c doc_utils.c
 HERE_SRCS	:=	$(addprefix sources/heredoc/, $(HERE_SRCS))
 
 PARSE_SRCS	=	parser.c
@@ -27,7 +27,7 @@ SIGNAL_SRCS	=	signals.c
 SIGNAL_SRCS	:=	$(addprefix sources/signals/, $(SIGNAL_SRCS))
 
 AUT_SRCS	=	act.c find_transition.c new.c transition_relation.c find_command.c
-AUT_SRCS	+=	restart_stack.c find_state.c cmdt_create.c cmd_create.c cmd_add.c cmd_last.c
+AUT_SRCS	+=	restart_stack.c find_state.c cmdt_create.c cmd_create.c cmd_last.c
 AUT_SRCS	+=	cmdt_destroy.c cmd_pipe.c cmd_iredir.c cmd_oredir.c cmd_append.c
 AUT_SRCS	:=	$(addprefix sources/parser/automaton_, $(AUT_SRCS))
 

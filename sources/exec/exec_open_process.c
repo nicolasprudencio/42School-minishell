@@ -8,7 +8,7 @@ static void	st_dup(t_cmd_table *cmd);
 int	exec_open_process(t_cmd_table **cmd, t_pushdown_automaton *parse_bot)
 {
 	int		status;
-	pid_t		pid;
+	pid_t	pid;
 
 	handle_exec_signals();
 	pid = fork();
@@ -32,11 +32,11 @@ static void	st_close_all_fds(t_cmd_table *cmd)
 	while (aux->next)
 	{
 		if (aux->command->io[STDIN_FILENO] != STDIN_FILENO
-				&& aux->command->io[STDIN_FILENO] != -1)
-		close(aux->command->io[STDIN_FILENO]);
+			&& aux->command->io[STDIN_FILENO] != -1)
+			close(aux->command->io[STDIN_FILENO]);
 		if (aux->command->io[STDOUT_FILENO] != STDOUT_FILENO
-				&& aux->command->io[STDOUT_FILENO] != -1)
-		close(aux->command->io[STDOUT_FILENO]);
+			&& aux->command->io[STDOUT_FILENO] != -1)
+			close(aux->command->io[STDOUT_FILENO]);
 		aux = aux->next;
 	}
 }

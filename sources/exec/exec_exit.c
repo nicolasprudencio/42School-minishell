@@ -7,6 +7,12 @@ int	exec_exit(t_pushdown_automaton *parse_bot, t_cmd_table *cmd)
 	int	exit_status;
 	int	argument_count;
 
+	if (!cmd)
+	{
+		automaton_destroy(parse_bot);
+		put_endl("exit", 2);
+		exit(0);
+	}
 	if (cmd->next)
 		return (1);
 	argument_count = grid_len(cmd->command->parsed);

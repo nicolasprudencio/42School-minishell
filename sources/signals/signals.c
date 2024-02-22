@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 01:33:02 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/20 13:21:42 by nicolas          ###   ########.fr       */
+/*   Updated: 2024/02/21 21:40:52 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	sigint_handler(int sig);
 void	sigint_handler(int sig)
 {	
 	(void)sig;
+	get_status(130);
 	put_str("\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -27,7 +28,7 @@ void	handle_signals(void)
 {
 	struct sigaction	sa_sigint;
 	struct sigaction	sa_sigquit;
-	
+
 	sa_sigint.sa_handler = &sigint_handler;
 	sa_sigint.sa_flags = 0;
 	sigemptyset(&sa_sigint.sa_mask);
@@ -40,20 +41,62 @@ void	handle_signals(void)
 
 static void	st_handle_child(int sig)
 {
-	if (sig == SIGQUIT)	
+	if (sig == SIGQUIT)
 	{
 		put_str("Quit (core dumped)\n", STDOUT_FILENO);
 		rl_replace_line("", 0);
 	}
 	else if (sig == SIGINT)
 	{
+		get_status(130);
 		rl_replace_line("", 0);
 		put_str("\n", 1);
 	}
-
 }
 
-void	handle_exec_signals()
+// static void	st_handle_here(int sig, siginfo_t *info, void *context)
+// {
+// 	t_cmd_table *table;
+
+// 	(void)context;
+// 	table = (t_cmd_table *)info->si_value.sival_ptr;
+// 	if (sig == SIGINT)
+// 		get_status(130);
+// 	put_cmdt(table);
+// 	cmdt_destroy(&table);
+// 	// put_cmdt(table);
+// }
+
+// static void	st_handle_here(int sig)
+// {
+// 	if (sig == SIGINT)
+// 	{	
+// 		g_key = 1;
+// 		put_endl("", 0);
+// 		rl_on_new_line();
+// 		close(0);
+// 		// printf("key : %i\n", g_key);
+// 		// printf("amigo sto aqui\n");
+// 	}
+// }
+
+void	handle_heredoc_sig(void)
+{
+	struct sigaction	sa_sigint;
+	struct sigaction	sa_sigquit;
+
+	sa_sigint.sa_handler = SIG_DFL;
+	sa_sigint.sa_flags = 0;
+	sigemptyset(&sa_sigint.sa_mask);
+	sigaction(SIGINT, &sa_sigint, NULL);
+	put_endl("", 0);
+	sa_sigquit.sa_handler = SIG_IGN;
+	sa_sigquit.sa_flags = 0;
+	sigemptyset(&sa_sigquit.sa_mask);
+	sigaction(SIGQUIT, &sa_sigquit, NULL);
+}
+
+void	handle_exec_signals(void)
 {
 	struct sigaction	sa;
 

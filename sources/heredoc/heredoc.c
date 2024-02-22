@@ -3,24 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:43:53 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/20 13:25:54 by nicolas          ###   ########.fr       */
+/*   Updated: 2024/02/21 22:39:05 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
-static void st_get_input(t_llist *env, char *eof, int fd);
+static void	st_get_input(t_llist *env, char *eof, int fd);
 static void	st_out_doc_lst(t_llist **doc_lst, int fd);
-static char *st_find_eof(t_token *tokens, int current);
+static char	*st_find_eof(t_token *tokens, int current);
+
+// void	heredoc(t_llist *env_lst, t_token *tokens, t_cmd_table *cmd)
+// {
+// 	t_cmd_table	*aux;
+// 	int			current;
+// 	int			pipefd[2];
+// 	pid_t			pid;
+
+// 	aux = cmd;
+// 	current = 0;
+// 	pipe(pipefd);
+// 	pid = fork();
+// 	if (pid == 0)
+// 	{
+// 		handle_heredoc_sig(pid);
+// 		close(pipefd[STDIN_FILENO]);
+// 		while (aux)
+// 		{
+// 			if (cmd->command->io[STDIN_FILENO] == FD_HEREDOC)
+// 			{
+// 				st_get_input(env_lst, st_find_eof(tokens, current++),
+// 								pipefd[STDOUT_FILENO], cmd);
+// 				close(pipefd[STDOUT_FILENO]);
+// 				if (!cmd)
+// 					break ;
+// 			}
+// 			aux = aux->next;
+// 		}
+// 		close(pipefd[STDOUT_FILENO]);
+// 		exit(0);
+// 	}
+// 	else
+// 	{
+// 		wait(NULL);
+// 		handle_signals();
+// 		close(pipefd[STDIN_FILENO]);
+// 		close(pipefd[STDOUT_FILENO]);
+// 		cmd->command->io[STDIN_FILENO] = pipefd[0];
+// 	}
+// }
 
 void	heredoc(t_llist *env_lst, t_token *tokens, t_cmd_table *cmd)
 {
 	t_cmd_table	*aux;
 	int			current;
 	int			pipefd[2];
+	char		*eof;
 
 	aux = cmd;
 	current = 0;
@@ -28,17 +69,19 @@ void	heredoc(t_llist *env_lst, t_token *tokens, t_cmd_table *cmd)
 	{
 		if (cmd->command->io[STDIN_FILENO] == FD_HEREDOC)
 		{
+			// handle_heredoc_sig();
 			pipe(pipefd);
-			st_get_input(env_lst, st_find_eof(tokens, current++),
-							pipefd[STDOUT_FILENO]);
+			eof = st_find_eof(tokens, current++);
+			st_get_input(env_lst, eof, pipefd[STDOUT_FILENO]);
 			close(pipefd[STDOUT_FILENO]);
 			cmd->command->io[STDIN_FILENO] = pipefd[0];
 		}
 		aux = aux->next;
 	}
+	handle_signals();
 }
 
-static char *st_find_eof(t_token *tokens, int current)
+static char	*st_find_eof(t_token *tokens, int current)
 {
 	int		i;
 	t_token	*aux;
@@ -59,38 +102,14 @@ static char *st_find_eof(t_token *tokens, int current)
 	return (NULL);
 }
 
-static void st_get_input(t_llist *env, char *eof, int fd)
+static void	st_get_input(t_llist *env, char *eof, int fd)
 {
-	char	*line;
-	int		counter;
 	t_llist	*doc_lst;
 
-	doc_lst = NULL;
-	counter = 0;
 	if (!eof)
 		return ;
-	// handle_exec_signals();
-	while (1)
-	{
-		line = readline("> ");
-		counter++;
-		if (!line)
-		{
-			printf("bash: warning: here-document at line %i delimited by end-of-file (wanted `%s')\n", counter, eof);
-			if (doc_lst)
-				ll_clear(&doc_lst);
-			return ;	
-		}
-		if (str_len_until(line, '$') != FALSE_INDEX)
-			line = expand_variable(env, line);
-		if (str_comp(line, eof) == 0)
-		{
-			free(line);
-			break ;
-		}
-		ll_add_back(&doc_lst, ll_node(line));
-		free(line);
-	}
+	doc_lst = NULL;
+	run_heredoc(&doc_lst, env, eof);
 	st_out_doc_lst(&doc_lst, fd);
 	ll_clear(&doc_lst);
 }
@@ -98,7 +117,7 @@ static void st_get_input(t_llist *env, char *eof, int fd)
 static void	st_out_doc_lst(t_llist **doc_lst, int fd)
 {
 	t_llist	*aux;
-	
+
 	aux = *doc_lst;
 	while (aux)
 	{

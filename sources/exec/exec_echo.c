@@ -6,7 +6,7 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:34:33 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/02/16 17:12:47 by fpolaris         ###   ########.fr       */
+/*   Updated: 2024/02/21 21:38:10 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	exec_echo(char **str, int fd)
 			i++;
 		}
 		else
-			break;
+			break ;
 	}
 	while (str[i])
 	{

@@ -6,15 +6,17 @@
 /*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 17:37:24 by nprudenc          #+#    #+#             */
-/*   Updated: 2024/01/24 13:57:40 by nprudenc         ###   ########.fr       */
+/*   Updated: 2024/02/21 22:57:48 by nprudenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libseas.h"
 
+int	g_key = 0;
+
 int	main(int argc, char **argv, char **envp)
 {
-	t_pushdown_automaton *parse_bot;
+	t_pushdown_automaton	*parse_bot;
 
 	if (argc != 1)
 		return (FALSE);

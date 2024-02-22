@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   core.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nprudenc <nprudenc@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 21:57:09 by nprudenc          #+#    #+#             */
+/*   Updated: 2024/02/21 23:08:50 by nprudenc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libseas.h"
 
 static void	st_check_initial_fd(t_cmd_table **cmd_table, int fd);
@@ -6,28 +18,30 @@ static int	st_check_for_recursion(t_pushdown_automaton *parse_bot,
 
 int	get_status(int new_status)
 {	
-	static int	status = 0;
-	if (new_status == -1)
-		return (status);
-	status = new_status;
+	static int	status;
+
+	if (new_status != -1)
+		status = new_status;
 	return (status);
 }
 
 int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 {
-	int	recursive_case;
-	char	*rl_output;
-	t_token	*tokens;
+	int			recursive_case;
+	char		*rl_output;
+	t_token		*tokens;
 	t_cmd_table	*cmd_table;
 
 	handle_signals();
 	rl_output = readline(prompt);
+	cmd_table = NULL;
 	if (!rl_output)
-		put_str("exit\n", 0);
+		exec_exit(parse_bot, cmd_table);
 	add_history(rl_output);
 	tokens = lexer(rl_output, parse_bot);
 	cmd_table = parser(parse_bot, tokens);
-	heredoc(parse_bot->env_list, tokens, cmd_table);
+	if (cmd_table)
+		heredoc(parse_bot->env_list, tokens, cmd_table);
 	token_free(&tokens);
 	st_check_initial_fd(&cmd_table, fd);
 	recursive_case = st_check_for_recursion(parse_bot, &cmd_table);
