@@ -54,33 +54,6 @@ static void	st_handle_child(int sig)
 	}
 }
 
-// static void	st_handle_here(int sig)
-// {
-// 	if (sig == SIGINT)
-// 	{	
-// 		put_endl("", 0);
-// 		rl_on_new_line();
-// 		exit(0);
-// 	}
-// }
-
-void	handle_heredoc_sig(int *fd)
-{
-	struct sigaction	sa_sigint;
-	struct sigaction	sa_sigquit;
-
-	(void)fd;
-	sa_sigint.sa_handler = SIG_DFL;
-	sa_sigint.sa_flags = 0;
-	sigemptyset(&sa_sigint.sa_mask);
-	sigaction(SIGINT, &sa_sigint, NULL);
-	put_endl("", 0);
-	sa_sigquit.sa_handler = SIG_IGN;
-	sa_sigquit.sa_flags = 0;
-	sigemptyset(&sa_sigquit.sa_mask);
-	sigaction(SIGQUIT, &sa_sigquit, NULL);
-}
-
 void	handle_exec_signals(void)
 {
 	struct sigaction	sa;
@@ -90,4 +63,15 @@ void	handle_exec_signals(void)
 	sa.sa_handler = &st_handle_child;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
+}
+
+void	handle_no_signals(void)
+{
+	struct sigaction	sa_sig;
+
+	sa_sig.sa_handler = SIG_IGN;
+	sa_sig.sa_flags = 0;
+	sigemptyset(&sa_sig.sa_mask);
+	sigaction(SIGINT, &sa_sig, NULL);
+	sigaction(SIGINT, &sa_sig, NULL);
 }

@@ -34,14 +34,13 @@ int	core(t_pushdown_automaton *parse_bot, char *prompt, int fd)
 
 	handle_signals();
 	rl_output = readline(prompt);
+	parse_bot->input_count++;
 	cmd_table = NULL;
 	if (!rl_output)
 		exec_exit(parse_bot, cmd_table);
 	add_history(rl_output);
 	tokens = lexer(rl_output, parse_bot);
 	cmd_table = parser(parse_bot, tokens);
-	if (cmd_table)
-		heredoc(parse_bot->env_list, tokens, cmd_table);
 	token_free(&tokens);
 	st_check_initial_fd(&cmd_table, fd);
 	recursive_case = st_check_for_recursion(parse_bot, &cmd_table);

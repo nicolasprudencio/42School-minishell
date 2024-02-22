@@ -33,7 +33,7 @@ void					automaton_find_state(t_pushdown_automaton *parse_bot,
 							t_token **input);
 
 //	command_table actions
-int						cmdt_create(int state,
+int						cmdt_create(t_pushdown_automaton *parse_bot,
 							t_cmd_table **cmd_table, t_token *token);
 void					cmdt_destroy(t_cmd_table **cmd_table);
 void					cmd_destroy(t_cmd_table *cmd);
@@ -42,6 +42,8 @@ int						cmd_pipe(t_cmd_table **cmd_table);
 int						cmd_iredir(t_cmd_table **cmd_table, t_token *token);
 int						cmd_oredir(t_cmd_table **cmd_table, t_token *token);
 int						cmd_append(t_cmd_table **cmd_table, t_token *token);
+int						cmd_heredoc(t_pushdown_automaton *parse_bot,
+		t_token *tokens, t_cmd_table **cmd_table);
 
 int						cmd_create(t_cmd_table **cmd_table, t_token *token);
 

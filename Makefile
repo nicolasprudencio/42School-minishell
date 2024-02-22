@@ -17,19 +17,21 @@ LEXER_SRCS	+=	token_add_string.c token_add_terminal.c token_add_special.c token_
 LEXER_SRCS	+=	expand_variable.c is_valid_env.c
 LEXER_SRCS	:=	$(addprefix sources/lexer/, $(LEXER_SRCS))
 
-HERE_SRCS	=	heredoc.c doc_utils.c
-HERE_SRCS	:=	$(addprefix sources/heredoc/, $(HERE_SRCS))
-
 PARSE_SRCS	=	parser.c
 PARSE_SRCS	:=	$(addprefix sources/parser/, $(PARSE_SRCS))
 
-SIGNAL_SRCS	=	signals.c
+SIGNAL_SRCS	=	signals.c signals_heredoc.c
 SIGNAL_SRCS	:=	$(addprefix sources/signals/, $(SIGNAL_SRCS))
 
 AUT_SRCS	=	act.c find_transition.c new.c transition_relation.c find_command.c
-AUT_SRCS	+=	restart_stack.c find_state.c cmdt_create.c cmd_create.c cmd_last.c
-AUT_SRCS	+=	cmdt_destroy.c cmd_pipe.c cmd_iredir.c cmd_oredir.c cmd_append.c
+AUT_SRCS	+=	restart_stack.c find_state.c
 AUT_SRCS	:=	$(addprefix sources/parser/automaton_, $(AUT_SRCS))
+
+CMDT_SRCS	=	create.c destroy.c
+CMDT_SRCS	:=	$(addprefix sources/parser/cmdt_, $(CMDT_SRCS))
+
+CMD_SRCS	=	pipe.c iredir.c oredir.c append.c heredoc.c create.c last.c
+CMD_SRCS	:=	$(addprefix sources/parser/cmd_, $(CMD_SRCS))
 
 GRAM_SRCS	=	define_production.c define_terminals.c define_variables.c new.c 
 GRAM_SRCS	:=	$(addprefix sources/grammar_definitions/grammar_,$(GRAM_SRCS))
@@ -45,8 +47,9 @@ OBJS		+=	$(addprefix $(OBJS_DIR)/, $(PARSE_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(EXEC_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(AUT_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(UTILS:.c=.o))
-OBJS		+=	$(addprefix $(OBJS_DIR)/, $(HERE_SRCS:.c=.o))
 OBJS		+=	$(addprefix $(OBJS_DIR)/, $(SIGNAL_SRCS:.c=.o))
+OBJS		+=	$(addprefix $(OBJS_DIR)/, $(CMDT_SRCS:.c=.o))
+OBJS		+=	$(addprefix $(OBJS_DIR)/, $(CMD_SRCS:.c=.o))
 
 HEADERS		=	-I./includes -I./libft/header
 READLINE	=	-lreadline

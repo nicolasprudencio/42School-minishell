@@ -14,7 +14,6 @@
 # define LIBSEAS_H
 
 # define FALSE_INDEX -1
-# define FD_HEREDOC -3
 
 # define STD_ERROR "SEAshell: Syntax error near unexpected token:"
 # define HERE_ERROR "SEAshell: warning: here-document at line %i delimited \
@@ -39,10 +38,12 @@ int		core(t_pushdown_automaton *parse_bot, char *prompt, int fd);
 void	heredoc(t_llist *env_lst, t_token *tokens, t_cmd_table *cmd);
 void	run_heredoc(t_llist **doc_lst, t_llist *env, char *eof);
 void	handle_signals(void);
+void	handle_no_signals(void);
 void	handle_exec_signals(void);
-void	handle_heredoc_sig(int *fd);
+void	handle_heredoc_signals(void);
 char	*expand_variable(t_llist *lst, char *line);
 int		get_status(int new_status);
+int		get_pipe(int fd);
 
 // UTILITIES
 

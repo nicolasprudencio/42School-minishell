@@ -34,7 +34,8 @@ void	automaton_destroy(t_pushdown_automaton *parse_bot)
 	grammar_end(parse_bot->language);
 	free(parse_bot->transition);
 	free(parse_bot->initial_symbol);
-	stck_rmv(parse_bot->stack);
+	if (parse_bot->stack)
+		stck_rmv(parse_bot->stack);
 	ll_clear(&parse_bot->env_list);
 	free(parse_bot);
 }
